@@ -16,6 +16,6 @@ int main()
 		
 	while(true) 
     {
-        drv.digitalWrite0(255 - (int)drv.digitalRead0());
+        drv.digitalWrite0(255 - (int)drv.digitalRead0()); //digitalWrite1 oder digitalWrite0?
     }
 }
