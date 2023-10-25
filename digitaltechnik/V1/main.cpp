@@ -10,48 +10,12 @@ using namespace std;
  */
 int main()
 {
-	
+	bool isRunningA = true;
+
 	B15F& drv = B15F::getInstance();
-	
-	string bin = drv.digitalRead0().tostring();
-	
-	
-	while(true) {
-	std::cout << "TOP: " << (int) drv.digitalRead0() << std::endl;
-}
-}
-
-std::string toBinary(int n)
-{
-    std::string r;
-    while(n!=0){
-    	r=(n%2==0 ?"0":"1")+r; 
-    	n/=2;
-    }
-    return r;
-}
-
-string invert(string toInvert)
-{
-	string temp = "";
-	while (toInvert.length() != 0){
-		temp += toInvert[toInvert.length()-1];
-		toInvert.resize(toInvert.length()-1);
-	}
-	return temp;
-}
-
-long fromBin(long n)
-{
-    long factor = 1;
-    long total = 0;
-
-    while (n != 0)
+		
+	while(true) 
     {
-        total += (n%10) * factor;
-        n /= 10;
-        factor *= 2;
+        drv.digitalWrite0(255 - (int)drv.digitalRead0());
     }
-
-    return total;
 }
