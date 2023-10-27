@@ -1,21 +1,30 @@
-#include <iostream>
-#include <cmath>
 #include <b15f/b15f.h>
 
-using namespace std;
-
-/*
- * Erzeugt ein PWM Signal an PB4 mit 100KHz.
- * Beste Frequenz: 31300
- */
 int main()
 {
-	bool isRunningA = true;
+    int mode = 0;
+    B15F &drv = B15F::getInstance();
 
-	B15F& drv = B15F::getInstance();
-		
-	while(true) 
+    while (true)
     {
-        drv.digitalWrite0(255 - (int)drv.digitalRead0()); //digitalWrite1 oder digitalWrite0?
+        mode = drv.readDipSwitch();
+        if (mode == 0)
+        {
+            drv.digitalWrite0(255 - (int)drv.digitalRead0());
+        }
+        else if (mode == 1)
+        {
+            for (int output = 64; output > 1; output /= 2)
+            {
+                drv.digitalWrite0(output);
+                drv.delay_ms(150);
+            }
+
+            for (int output = 1; output <= 128; output *= 2)
+            {
+                drv.digitalWrite0(output);
+                drv.delay_ms(150);
+            }
+        }
     }
 }
