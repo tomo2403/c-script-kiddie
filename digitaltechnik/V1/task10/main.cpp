@@ -16,14 +16,11 @@ int main()
         {
             for (int output = 64; output > 1; output /= 2)
             {
-                drv.digitalWrite0(output);
-                drv.delay_ms(150);
-            }
-
-            for (int output = 1; output <= 128; output *= 2)
-            {
-                drv.digitalWrite0(output);
-                drv.delay_ms(150);
+                for (int output = 1; output <= 128; output *= 2)
+                {
+                    drv.digitalWrite0(output);
+                    drv.delay_ms(150);
+                }
             }
         }
     }

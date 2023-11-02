@@ -6,7 +6,11 @@ using namespace std;
 string toBinary(int n)
 {
     string r;
-    while(n!=0) {r=(n%2==0 ?"0":"1")+r; n/=2;}
+    while (n != 0)
+    {
+        r = (n % 2 == 0 ? "0" : "1") + r;
+        n /= 2;
+    }
     return r;
 }
 
@@ -17,13 +21,13 @@ int main()
     cout << "Max. Byte: ";
     cin >> max;
 
-    for(int i = 0; i < max; i++)
+    for (int i = 0; i < max; i++)
     {
         drv.digitalWrite0(i);
         int input = (int)drv.digitalRead0();
 
         string bin = toBinary(i);
-        while(bin.length() < (log(max) / log(2)))
+        while (bin.length() < (log(max) / log(2)))
         {
             bin = bin.insert(0, "0");
         }
