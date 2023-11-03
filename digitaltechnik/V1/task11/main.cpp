@@ -18,9 +18,13 @@ int main()
 {
     B15F &drv = B15F::getInstance();
     int max = 0;
-    cout << "Max. Byte: ";
-    cin >> max;
+    string letters = "abcdefgh";
 
+    cout << "Anzahl der maximalen Zeilen: ";
+    cin >> max;
+    cout << "\n\n";
+
+    string output = "";
     for (int i = 0; i < max; i++)
     {
         drv.digitalWrite0(i);
@@ -31,7 +35,14 @@ int main()
         {
             bin = bin.insert(0, "0");
         }
-        cout << bin << "\t" << input << endl;
+
+        int length = bin.length() * 4 - 3;
+        for (int j = 0; j < length; j += 4)
+        {
+            bin.insert(j, " | ");
+        }
+
+        cout << bin << " || " << input << " |" << endl;
     }
 
     return 0;
