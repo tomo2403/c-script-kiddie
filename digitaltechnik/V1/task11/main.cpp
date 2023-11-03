@@ -4,6 +4,9 @@
 
 using namespace std;
 
+/// @brief Konvertiert eine Zahl von Dezimal in Binär
+/// @param n Die natürliche Zahl, die konvertiert werden soll.
+/// @return den Binären Wert von `n`
 string toBinary(int n)
 {
     string r;
@@ -15,72 +18,81 @@ string toBinary(int n)
     return r;
 }
 
-int inputRequest()
+/// @brief Fordert die Eingabe einer Zahl an und prüft diese auf Kompatiblität
+/// @param errorOnLastRun `true`, wenn der letzte Aufruf nicht erfolgreich war.
+/// @return Die korrekte Eingabe als Zahl
+int inputRequest(bool errorOnLastRun = false)
 {
-    cout << "Anzahl der maximalen Zeilen: ";
-
-    int decimalInput = 0;
-    if (!(cin >> decimalInput)) // schaut, ob Eingabe eine Zahl ist
+    // Erzeugt eine Fehlermeldung bei unpassender Eingabe
+    if (errorOnLastRun)
     {
         cout << "\nDie Eingabe muss eine Ganzzahl sein, welche zur Reihe der 2er-Potenzen gehört und nicht größer als 256 ist." << endl;
         cin.clear();
-        cin.ignore(123, '\n');
-        return inputRequest();
+        cin.ignore(10000, '\n');
+    }
+
+    cout << "Anzahl der maximalen Zeilen: ";
+    int decimalInput = 0;
+
+    // Eingabe auf Zahl prüfen
+    if (!(cin >> decimalInput))
+    {
+        // Eingabe erneut abfragen
+        return inputRequest(true);
     }
 
     int i = 1;
-    while (decimalInput <= 256 and decimalInput > i) // findet nächstgrößere korrekte Nummer zur Eingabe
+    // Fehlerhafte Eingabe mit nächst-größerer Zahl korrigieren
+    while (decimalInput <= 256 and decimalInput > i)
     {
         i *= 2;
     }
 
-    if (decimalInput == i) // Schaut ob die Eingabe gültig ist
-    {
-        return decimalInput;
-    }
-    else
-    {
-        cout << "\nDie Eingabe muss eine Ganzzahl sein, welche zur Reihe der 2er-Potenzen gehört und nicht größer als 256 ist." << endl;
-        return inputRequest();
-    }
+    // Prüft die eingegebene Zahl auf Gültigkeit
+    return decimalInput == i ? decimalInput : inputRequest(true);
 }
 
 int main()
 {
+    // Verbindung zum B15-Board aufbauen
     B15F &drv = B15F::getInstance();
-    int max = 0;
 
-    max = inputRequest();
+    // Die Anzahl der zu testenden Ausgänge abfragen
+    int max = inputRequest();
     cout << "\n\n";
 
-    bool headerOut = true;
     for (int i = 0; i < max; i++)
     {
-        drv.digitalWrite0(i);
-        int input = (int)drv.digitalRead0();
-
+        // Aktuellen Testausgang konvertieren
         string bin = toBinary(i);
 
+        // Führende Nullen ergänzen
         while (bin.length() < (log(max) / log(2)))
         {
             bin = bin.insert(0, "0");
         }
 
-        if (headerOut)
-        {
-            string letters = " | a | b | c | d | e | f | g | h |";
-            string header = letters.substr(0, bin.length() * 4 + 2);
-            cout << header << "| A |\n" << endl;
-
-            headerOut = false;
-        }
-
+        // Seperator für die Darstellung einfügen
         int length = bin.length() * 4 - 3;
         for (int j = 0; j < length; j += 4)
         {
             bin.insert(j, " | ");
         }
 
+        // Tabellenkopf erzeugen
+        if (i == 0)
+        {
+            string letters = " | a | b | c | d | e | f | g | h |";
+            string header = letters.substr(0, bin.length() * 4 + 2);
+            cout << header << "| A |\n"
+                 << endl;
+        }
+
+        // Ausgang auf Eingang testen
+        drv.digitalWrite0(i);
+        int input = (int)drv.digitalRead0();
+
+        // Ergebnis ausgeben
         cout << bin << " || " << input << " |" << endl;
     }
 
