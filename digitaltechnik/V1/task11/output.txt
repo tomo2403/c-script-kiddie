@@ -1,0 +1,23 @@
+[B15F] Verwende Adapter: /dev/ttyUSB0
+[B15F] Stelle Verbindung mit Adapter her... OK
+[B15F] Teste Verbindung... OK
+[B15F] AVR Firmware Version: Dec 3 2019 um 13:14:09 Uhr (boardinfo.h)
+Anzahl der maximalen Zeilen: 16
+
+
+ | 0 | 0 | 0 | 0 || 1 |
+ | 0 | 0 | 0 | 0 || 1 |
+ | 0 | 0 | 0 | 0 || 1 |
+ | 0 | 0 | 0 | 0 || 0 |
+ | 0 | 0 | 0 | 0 || 1 |
+ | 0 | 0 | 0 | 0 || 1 |
+ | 0 | 0 | 0 | 0 || 1 |
+ | 0 | 0 | 0 | 0 || 0 |
+ | 0 | 0 | 0 | 0 || 1 |
+ | 0 | 0 | 0 | 0 || 1 |
+ | 0 | 0 | 0 | 0 || 1 |
+ | 0 | 0 | 0 | 0 || 0 |
+ | 0 | 0 | 0 | 0 || 0 |
+ | 0 | 0 | 0 | 0 || 0 |
+ | 0 | 0 | 0 | 0 || 0 |
+ | 0 | 0 | 0 | 0 || 0 |

@@ -1,0 +1,25 @@
+\begin{Verbatim}[commandchars=\\\{\}]
+\PYG{g+go}{[B15F] Verwende Adapter: /dev/ttyUSB0}
+\PYG{g+go}{[B15F] Stelle Verbindung mit Adapter her... OK}
+\PYG{g+go}{[B15F] Teste Verbindung... OK}
+\PYG{g+go}{[B15F] AVR Firmware Version: Dec 3 2019 um 13:14:09 Uhr (boardinfo.h)}
+\PYG{g+go}{Anzahl der maximalen Zeilen: 16}
+
+
+\PYG{g+go}{ | 0 | 0 | 0 | 0 || 1 |}
+\PYG{g+go}{ | 0 | 0 | 0 | 0 || 1 |}
+\PYG{g+go}{ | 0 | 0 | 0 | 0 || 1 |}
+\PYG{g+go}{ | 0 | 0 | 0 | 0 || 0 |}
+\PYG{g+go}{ | 0 | 0 | 0 | 0 || 1 |}
+\PYG{g+go}{ | 0 | 0 | 0 | 0 || 1 |}
+\PYG{g+go}{ | 0 | 0 | 0 | 0 || 1 |}
+\PYG{g+go}{ | 0 | 0 | 0 | 0 || 0 |}
+\PYG{g+go}{ | 0 | 0 | 0 | 0 || 1 |}
+\PYG{g+go}{ | 0 | 0 | 0 | 0 || 1 |}
+\PYG{g+go}{ | 0 | 0 | 0 | 0 || 1 |}
+\PYG{g+go}{ | 0 | 0 | 0 | 0 || 0 |}
+\PYG{g+go}{ | 0 | 0 | 0 | 0 || 0 |}
+\PYG{g+go}{ | 0 | 0 | 0 | 0 || 0 |}
+\PYG{g+go}{ | 0 | 0 | 0 | 0 || 0 |}
+\PYG{g+go}{ | 0 | 0 | 0 | 0 || 0 |}
+\end{Verbatim}
