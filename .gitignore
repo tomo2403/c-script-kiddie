@@ -35,3 +35,5 @@
 # Programmierumgebungen
 /.vscode/
 gdp/cmake-build-debug/
+*.idea
+*.dSYM/
