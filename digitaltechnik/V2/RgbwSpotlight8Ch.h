@@ -1,3 +1,6 @@
+#ifndef RgbwSpotlight8Ch_h
+#define RgbwSpotlight8Ch_h
+
 #include "DmxDevice.h"
 
 class RgbwSpotlight8Ch : public DmxDevice {
@@ -14,7 +17,8 @@ public:
         FuncSpeed = 8
     };
 
-    void Set(Functions channel, short value) {
+    void Set(Functions channel, unsigned char value) {
         DmxSimple.write(Channels + (channel - 1), value);
     }
 };
+#endif
