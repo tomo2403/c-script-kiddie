@@ -74,6 +74,5 @@ void loop() {
     DmxCommand cmd = spotCommands[spotCommandLine];
     spotlight1.Set(cmd.function, cmd.value);
     spotCommandLine++;
-    spotCommands..DMX_SIZE
   }
 }
