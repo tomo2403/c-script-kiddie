@@ -8,6 +8,7 @@ public:
   MiniMovingHead14Ch(unsigned short address)
     : DmxDevice(14, address) {}
   enum Functions {
+    Delay = 0,
     Pan = 1,
     PanFine = 2,
     Tilt = 3,

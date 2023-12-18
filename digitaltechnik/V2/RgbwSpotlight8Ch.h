@@ -8,6 +8,7 @@ public:
   RgbwSpotlight8Ch(unsigned short address)
     : DmxDevice(8, address) {}
   enum Functions {
+    Delay = 0,
     TotalDimming = 1,
     RedDimming = 2,
     GreenDimming = 3,
