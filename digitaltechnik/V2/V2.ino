@@ -1,4 +1,4 @@
-#define DEMO 0 //Demomodus AUS bei 0
+#define DEMO 1 //Demomodus AUS bei 0
 #define BPM_IN_MS 484 //60.000ms geteilt durch BPM
 
 #if DEMO == 0
@@ -23,11 +23,17 @@ MiniMovingHead14ChDemo mover2(5);
 unsigned long previousMillis = 0;
 
 void setup() {
-    Serial.begin(9600);
-
+    #if DEMO != 0
     DmxSimple.usePin(3);
     DmxSimple.maxChannel(44);
+    #else
+    pinMode(spotlight1.Address, OUTPUT);
+    pinMode(spotlight2.Address, OUTPUT);
+    pinMode(mover1.Address, OUTPUT);
+    pinMode(mover2.Address, OUTPUT);
+    #endif
 
+    Serial.begin(9600);
     Serial.println(3);
     delay(800);
     Serial.println(2);
@@ -43,7 +49,7 @@ void loop() {
         previousMillis = currentMillis;
 
         #if DEMO != 0
-        Serial.println(currentMillisBpm);
+        Serial.println(currentMillis);
         #endif
 
 

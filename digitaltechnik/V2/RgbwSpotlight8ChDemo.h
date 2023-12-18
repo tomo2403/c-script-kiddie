@@ -5,10 +5,24 @@
 
 class RgbwSpotlight8ChDemo : public RgbwSpotlight8Ch {
 public:
-    RgbwSpotlight8ChDemo(unsigned short address) : RgbwSpotlight8Ch(address) {}
+  RgbwSpotlight8ChDemo(unsigned short address)
+    : RgbwSpotlight8Ch(address) {}
 
-    void Set(Functions channel, unsigned char value) {
-        DmxSimple.write(Channels + (channel - 1), value);
+  void Set(Functions channel, unsigned char value) {
+    switch (channel) {
+      case 1:
+        switch (value) {
+          case 0:
+            digitalWrite(Address, LOW);
+            break;
+          default:
+            digitalWrite(Address, HIGH);
+            break;
+        }
+        break;
+      default:
+        break;
     }
+  }
 };
 #endif
