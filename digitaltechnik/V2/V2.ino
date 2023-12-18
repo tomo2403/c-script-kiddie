@@ -1,19 +1,29 @@
+#define DEMO 0 //Demomodus AUS bei 0
+#define BPM_IN_MS 484 //60.000ms geteilt durch BPM
+
+#if DEMO == 0
 #include "RgbwSpotlight8Ch.h"
 #include "MiniMovingHead14Ch.h"
 
 RgbwSpotlight8Ch spotlight1(1);
 RgbwSpotlight8Ch spotlight2(37);
-
 MiniMovingHead14Ch mover1(9);
 MiniMovingHead14Ch mover2(37);
 
-unsigned long previousMillisBpm = 0;
-const long intervalBpm = 484;
-bool isOn = true;
+#else
+#include "RgbwSpotlight8ChDemo.h"
+#include "MiniMovingHead14ChDemo.h"
+
+RgbwSpotlight8ChDemo spotlight1(2);
+RgbwSpotlight8ChDemo spotlight2(4);
+MiniMovingHead14ChDemo mover1(3);
+MiniMovingHead14ChDemo mover2(5);
+#endif
+
+unsigned long previousMillis = 0;
 
 void setup() {
     Serial.begin(9600);
-    pinMode(2, OUTPUT);
 
     DmxSimple.usePin(3);
     DmxSimple.maxChannel(44);
@@ -28,11 +38,14 @@ void setup() {
 }
 
 void loop() {
-    unsigned long currentMillisBpm = millis();
-    if (currentMillisBpm - previousMillisBpm >= intervalBpm){
-        previousMillisBpm = currentMillisBpm;
-        isOn = !isOn;
-        digitalWrite(2, isOn);
+    unsigned long currentMillis = millis();
+    if (currentMillis - previousMillis >= BPM_IN_MS){
+        previousMillis = currentMillis;
+
+        #if DEMO != 0
         Serial.println(currentMillisBpm);
+        #endif
+
+
     }
 }
