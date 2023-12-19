@@ -3,12 +3,11 @@
 
 #include "DmxDevice.h"
 #include "DmxCommand.h"
-#include "Arduino.h"
 
 class RgbwSpotlight8Ch : public DmxDevice {
 public:
     explicit RgbwSpotlight8Ch(unsigned short address)
-            : DmxDevice(8, address) {}
+            : DmxDevice(address) {}
     enum Functions {
         Delay = 0,
         TotalDimming = 1,
@@ -22,25 +21,40 @@ public:
 
         Blink = 100,
     };
-
-    virtual void Set(Functions channel, unsigned char value){
-        switch (channel) {
-            case 100:
-                blinkOn = true;
-                blinkStart = millis();
-                DmxSimple.write(Address + TotalDimming - 1, value);
-                break;
-            default:
-                DmxSimple.write(Address + channel - 1, value);
-                break;
-        }
-    };
-
     bool blinkOn = false;
     unsigned long blinkStart = 0;
 
-    virtual void CleanUp() {
-        if (blinkOn && (millis() - blinkStart) > 100) {
+    unsigned int commandIndex = 0;
+    DmxCommand commandList[4] = {
+            {1000, Blink, 255},
+            {2000, Blink, 255},
+            {3000, Blink, 255},
+            {4000, Blink, 255}
+    };
+
+    virtual void RunTick(unsigned long currentMillis) {
+        DmxCommand cmd = commandList[commandIndex];
+        if (cmd.executionTime < currentMillis) {
+            switch (cmd.function) {
+                case Blink:
+                    blinkOn = true;
+                    blinkStart = currentMillis;
+                    Set(TotalDimming, cmd.value);
+                    break;
+                default:
+                    Set(static_cast<Functions>(cmd.function), cmd.value);
+                    break;
+            }
+            commandIndex++;
+        }
+    };
+
+    virtual void Set(Functions channel, unsigned char value) {
+        //DmxSimple.write(static_cast<int>(Address + channel - 1), value);
+    };
+
+    virtual void CleanUp(unsigned long currentMillis) {
+        if (blinkOn && (currentMillis - blinkStart) > 100) {
             Set(TotalDimming, 0);
             blinkOn = false;
         }

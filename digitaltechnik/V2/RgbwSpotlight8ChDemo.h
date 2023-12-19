@@ -11,13 +11,11 @@ public:
     void Set(Functions channel, unsigned char value) override {
         switch (channel) {
             case 1:
-                switch (value) {
-                    case 0:
-                        digitalWrite(Address, LOW);
-                        break;
-                    default:
-                        digitalWrite(Address, HIGH);
-                        break;
+                if (value == 0){
+                    digitalWrite(Address, LOW);
+                }
+                else{
+                    digitalWrite(Address, HIGH);
                 }
                 break;
             default:
@@ -25,8 +23,8 @@ public:
         }
     }
 
-    void CleanUp() override {
-        if (blinkOn && (millis() - blinkStart) > 100) {
+    void CleanUp(unsigned long currentMillis) override {
+        if (blinkOn && (currentMillis - blinkStart) > 100) {
             digitalWrite(Address, LOW);
             blinkOn = false;
         }

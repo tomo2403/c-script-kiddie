@@ -25,19 +25,10 @@ unsigned long previousMillis = 0;
 unsigned long loopStartMillis = 0;
 unsigned long currentMillis = 0;
 
-unsigned short spotCommandLine = 0;
-DmxCommand spotCommands[] = {
-        //{1000, spotlight1.BlueDimming, 255},
-        {1000, spotlight1.Blink, 255},
-        {2000, spotlight1.Blink, 255},
-        {3000, spotlight1.Blink, 255},
-        {4000, spotlight1.Blink, 255}
-};
-
 void setup() {
 #if DEMO == 0
     DmxSimple.usePin(3);
-  DmxSimple.maxChannel(44);
+    DmxSimple.maxChannel(44);
 #else
     pinMode(spotlight1.Address, OUTPUT);
     pinMode(spotlight2.Address, OUTPUT);
@@ -59,19 +50,6 @@ void setup() {
 
 void loop() {
     currentMillis = millis() - loopStartMillis;
-    // if (currentMillis - previousMillis >= BPM_IN_MS) {
-    //   previousMillis = currentMillis;
-
-#if DEMO != 0
-    Serial.println(currentMillis);
-#endif
-    // }
-
-    if (spotCommands[spotCommandLine].executionTime <= currentMillis){
-        DmxCommand cmd = spotCommands[spotCommandLine];
-        spotlight1.Set(static_cast<RgbwSpotlight8Ch::Functions>(cmd.function), cmd.value);
-        spotCommandLine++;
-    }
-
-    spotlight1.CleanUp();
+    spotlight1.CleanUp(currentMillis);
+    spotlight1.RunTick(currentMillis);
 }

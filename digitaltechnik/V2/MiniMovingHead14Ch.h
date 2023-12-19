@@ -6,7 +6,7 @@
 class MiniMovingHead14Ch : public DmxDevice {
 public:
     explicit MiniMovingHead14Ch(unsigned short address)
-            : DmxDevice(14, address) {}
+            : DmxDevice(address) {}
     enum Functions {
         Delay = 0,
         Pan = 1,
