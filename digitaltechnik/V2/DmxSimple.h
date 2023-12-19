@@ -17,9 +17,9 @@
 
 class DmxSimpleClass {
 public:
-  void maxChannel(int);
-  void write(int, uint8_t);
-  void usePin(uint8_t);
+    void maxChannel(int);
+    void write(int, uint8_t);
+    void usePin(uint8_t);
 };
 extern DmxSimpleClass DmxSimple;
 

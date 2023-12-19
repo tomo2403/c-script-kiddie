@@ -2,8 +2,8 @@
 #define DmxCommand_h
 
 struct DmxCommand{
-  unsigned long executionTime;
-  int function;
-  int value;
+    unsigned long executionTime;
+    int function;
+    int value;
 };
 #endif
