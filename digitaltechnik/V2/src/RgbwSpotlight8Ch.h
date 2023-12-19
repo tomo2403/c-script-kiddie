@@ -22,6 +22,7 @@ public:
         Blink = 100,
     };
     bool blinkOn = false;
+    unsigned short blinkTimeout = 100;
     unsigned long blinkStart = 0;
 
     unsigned int commandIndex = 0;
@@ -54,7 +55,7 @@ public:
     };
 
     virtual void CleanUp(unsigned long currentMillis) {
-        if (blinkOn && (currentMillis - blinkStart) > 100) {
+        if (blinkOn && (currentMillis - blinkStart) > blinkTimeout) {
             Set(TotalDimming, 0);
             blinkOn = false;
         }

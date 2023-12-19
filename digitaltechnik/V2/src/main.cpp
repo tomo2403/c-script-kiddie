@@ -2,8 +2,8 @@
 #define BPM_IN_MS 484  //60.000ms geteilt durch BPM
 
 #include <Arduino.h>
-#include "../RgbwSpotlight8Ch.h"
-#include "../MiniMovingHead14Ch.h"
+#include "RgbwSpotlight8Ch.h"
+#include "MiniMovingHead14Ch.h"
 
 #if DEMO == 0
 RgbwSpotlight8Ch spotlight1(1);
@@ -12,8 +12,8 @@ MiniMovingHead14Ch mover1(9);
 MiniMovingHead14Ch mover2(37);
 
 #else
-#include "../RgbwSpotlight8ChDemo.h"
-#include "../MiniMovingHead14ChDemo.h"
+#include "RgbwSpotlight8ChDemo.h"
+#include "MiniMovingHead14ChDemo.h"
 
 RgbwSpotlight8ChDemo spotlight1(2);
 RgbwSpotlight8ChDemo spotlight2(4);

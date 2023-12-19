@@ -1,7 +1,7 @@
 #ifndef DmxDevice_h
 #define DmxDevice_h
 
-#include "DmxSimple.h"
+#include "../DmxSimple.h"
 #include "DmxCommand.h"
 
 class DmxDevice {
