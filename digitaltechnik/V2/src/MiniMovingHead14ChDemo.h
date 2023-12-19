@@ -6,7 +6,8 @@
 class MiniMovingHead14ChDemo : public MiniMovingHead14Ch {
 public:
     explicit MiniMovingHead14ChDemo(unsigned short address)
-            : MiniMovingHead14Ch(address) {}
+            : MiniMovingHead14Ch(address) {
+    };
 
     void Set(Functions channel, unsigned char value) override {
         switch (channel) {

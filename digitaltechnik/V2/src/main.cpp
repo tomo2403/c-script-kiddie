@@ -33,8 +33,7 @@ unsigned long previousMillis = 0;
 unsigned long loopStartMillis = 0;
 
 unsigned int beatIntervals[2][2] = {
-        {1000,5000},
-        {10000,15000},
+        {4770,14480},
 };
 
 void BeatDetector(unsigned long currentMillis){
@@ -42,10 +41,10 @@ void BeatDetector(unsigned long currentMillis){
         previousMillis = currentMillis;
         //Serial.println(currentMillis);
         for (auto & interval : beatIntervals){
-            if (interval[0] < currentMillis && currentMillis < interval[1]) {
+            if (interval[0] + BPM_IN_MS < currentMillis && currentMillis < interval[1]) {
                 //Serial.println(currentMillis);
-                Serial.print(interval[0]); Serial.print(" > "); Serial.println(currentMillis);
-                Serial.print(interval[1]); Serial.print(" < "); Serial.println(currentMillis);
+                //Serial.print(interval[0]); Serial.print(" > "); Serial.println(currentMillis);
+                //Serial.print(interval[1]); Serial.print(" < "); Serial.println(currentMillis);
 
                 for(auto & spotlight : spotlights){
                     spotlight.StartBlink(currentMillis, 255);
@@ -90,5 +89,9 @@ void loop() {
     for(auto & spotlight : spotlights){
         spotlight.CleanUp(currentMillis);
         //spotlight.RunTick(currentMillis);
+    }
+    for(auto & movingHead : movingHeads){
+        movingHead.CleanUp(currentMillis);
+        movingHead.RunTick(currentMillis);
     }
 }

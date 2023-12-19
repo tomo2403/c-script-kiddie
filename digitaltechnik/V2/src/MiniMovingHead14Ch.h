@@ -25,8 +25,29 @@ public:
         Reset = 14
     };
 
+    unsigned int commandIndex = 0;
+    DmxCommand commandList[1] = {
+            {3000, Pan, 100}
+    };
+
+    void RunTick(unsigned long currentMillis) override {
+        DmxCommand cmd = commandList[commandIndex];
+        if (cmd.executionTime < currentMillis) {
+            switch (cmd.function) {
+                default:
+                    Set(static_cast<Functions>(cmd.function), cmd.value);
+                    break;
+            }
+            commandIndex++;
+        }
+    };
+
     virtual void Set(Functions channel, unsigned char value) {
         DmxSimple.write(Address + channel - 1, value);
     }
+    void CleanUp(unsigned long currentMillis) override {
+
+    }
+
 };
 #endif

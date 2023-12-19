@@ -33,7 +33,7 @@ public:
             {4000, Blink, 255}
     };
 
-    virtual void RunTick(unsigned long currentMillis) {
+    void RunTick(unsigned long currentMillis) override {
         DmxCommand cmd = commandList[commandIndex];
         if (cmd.executionTime < currentMillis) {
             switch (cmd.function) {
@@ -49,17 +49,17 @@ public:
     };
 
     virtual void Set(Functions channel, unsigned char value) {
-        //DmxSimple.write(static_cast<int>(Address + channel - 1), value);
+        DmxSimple.write(static_cast<int>(Address + channel - 1), value);
     };
 
-    virtual void CleanUp(unsigned long currentMillis) {
+    void CleanUp(unsigned long currentMillis) override {
         if (blinkOn && (currentMillis - blinkStart) > blinkTimeout) {
             Set(TotalDimming, 0);
             blinkOn = false;
         }
     }
 
-    virtual void StartBlink(unsigned long currentMillis, unsigned char value){
+    void StartBlink(unsigned long currentMillis, unsigned char value){
         blinkOn = true;
         blinkStart = currentMillis;
         Set(TotalDimming, value);

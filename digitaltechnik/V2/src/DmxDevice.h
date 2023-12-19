@@ -1,7 +1,7 @@
 #ifndef DmxDevice_h
 #define DmxDevice_h
 
-#include "../DmxSimple.h"
+#include "DmxSimple.h"
 #include "DmxCommand.h"
 
 class DmxDevice {
@@ -11,5 +11,8 @@ public:
             : Address(address) {}
 
     unsigned short Address;
+
+    virtual void RunTick(unsigned long currentMillis) = 0;
+    virtual void CleanUp(unsigned long currentMillis) = 0;
 };
 #endif
