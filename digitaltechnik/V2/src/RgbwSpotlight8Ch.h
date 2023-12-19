@@ -38,9 +38,7 @@ public:
         if (cmd.executionTime < currentMillis) {
             switch (cmd.function) {
                 case Blink:
-                    blinkOn = true;
-                    blinkStart = currentMillis;
-                    Set(TotalDimming, cmd.value);
+                    StartBlink(currentMillis, cmd.value);
                     break;
                 default:
                     Set(static_cast<Functions>(cmd.function), cmd.value);
@@ -59,6 +57,12 @@ public:
             Set(TotalDimming, 0);
             blinkOn = false;
         }
+    }
+
+    virtual void StartBlink(unsigned long currentMillis, unsigned char value){
+        blinkOn = true;
+        blinkStart = currentMillis;
+        Set(TotalDimming, value);
     }
 };
 #endif
