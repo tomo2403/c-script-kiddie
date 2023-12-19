@@ -5,7 +5,7 @@
 
 class MiniMovingHead14Ch : public DmxDevice {
 public:
-  MiniMovingHead14Ch(unsigned short address)
+  explicit MiniMovingHead14Ch(unsigned short address)
     : DmxDevice(14, address) {}
   enum Functions {
     Delay = 0,
@@ -25,8 +25,8 @@ public:
     Reset = 14
   };
 
-  void Set(Functions channel, unsigned char value) {
-    DmxSimple.write(Channels + (channel - 1), value);
+    virtual void Set(Functions channel, unsigned char value) {
+    DmxSimple.write(Address + channel - 1, value);
   }
 };
 #endif

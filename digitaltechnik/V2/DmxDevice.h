@@ -2,6 +2,7 @@
 #define DmxDevice_h
 
 #include "DmxSimple.h"
+#include "DmxCommand.h"
 
 class DmxDevice {
 public:

@@ -5,23 +5,30 @@
 
 class RgbwSpotlight8ChDemo : public RgbwSpotlight8Ch {
 public:
-  RgbwSpotlight8ChDemo(unsigned short address)
+  explicit RgbwSpotlight8ChDemo(unsigned short address)
     : RgbwSpotlight8Ch(address) {}
 
-  void Set(Functions channel, unsigned char value) {
-    switch (channel) {
-      case 1:
-        switch (value) {
-          case 0:
-            digitalWrite(Address, LOW);
-            break;
+  void Set(Functions channel, unsigned char value) override {
+      switch (channel) {
+          case 1:
+              switch (value) {
+                  case 0:
+                      digitalWrite(Address, LOW);
+                      break;
+                  default:
+                      digitalWrite(Address, HIGH);
+                      break;
+              }
+              break;
           default:
-            digitalWrite(Address, HIGH);
-            break;
-        }
-        break;
-      default:
-        break;
+              break;
+      }
+  }
+
+  void CleanUp() override {
+    if (blinkOn && (millis() - blinkStart) > 100) {
+      digitalWrite(Address, LOW);
+      blinkOn = false;
     }
   }
 };
