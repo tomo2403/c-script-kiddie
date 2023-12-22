@@ -7,8 +7,6 @@
 #ifndef DmxSimple_h
 #define DmxSimple_h
 
-#include <inttypes.h>
-
 #if RAMEND <= 0x4FF
 #define DMX_SIZE 128
 #else
@@ -17,10 +15,9 @@
 
 class DmxSimpleClass {
 public:
-    void maxChannel(int);
-    void write(int, uint8_t);
-    void usePin(uint8_t);
+    static void maxChannel(int);
+    static void write(int, uint8_t);
+    static void usePin(uint8_t);
 };
-extern DmxSimpleClass DmxSimple;
 
 #endif

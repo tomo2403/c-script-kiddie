@@ -29,24 +29,24 @@ MiniMovingHead14ChDemo movingHeads[2] = {
 };
 #endif
 
-unsigned long previousMillis = 0;
-unsigned long loopStartMillis = 0;
+unsigned int previousMillis = 0;
+unsigned int loopStartMillis = 0;
 
 unsigned int beatIntervals[2][2] = {
-        {4770,14480},
+        {4770, 14480},
 };
 
-void BeatDetector(unsigned long currentMillis){
-    if ((currentMillis - previousMillis) >= BPM_IN_MS){
+void BeatDetector(unsigned int currentMillis) {
+    if ((currentMillis - previousMillis) >= BPM_IN_MS) {
         previousMillis = currentMillis;
         //Serial.println(currentMillis);
-        for (auto & interval : beatIntervals){
+        for (auto const &interval : beatIntervals) {
             if (interval[0] + BPM_IN_MS < currentMillis && currentMillis < interval[1]) {
                 //Serial.println(currentMillis);
                 //Serial.print(interval[0]); Serial.print(" > "); Serial.println(currentMillis);
                 //Serial.print(interval[1]); Serial.print(" < "); Serial.println(currentMillis);
 
-                for(auto & spotlight : spotlights){
+                for (auto &spotlight: spotlights) {
                     spotlight.StartBlink(currentMillis, 255);
                     spotlight.StartBlink(currentMillis, 255);
                 }
@@ -58,8 +58,8 @@ void BeatDetector(unsigned long currentMillis){
 
 void setup() {
 #if DEMO == 0
-    DmxSimple.usePin(3);
-    DmxSimple.maxChannel(44);
+    DmxSimpleClass::usePin(3);
+    DmxSimpleClass::maxChannel(44);
 #else
     for(auto & spotlight : spotlights){
         pinMode(spotlight.Address, OUTPUT);
@@ -83,14 +83,14 @@ void setup() {
 }
 
 void loop() {
-    unsigned long currentMillis = millis() - loopStartMillis;
-    BeatDetector(currentMillis);
+    unsigned int currentMillis = millis() - loopStartMillis;
+    //BeatDetector(currentMillis);
 
-    for(auto & spotlight : spotlights){
+    for (auto &spotlight: spotlights) {
         spotlight.CleanUp(currentMillis);
-        //spotlight.RunTick(currentMillis);
+        spotlight.RunTick(currentMillis);
     }
-    for(auto & movingHead : movingHeads){
+    for (auto &movingHead: movingHeads) {
         movingHead.CleanUp(currentMillis);
         movingHead.RunTick(currentMillis);
     }

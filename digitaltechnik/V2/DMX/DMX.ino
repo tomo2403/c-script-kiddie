@@ -1,7 +1,5 @@
-
 #include "DmxSimple.h"
 
-enum action {huhn, world};
 
 void setup() {
   DmxSimple.usePin(3);
@@ -14,6 +12,10 @@ void loop() {
   //DmxSimple.write(2,255);  
  
 
-  DmxSimple.write(9,255);
-  DmxSimple.write(11,255);  
+  //DmxSimple.write(9,255);
+  //DmxSimple.write(15,0);
+  //DmxSimple.write(16,0);
+  //DmxSimple.write(17,0);
+  //DmxSimple.write(17,0);
+  DmxSimple.write(21,128);  
 }

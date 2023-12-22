@@ -9,7 +9,7 @@ public:
             : MiniMovingHead14Ch(address) {
     };
 
-    void Set(Functions channel, unsigned char value) override {
+    void Set(int channel, unsigned char value) override {
         switch (channel) {
             case 6:
                 if (value <= 7)
@@ -22,4 +22,5 @@ public:
         }
     }
 };
+
 #endif

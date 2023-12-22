@@ -8,10 +8,10 @@ public:
     explicit RgbwSpotlight8ChDemo(unsigned short address)
             : RgbwSpotlight8Ch(address) {}
 
-    void Set(Functions channel, unsigned char value) override {
+    void Set(int channel, unsigned char value) override {
         switch (channel) {
             case 1:
-                if (value == 0){
+                if (value <= 100){
                     digitalWrite(Address, LOW);
                 }
                 else{
@@ -23,7 +23,7 @@ public:
         }
     }
 
-    void CleanUp(unsigned long currentMillis) override {
+    void CleanUp(unsigned int currentMillis) override {
         if (blinkOn && (currentMillis - blinkStart) > 100) {
             digitalWrite(Address, LOW);
             blinkOn = false;

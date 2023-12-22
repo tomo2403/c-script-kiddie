@@ -7,6 +7,7 @@ class MiniMovingHead14Ch : public DmxDevice {
 public:
     explicit MiniMovingHead14Ch(unsigned short address)
             : DmxDevice(address) {}
+
     enum Functions {
         Delay = 0,
         Pan = 1,
@@ -30,7 +31,7 @@ public:
             {3000, Pan, 100}
     };
 
-    void RunTick(unsigned long currentMillis) override {
+    void RunTick(unsigned int currentMillis) override {
         DmxCommand cmd = commandList[commandIndex];
         if (cmd.executionTime < currentMillis) {
             switch (cmd.function) {
@@ -42,12 +43,10 @@ public:
         }
     };
 
-    virtual void Set(Functions channel, unsigned char value) {
-        DmxSimple.write(Address + channel - 1, value);
-    }
-    void CleanUp(unsigned long currentMillis) override {
+    void CleanUp(unsigned int currentMillis) override {
 
     }
 
 };
+
 #endif

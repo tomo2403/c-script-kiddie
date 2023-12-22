@@ -8,6 +8,7 @@ class RgbwSpotlight8Ch : public DmxDevice {
 public:
     explicit RgbwSpotlight8Ch(unsigned short address)
             : DmxDevice(address) {}
+
     enum Functions {
         Delay = 0,
         TotalDimming = 1,
@@ -20,20 +21,29 @@ public:
         FuncSpeed = 8,
 
         Blink = 100,
+        Flash = 101
     };
+    unsigned char totalDimmingValue = 0;
+
     bool blinkOn = false;
     unsigned short blinkTimeout = 100;
-    unsigned long blinkStart = 0;
+    unsigned int blinkStart = 0;
 
-    unsigned int commandIndex = 0;
-    DmxCommand commandList[4] = {
-            {1000, Blink, 255},
-            {2000, Blink, 255},
-            {3000, Blink, 255},
-            {4000, Blink, 255}
+    unsigned short commandIndex = 0;
+    DmxCommand commandList[10] = {
+            {1,    BlueDimming,  255},
+            {10,   TotalDimming, 100},
+            {450,  TotalDimming, 255},
+            {550,  TotalDimming, 100},
+            {850,  TotalDimming, 255},
+            {950,  TotalDimming, 100},
+            {1050, TotalDimming, 255},
+            {1150, TotalDimming, 100},
+            {1300, TotalDimming, 255},
+            {1400, TotalDimming, 100}
     };
 
-    void RunTick(unsigned long currentMillis) override {
+    void RunTick(unsigned int currentMillis) override {
         DmxCommand cmd = commandList[commandIndex];
         if (cmd.executionTime < currentMillis) {
             switch (cmd.function) {
@@ -48,21 +58,22 @@ public:
         }
     };
 
-    virtual void Set(Functions channel, unsigned char value) {
-        DmxSimple.write(static_cast<int>(Address + channel - 1), value);
-    };
-
-    void CleanUp(unsigned long currentMillis) override {
+    void CleanUp(unsigned int currentMillis) override {
         if (blinkOn && (currentMillis - blinkStart) > blinkTimeout) {
             Set(TotalDimming, 0);
             blinkOn = false;
         }
     }
 
-    void StartBlink(unsigned long currentMillis, unsigned char value){
+    void StartBlink(unsigned int currentMillis, unsigned char value) {
         blinkOn = true;
         blinkStart = currentMillis;
         Set(TotalDimming, value);
     }
+
+    void StartFlash(unsigned int currentMillis, unsigned char value) {
+
+    }
 };
+
 #endif

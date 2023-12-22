@@ -30,9 +30,13 @@ static uint8_t dmxBit = 0;
 static uint8_t dmxPin = 3;  // Defaults to output on pin 3 to support Tinker.it! DMX shield
 
 void dmxBegin();
+
 void dmxEnd();
+
 void dmxSendByte(volatile uint8_t);
+
 void dmxWrite(int, uint8_t);
+
 void dmxMaxChannel(int);
 
 /* TIMER2 has a different register mapping on the ATmega8.
@@ -128,6 +132,7 @@ void dmxEnd() {
  * Really suggest you don't touch this function.
  */
 #if defined(__AVR__)
+
 void dmxSendByte(volatile uint8_t value) {
     uint8_t bitCount, delCount;
     __asm__ volatile(
@@ -164,6 +169,7 @@ void dmxSendByte(volatile uint8_t value) {
     [delCountVal] "M"(F_CPU / 1000000 - 3),
     [value] "r"(value));
 }
+
 #elif defined(__arm__)
 void dmxSendByte(uint8_t value) {
   uint32_t begin, target;
@@ -210,7 +216,7 @@ ISR(ISR_NAME, ISR_NOBLOCK) {
 
     uint16_t bitsLeft = BITS_PER_TIMER_TICK;  // DMX Bit periods per timer tick
     bitsLeft >>= 2;                           // 25% CPU usage
-    while (1) {
+    while (true) {
         if (dmxState == 0) {
             // Next thing to send is reset pulse and start code
             // which takes 35 bit periods
@@ -245,7 +251,7 @@ void dmxWrite(int channel, uint8_t value) {
     if ((channel > 0) && (channel <= DMX_SIZE)) {
         if (value < 0) value = 0;
         if (value > 255) value = 255;
-        dmxMax = max((unsigned)channel, dmxMax);
+        dmxMax = max((unsigned) channel, dmxMax);
         dmxBuffer[channel - 1] = value;
     }
 }
@@ -289,4 +295,5 @@ void DmxSimpleClass::maxChannel(int channel) {
 void DmxSimpleClass::write(int address, uint8_t value) {
     dmxWrite(address, value);
 }
+
 DmxSimpleClass DmxSimple;
