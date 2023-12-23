@@ -6,11 +6,13 @@
 class RgbwSpotlight8ChDemo : public RgbwSpotlight8Ch {
 public:
     explicit RgbwSpotlight8ChDemo(unsigned short address)
-            : RgbwSpotlight8Ch(address) {}
+            : RgbwSpotlight8Ch(address) {
+        pinMode(Address, OUTPUT);
+    }
 
     void Set(int channel, unsigned char value) override {
         switch (channel) {
-            case 1:
+            case 0:
                 if (value <= 100){
                     digitalWrite(Address, LOW);
                 }

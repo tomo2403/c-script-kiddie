@@ -14,7 +14,7 @@ public:
     unsigned short Address;
 
     virtual void Set(int channel, unsigned char value) {
-        DmxSimpleClass::write(static_cast<int>(Address + channel - 1), value);
+        DmxSimpleClass::write(static_cast<int>(Address + channel), value);
     };
 
     virtual void RunTick(unsigned int currentMillis) = 0;

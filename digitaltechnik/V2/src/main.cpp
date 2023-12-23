@@ -1,5 +1,5 @@
 #define DEMO 1         //Demomodus AUS bei 0
-#define BPM_IN_MS 484  //60.000ms geteilt durch BPM
+#define BPM_IN_MS 484  //Quotient aus 60.000ms und BPM
 
 #include <Arduino.h>
 #include "RgbwSpotlight8Ch.h"
@@ -32,7 +32,7 @@ MiniMovingHead14ChDemo movingHeads[2] = {
 unsigned int previousMillis = 0;
 unsigned int loopStartMillis = 0;
 
-unsigned int beatIntervals[2][2] = {
+unsigned int beatIntervals[1][2] = {
         {4770, 14480},
 };
 
@@ -41,14 +41,13 @@ void BeatDetector(unsigned int currentMillis) {
         previousMillis = currentMillis;
         //Serial.println(currentMillis);
         for (auto const &interval : beatIntervals) {
-            if (interval[0] + BPM_IN_MS < currentMillis && currentMillis < interval[1]) {
+            if (interval[0] <= currentMillis && currentMillis <= interval[1]) {
                 //Serial.println(currentMillis);
                 //Serial.print(interval[0]); Serial.print(" > "); Serial.println(currentMillis);
                 //Serial.print(interval[1]); Serial.print(" < "); Serial.println(currentMillis);
 
                 for (auto &spotlight: spotlights) {
-                    spotlight.StartBlink(currentMillis, 255);
-                    spotlight.StartBlink(currentMillis, 255);
+                    spotlight.StartBlink(currentMillis);
                 }
                 break;
             }
@@ -60,16 +59,9 @@ void setup() {
 #if DEMO == 0
     DmxSimpleClass::usePin(3);
     DmxSimpleClass::maxChannel(44);
-#else
-    for(auto & spotlight : spotlights){
-        pinMode(spotlight.Address, OUTPUT);
-    }
-    for(auto & movingHead : movingHeads){
-        pinMode(movingHead.Address, OUTPUT);
-    }
 #endif
 
-    Serial.begin(9600);
+    Serial.begin(115200);
     Serial.println(3);
     delay(800);
     Serial.println(2);
@@ -77,6 +69,7 @@ void setup() {
     Serial.println(1);
     delay(800);
     Serial.println("GO");
+    delay(100);
 
     loopStartMillis = millis();
     //Serial.println(loopStartMillis);
@@ -84,7 +77,7 @@ void setup() {
 
 void loop() {
     unsigned int currentMillis = millis() - loopStartMillis;
-    //BeatDetector(currentMillis);
+    BeatDetector(currentMillis);
 
     for (auto &spotlight: spotlights) {
         spotlight.CleanUp(currentMillis);

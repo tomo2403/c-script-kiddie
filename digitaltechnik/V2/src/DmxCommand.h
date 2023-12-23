@@ -4,6 +4,6 @@
 struct DmxCommand {
     unsigned int executionTime;
     int function;
-    unsigned char value;
+    unsigned short value;
 };
 #endif
