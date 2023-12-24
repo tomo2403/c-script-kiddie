@@ -16,6 +16,7 @@ MiniMovingHead14Ch movingHeads[2] = {
 };
 
 #else
+
 #include "RgbwSpotlight8ChDemo.h"
 #include "MiniMovingHead14ChDemo.h"
 
@@ -33,14 +34,14 @@ unsigned int previousMillis = 0;
 unsigned int loopStartMillis = 0;
 
 unsigned int beatIntervals[1][2] = {
-        {4770, 14480},
+        {4770, 31000},
 };
 
 void BeatDetector(unsigned int currentMillis) {
     if ((currentMillis - previousMillis) >= BPM_IN_MS) {
         previousMillis = currentMillis;
         //Serial.println(currentMillis);
-        for (auto const &interval : beatIntervals) {
+        for (auto const &interval: beatIntervals) {
             if (interval[0] <= currentMillis && currentMillis <= interval[1]) {
                 //Serial.println(currentMillis);
                 //Serial.print(interval[0]); Serial.print(" > "); Serial.println(currentMillis);

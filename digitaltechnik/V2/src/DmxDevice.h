@@ -20,6 +20,12 @@ public:
     virtual void RunTick(unsigned int currentMillis) = 0;
 
     virtual void CleanUp(unsigned int currentMillis) = 0;
+
+    static void PrintTimeToSerial(unsigned int currentMillis) {
+        Serial.print("Time elapsed: ");
+        Serial.print(currentMillis);
+        Serial.println("ms");
+    }
 };
 
 #endif

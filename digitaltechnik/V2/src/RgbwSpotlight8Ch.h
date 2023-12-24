@@ -6,8 +6,7 @@
 
 class RgbwSpotlight8Ch : public DmxDevice {
 public:
-    explicit RgbwSpotlight8Ch(unsigned short address)
-            : DmxDevice(address) {}
+    explicit RgbwSpotlight8Ch(unsigned short address) : DmxDevice(address) {}
 
     enum Functions {
         TotalDimming,
@@ -20,18 +19,17 @@ public:
         FuncSpeed,
 
         Blink = 100,
-        Stop = 200,
-        PrintTime = 201,
-        BlinkTimeout = 202,
+        Fade = 101,
+        BlinkTimeout = 200,
+        FadeTimeout = 201,
+
+        Stop = 300,
+        PrintTime = 301
     };
-    unsigned char totalDimmingValue = 0;
-
     bool blinkOn = false;
-    unsigned short blinkTimeout = 100;
-    unsigned int blinkStart = 0;
+    bool isFading = false;
 
-    unsigned short commandIndex = 0;
-    DmxCommand commandList[17] = {
+    DmxCommand commandList[18] = {
             {100,   BlueDimming,  255},
             {200,   TotalDimming, 100},
             {400,   Blink,        255},
@@ -48,6 +46,7 @@ public:
             {3900,  Blink,        255},
             {4200,  Blink,        255},
             {4700,  TotalDimming, 0},
+            {31000, Fade,         255},
             {32800, Stop,         0}
     };
 
@@ -61,14 +60,16 @@ public:
 
                 switch (cmd.function) {
                     case PrintTime:
-                        Serial.print("Time elapsed: ");
-                        Serial.print(currentMillis);
-                        Serial.println("ms");
+                        PrintTimeToSerial(currentMillis);
                     case Blink:
                         StartBlink(currentMillis);
                         break;
+                    case Fade:
+                        StartFading(currentMillis);
                     case BlinkTimeout:
                         blinkTimeout = cmd.value;
+                    case FadeTimeout:
+                        fadingTimeout = cmd.value;
                     case TotalDimming:
                         totalDimmingValue = cmd.value;
                         Set(TotalDimming, totalDimmingValue);
@@ -87,14 +88,40 @@ public:
         if (blinkOn && (currentMillis - blinkStart) > blinkTimeout) {
             Set(TotalDimming, totalDimmingValue);
             blinkOn = false;
+        } else if (isFading && (currentMillis - fadingLastCall) > fadingTimeout) {
+            totalDimmingValue--;
+            Set(TotalDimming, totalDimmingValue);
+            isFading = fadingInterval[1] < totalDimmingValue;
         }
     }
 
     void StartBlink(unsigned int currentMillis) {
         blinkOn = true;
         blinkStart = currentMillis;
-        Set(TotalDimming, 255);
+        totalDimmingValue = 255;
+        Set(TotalDimming, totalDimmingValue);
     }
+
+    void StartFading(unsigned int currentMillis) {
+        isFading = true;
+        fadingLastCall = currentMillis;
+        totalDimmingValue = fadingInterval[0];
+        Set(TotalDimming, totalDimmingValue);
+    }
+
+protected:
+    unsigned short commandIndex = 0;
+    unsigned char totalDimmingValue = 0;
+
+    unsigned int blinkStart = 0;
+    unsigned short blinkTimeout = 100;
+
+    unsigned int fadingLastCall = 0;
+    unsigned char fadingTimeout = 7;
+    unsigned char fadingInterval[2] = {
+            255, //From
+            0 //To
+    };
 };
 
 #endif
