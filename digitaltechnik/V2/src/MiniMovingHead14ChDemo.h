@@ -12,7 +12,7 @@ public:
 
     void Set(int channel, unsigned char value) override {
         switch (channel) {
-            case 6:
+            case 5:
                 if (value <= 7)
                     digitalWrite(Address, LOW);
                 else if (value <= 134)

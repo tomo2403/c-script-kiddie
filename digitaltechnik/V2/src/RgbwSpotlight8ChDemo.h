@@ -13,10 +13,9 @@ public:
     void Set(int channel, unsigned char value) override {
         switch (channel) {
             case 0:
-                if (value <= 100){
+                if (value <= 100) {
                     digitalWrite(Address, LOW);
-                }
-                else{
+                } else {
                     digitalWrite(Address, HIGH);
                 }
                 break;
@@ -32,4 +31,5 @@ public:
         }
     }
 };
+
 #endif

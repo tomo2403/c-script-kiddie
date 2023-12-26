@@ -88,8 +88,11 @@ public:
         if (blinkOn && (currentMillis - blinkStart) > blinkTimeout) {
             Set(TotalDimming, totalDimmingValue);
             blinkOn = false;
-        } else if (isFading && (currentMillis - fadingLastCall) > fadingTimeout) {
+        }
+
+        if (isFading && (currentMillis - fadingLastCall) > fadingTimeout) {
             totalDimmingValue--;
+            fadingLastCall = currentMillis;
             Set(TotalDimming, totalDimmingValue);
             isFading = fadingInterval[1] < totalDimmingValue;
         }
