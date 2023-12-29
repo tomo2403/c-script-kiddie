@@ -1,0 +1,739 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   LaTeX book template, version 1.0                	  	%
+%   Authors: 	Mirco Lukas <https://mircol.de>             %
+%				Philipp Winniewski <https://frequture.net>	%
+%   License: 	The MIT License (MIT)						%
+%   Updates: 	https://github.com/MircoL/   				%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\RequirePackage{xstring}
+
+\documentclass[
+	paper=6in:9in,	% format
+	pagesize,
+	fontsize=12pt,	% font size
+	BCOR=10mm,		% binding correction
+	twoside=true,
+	open=any,
+	headinclude=true,
+	footinclude=true
+	]{scrbook}
+
+% =====================================================
+% 	Packages
+% =====================================================
+
+% Place as high as possible
+\usepackage{morewrites}
+
+\usepackage{array}
+
+\usepackage[xcolor,pdftex,rightbars]{changebar}
+
+\usepackage{graphicx}
+
+\usepackage{epstopdf}
+
+\usepackage{amsmath}
+
+\usepackage{amssymb}
+
+\usepackage[main=\mainLanguage,\otherLanguage]{babel}
+
+% Mark table in color: \columncolor{myColor} \rowcolor{}, \cellcolor{}
+\usepackage{colortbl}
+
+\usepackage{enumitem}
+
+\usepackage{environ}
+
+\usepackage{esint}
+
+\usepackage{eurosym}
+
+\usepackage[OT2, T2A,TS1,T1]{fontenc}
+
+\usepackage[utf8]{inputenc}
+
+\usepackage{listings}
+
+\usepackage{lipsum}
+
+\usepackage{ifthen}
+
+\usepackage{ifsym}
+
+% Tables over several pages:  \begin{longtable}{|l|r|c|p{2cm}|} \hline ... \end{longtable}
+\usepackage{longtable}
+
+\usepackage{mVersion}
+\increaseBuild
+
+\usepackage{makeidx}
+
+\usepackage{multicol}
+
+% Workaround for Linux with texlive
+\IfFileExists{oesch.sty}{\usepackage{oesch}}{}
+\providecommand{\oeschfamily}{\em}
+
+\usepackage{pgfkeys}
+
+\usepackage{polski}
+
+% Place before hyperref
+\providecommand{\zeilenabstand}{singlespacing}
+\usepackage[\zeilenabstand]{setspace}
+
+\usepackage{soul}
+
+\usepackage{tcolorbox}
+
+\usepackage[\mainLanguage]{varioref}
+
+\usepackage{wasysym}
+
+\usepackage{xspace}
+
+\usepackage{xargs}
+
+\usepackage{yfonts}
+
+% Styling configuration
+\areaset[current]{90mm}{110mm}
+\usepackage[top=20mm, bottom=10mm, voffset=5mm]{geometry}
+\usepackage{scrlayer-scrpage}
+\usepackage[hyphens]{url}
+\usepackage[pdftex,pdfborderstyle={/S/U/W 1}]{hyperref}
+
+% Important
+\setlength{\marginparwidth}{2cm}
+
+\usepackage{todonotes}
+
+% =====================================================
+% 	Own commands
+% =====================================================
+\newcommand{\andd}{\wedge}
+	\newcommand{\bigandd}{\bigwedge}
+
+\newcommand{\aufgabe}[1]{%
+	\command{\aktuelleAufgabe}{#1}%
+	\section*{Aufgabe \aktuelleAufgabe}%
+}
+	\newcommand{\teilaufgabe}[1]{\paragraph*{\underline{TA \aktuelleAufgabe.#1}}}
+	\newcommand{\aktuelleAufgabe}{1}
+
+\newboolean{isAppendixSet}
+	\let\appendixOld\appendix
+	\renewcommand{\appendix}{\ifthenelse{\boolean{isAppendixSet}}{}{\appendixOld\setboolean{isAppendixSet}{true}}}
+
+\newcommand{\blitz}{\lightning\xspace}
+
+\newcommand{\countAutoren}[1]{\newcounter{autorenC}\setcounter{autorenC}{#1}}
+
+% Nicht \dh, sonst Kollision mit dem Buchstaben ð (Eth)
+\newcommand{\dhe}{d.\,h.\xspace}
+\newcommand{\Dhe}{D.\,h.\xspace}
+
+\newcommand{\ellipse}{.\hspace*{-.1em}.\hspace*{-.1em}.\xspace}
+
+\newcommand{\fallunterscheidung}[3][]{\ensuremath{#1 \left\{\begin{array}{cl}#2\\#3\end{array}\right.}}
+	\newcommand{\fuer}{&\text{für }}
+	\newcommand{\sonst}{&\text{sonst}}
+
+\newcommand{\get}[1]{\pgfkeysvalueof{/templateV1/#1}}
+
+\newcommand{\idr}{i.\,d.\,R.\xspace}
+\newcommand{\Idr}{I.\,d.\,R.\xspace}
+
+\newcommand{\length}[1]{\ensuremath{|#1|}}
+
+\newcommand{\name}[1]{\mbox{\textsc{#1}}}
+
+%\newcommand{\neuerbegriff}[1]{\tcbox[size=small,on line,colframe=red!75!black,colback=blue!5!white,fontupper=\normalsize]{#1}\xspace}
+\newcommand{\neuerbegriff}[1]{\emph{#1}}
+
+\newcommand{\neuerbegriffIdx}[2][]{\ifthenelse{\equal{#1}{}}{\index{#2}\neuerbegriff{#2}}{\index{#1}\neuerbegriff{#2}}}
+
+\makeindex
+
+\newcommand{\obda}{o.\,B.\,d.\,A.\xspace}
+\newcommand{\Obda}{O.\,B.\,d.\,A.\xspace}
+
+\makeatletter
+	\def\colorref@i		{\text{\textmarker{yellow}{(i)}}}
+	\def\colorref@ii	{\text{\textmarker{green}{(ii)}}}
+	\def\colorref@iii	{\text{\textmarker{red}{(iii)}}}
+	\def\colorref@iv	{\text{\textcolor{white}{\textmarker{blue}{(iv)}}}}
+\makeatother
+\newcounter{colorrefCtr}
+\def\colorref(#1){ %
+	\setcounter{colorrefCtr}{#1} %
+	\makeatletter %
+		\csname colorref@\roman{colorrefCtr}\endcsname%
+	\makeatother
+}
+
+\newcommand{\sio}{s.\,o.\xspace}
+\newcommand{\Sio}{S.\,o.\xspace}
+\newcommand{\siu}{s.\,u.\xspace}
+\newcommand{\Siu}{S.\,u.\xspace}
+
+\newcommand{\orr}{\vee}
+	\newcommand{\bigorr}{\bigvee}
+
+\newcommand{\textmarker}[2]{\sethlcolor{#1}\hl{#2}}
+
+\newcommand{\ua}{u.\,a.\xspace}
+\newcommand{\Ua}{U.\,a.\xspace}
+
+\newcommand{\va}{v.\,a.\xspace}
+\newcommand{\Va}{V.\,a.\xspace}
+
+
+\newcommand{\wiki}[1]{\href{#1}{Wikipedia}}
+
+\newcommand{\zb}{z.\,B.\xspace}
+\newcommand{\Zb}{Z.\,B.\xspace}
+
+\newcommand{\zt}{z.\,T.\xspace}
+\newcommand{\Zt}{Z.\,T.\xspace}
+
+\newcommand{\qed}{\hfill\ensuremath{\square}}
+
+\newcommand{\myChapter}[2]{
+	\setcounter{chapter}{#1}
+	\chapter*{#2}
+	\addcontentsline{toc}{chapter}{#2}
+	\markboth{}{}
+}
+
+\newcommand{\mySection}[2]{
+	\setcounter{section}{#1}
+	\section*{#2}
+	\addcontentsline{toc}{section}{#2}
+	\markboth{#2}{#2}
+}
+
+\newcommand{\mySubsection}[2]{
+	\setcounter{subsection}{#1}
+	\subsection*{#2}
+	\addcontentsline{toc}{subsection}{#2}
+}
+
+% =====================================================
+% 	Own environments
+% =====================================================
+\newenvironmentx{example}
+	{
+		\sffamily\textbf{Example.\xspace}
+	}{}
+
+\newenvironmentx{analogy}
+	{
+		\sffamily\textbf{Analogy.\xspace}
+	}{}
+
+\newenvironment{enumeratealpha}{\begin{enumerate}[label={\alph*)}]}{\end{enumerate}}
+
+\newenvironment{enumerateAlpha}{\begin{enumerate}[label={\Alph*)}]}{\end{enumerate}}
+
+\newenvironment{enumerateroman}{\begin{enumerate}[label={\roman*)}]}{\end{enumerate}}
+
+\newenvironment{enumerateRoman}{\begin{enumerate}[label={\Roman*)}]}{\end{enumerate}}
+
+
+\newcommand{\tmpQx}{}
+\newcommand{\kHand}[1]{%
+	\IfStrEqCase{#1}{%
+		{e}{e\hspace*{-.5em}\raisebox{.05em}{\reflectbox{\c{}}}\hspace*{-.2em}}%
+		{a}{a\hspace*{-.6em}\raisebox{.05em}{\reflectbox{\c{}}}\hspace*{-.1em}}%
+	}[\errmessage{Ogonek nur unter 'a' und 'e'!}\stop]
+}
+
+\newcommand{\kFraktur}[1]{%
+	\IfStrEqCase{#1}{%
+		{e}{e\hspace*{-.1em}\raisebox{.05em}{\reflectbox{\c{}}}\hspace*{-.2em}}%
+		{a}{a\hspace*{-.15em}\raisebox{.05em}{\reflectbox{\c{}}}\hspace*{-.15em}}%
+	}[\errmessage{Ogonek nur unter 'a' und 'e'!}\stop]
+}
+
+\newenvironmentx{quotex}[2][1={},2={}]{%
+	\renewcommand{\tmpQx}{#1}
+	\begin{quote}%
+		\IfStrEqCase{#2}{
+			{tt}{ \texttt{#1} }%
+			{hand}{ \let\k\kHand \oeschfamily }%
+			{fraktur}{  \let\k\kFraktur \frakfamily }%
+		}[ \normalfont ]
+}{%
+		\ifthenelse{\equal{\tmpQx}{}}{}{\par \mbox{} \hfill \normalfont --- \emph{\tmpQx}}%
+	\end{quote}%
+}
+
+\newenvironmentx{quotationx}[2][1={},2={default}]{%
+	\renewcommand{\tmpQx}{#1}
+	\begin{quotation}%
+		\IfStrEqCase{#2}{
+			{tt}{ \texttt{#1} }%
+			{hand}{ \oeschfamily }%
+			{fraktur}{ \frakfamily }%
+			{default}{ \normalfont }%
+		}[ \errmessage{Ungueltiger Parameter: \#2 muss 'tt' oder 'hand' oder 'fraktur' sein!}\stop ]
+}{%
+		\ifthenelse{\equal{\tmpQx}{}}{}{\par \mbox{} \hfill \normalfont --- \emph{\tmpQx}}%
+	\end{quotation}%
+}
+
+% =====================================================
+% 	Color boxes (tcolorbox) and indices
+% =====================================================
+\tcbuselibrary{listings,breakable}
+
+\newcommand{\boxnummer}{\thetcbcounter}
+\newtcolorbox[auto counter,number format=\arabic,list inside=blueboxes]{blueboxIdx}[2][box\boxnummer]{%
+	colframe=blue!75!black,fonttitle=\bfseries,title={#2},phantomlabel={#1},breakable%
+}
+
+\newtcolorbox[use counter from=blueboxIdx,number format=\arabic,list inside=yellowboxes]{yellowboxIdx}[2][box\boxnummer]{%
+	colframe=yellow!99,fonttitle=\bfseries,title={\textcolor{black}{#2}},phantomlabel={#1},breakable%
+}
+
+\newtcolorbox[use counter from=blueboxIdx,number format=\arabic,list inside=greenboxes]{greenboxIdx}[2][box\boxnummer]{%
+	colframe=green,fonttitle=\bfseries,title={\textcolor{black}{#2}},phantomlabel={#1},breakable%
+}
+
+\newtcolorbox[number format=\arabic]{redbox}[1][]{%
+	colframe=red!99,fonttitle=\bfseries,title={\textcolor{black}{Achtung!}},phantomlabel={#1},breakable%
+}
+
+% =====================================================
+% 	Setup of listings
+% =====================================================
+\lstset{literate=
+	{á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+	{Á}{{\'A}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1 {Ú}{{\'U}}1
+	{à}{{\`a}}1 {è}{{\`e}}1 {ì}{{\`i}}1 {ò}{{\`o}}1 {ù}{{\`u}}1
+	{À}{{\`A}}1 {È}{{\'E}}1 {Ì}{{\`I}}1 {Ò}{{\`O}}1 {Ù}{{\`U}}1
+	{ä}{{\"a}}1 {ë}{{\"e}}1 {ï}{{\"i}}1 {ö}{{\"o}}1 {ü}{{\"u}}1
+	{Ä}{{\"A}}1 {Ë}{{\"E}}1 {Ï}{{\"I}}1 {Ö}{{\"O}}1 {Ü}{{\"U}}1
+	{â}{{\^a}}1 {ê}{{\^e}}1 {î}{{\^i}}1 {ô}{{\^o}}1 {û}{{\^u}}1
+	{Â}{{\^A}}1 {Ê}{{\^E}}1 {Î}{{\^I}}1 {Ô}{{\^O}}1 {Û}{{\^U}}1
+	{œ}{{\oe}}1 {Œ}{{\OE}}1 {æ}{{\ae}}1 {Æ}{{\AE}}1 {ß}{{\ss}}1
+	{ű}{{\H{u}}}1 {Ű}{{\H{U}}}1 {ő}{{\H{o}}}1 {Ő}{{\H{O}}}1
+	{ç}{{\c c}}1 {Ç}{{\c C}}1 {ø}{{\o}}1 {å}{{\r a}}1 {Å}{{\r A}}1
+	{€}{{\EUR}}1 {£}{{\pounds}}1 {~}{{\textasciitilde}}1
+}
+
+\definecolor{myGray}{RGB}{220,225,225}
+
+\lstset{
+	backgroundcolor=\color{myGray},
+	numbers=left,
+	breakautoindent=true,
+	tabsize=4,
+	frame=single,
+	breaklines=true,
+	postbreak=\raisebox{0ex}[0ex][0ex]{\ensuremath{\color{red}\hookrightarrow\space}},
+	caption=\texttt\lstname
+}
+
+\definecolor{javared}{rgb}{0.6,0,0} % for strings
+\definecolor{javagreen}{rgb}{0.25,0.5,0.35} % comments
+\definecolor{javapurple}{rgb}{0.5,0,0.35} % keywords
+\definecolor{javadocblue}{rgb}{0.25,0.35,0.75} % javadoc
+\definecolor{javablue}{RGB}{0,37,189} % javadoc
+
+\lstset{language=Java,
+	basicstyle=\ttfamily,
+	keywordstyle=\color{javapurple}\bfseries,
+	stringstyle=\color{javablue},
+	commentstyle=\color{javagreen},
+	morecomment=[s][\color{javadocblue}]{/**}{*/},
+	numbers=left,
+	numberstyle=\tiny\color{black},
+	numbersep=10pt,
+	tabsize=4,
+	showspaces=false,
+	showstringspaces=false
+}
+
+% =====================================================
+% 	Code documentation
+% =====================================================
+\definecolor{eclipsemodifier}{RGB}{143,0,83}
+\definecolor{eclipsevar}{RGB}{0,37,189}
+\newcommand{\documentationxMargin}{15pt}
+\newenvironment{documentationx}{
+	\fboxsep1mm
+	\newcommand{\Parameter}[2][]{%
+		\ifthenelse%
+			{\equal{##1}{}}%
+			{}%
+			{%
+				\IfStrEqCase{##1}{%
+					{boolean}{\textcolor{eclipsemodifier}{##1}}%
+					{bool}{\textcolor{eclipsemodifier}{##1}}%
+					{byte}{\textcolor{eclipsemodifier}{##1}}%
+					{char}{\textcolor{eclipsemodifier}{##1}}%
+					{double}{\textcolor{eclipsemodifier}{##1}}%
+					{short}{\textcolor{eclipsemodifier}{##1}}%
+					{int}{\textcolor{eclipsemodifier}{##1}}%
+					{float}{\textcolor{eclipsemodifier}{##1}}%
+				}[##1]%
+				\ %
+			}%
+		\textcolor{eclipsevar}{##2}%
+	}
+
+	\newcommand{\Pkgdef}[2]{%
+		\pgfqkeys{/documentationx/pkg/##1}{
+			name/.initial = {},
+			description/.initial = {},
+		}%
+		\pgfqkeys{/documentationx/pkg/##1}{##2}%
+		\noindent%
+		\fbox{\textcolor{eclipsemodifier}{\texttt{package}} \texttt{\pgfkeysvalueof{/documentationx/pkg/##1/name}}}:
+		\begin{addmargin}[\documentationxMargin]{0pt}
+			\pgfkeysvalueof{/documentationx/pkg/##1/description}
+		\end{addmargin}
+	}
+	\newcommand{\Classdef}[2]{%
+		\pgfqkeys{/documentationx/class/##1}{
+			name/.initial = {},
+			description/.initial = {},
+			modifier/.initial = {},
+			type/.initial = {}
+		}%
+		\pgfqkeys{/documentationx/class/##1}{##2}%
+		\noindent%
+		\begingroup
+			\texttt{
+				\ifthenelse%
+					{\equal{}{\pgfkeysvalueof{/documentationx/class/##1/modifier}}{}}%
+					{}%
+					{\textcolor{eclipsemodifier}{\pgfkeysvalueof{/documentationx/class/##1/modifier}}\ }%
+				\ifthenelse%
+					{\equal{}{\pgfkeysvalueof{/documentationx/class/##1/type}}{}}%
+					{}%
+					{\textcolor{eclipsemodifier}{\pgfkeysvalueof{/documentationx/class/##1/type}}\ }%
+				\pgfkeysvalueof{/documentationx/class/##1/name}%
+			}%
+	%	\ifthenelse%
+	%		{\equal{\pgfkeysvalueof{/documentationx/class/##1/description}}{}}%
+	%		{}%
+	%		{%
+				\normalfont :
+				\begin{addmargin}[\documentationxMargin]{0pt}
+					\pgfkeysvalueof{/documentationx/class/##1/description}
+				\end{addmargin}
+	%		}%
+		\endgroup%
+	}
+	\newcommand{\Vardef}[2]{%
+		\pgfqkeys{/documentationx/var/##1}{
+			name/.initial = {},
+			description/.initial = {},
+			modifier/.initial = {},
+			type/.initial = {}
+		}%
+		\pgfqkeys{/documentationx/var/##1}{##2}%
+		\noindent%
+		\begingroup
+			\texttt{%
+				\ifthenelse%
+					{\equal{}{\pgfkeysvalueof{/documentationx/var/##1/modifier}}{}}%
+					{}%
+					{\textcolor{eclipsemodifier}{\pgfkeysvalueof{/documentationx/var/##1/modifier}}\ }%
+				\ifthenelse%
+					{\equal{}{\pgfkeysvalueof{/documentationx/var/##1/type}}{}}%
+					{}%
+					{\textcolor{eclipsemodifier}{\pgfkeysvalueof{/documentationx/var/##1/type}}\ }%
+				\textcolor{eclipsevar}{\pgfkeysvalueof{/documentationx/var/##1/name}}%
+				\ifthenelse%
+					{\equal{\pgfkeysvalueof{/documentationx/var/##1/description}}{}}%
+					{}%
+					{%
+						\normalfont :
+						\begin{addmargin}[\documentationxMargin]{0pt}
+							\pgfkeysvalueof{/documentationx/var/##1/description}
+						\end{addmargin}
+					}%
+			}%
+		\endgroup%
+	}
+	\newcommand{\Methoddef}[2]{%
+		\pgfqkeys{/documentationx/method/##1}{
+			name/.initial = {},
+			description/.initial = {},
+			modifier/.initial = {},
+			type/.initial = {} % return type
+		}
+		\pgfqkeys{/documentationx/method/##1}{##2}%
+		\noindent%
+		\begingroup
+			\texttt{
+				\ifthenelse%
+					{\equal{}{\pgfkeysvalueof{/documentationx/method/##1/modifier}}{}}%
+					{}%
+					{\textcolor{eclipsemodifier}{\pgfkeysvalueof{/documentationx/method/##1/modifier}}\ }%
+				\ifthenelse%
+					{\equal{}{\pgfkeysvalueof{/documentationx/method/##1/type}}{}}%
+					{}%
+					{\textcolor{eclipsemodifier}{\pgfkeysvalueof{/documentationx/method/##1/type}}\ }%
+				\pgfkeysvalueof{/documentationx/method/##1/name}%
+				\ifthenelse%
+					{\equal{\pgfkeysvalueof{/documentationx/method/##1/description}}{}}%
+					{}%
+					{%
+						\normalfont :
+						\begin{addmargin}[\documentationxMargin]{0pt}
+							\pgfkeysvalueof{/documentationx/method/##1/description}
+						\end{addmargin}
+					}%
+			}%
+		\endgroup%
+	}
+}
+
+% =====================================================
+% 	Initial configuration
+% =====================================================
+
+\clubpenalty = 10000
+
+\widowpenalty = 10000
+
+\displaywidowpenalty = 10000
+
+\makeatletter
+	\@removefromreset{footnote}{chapter}
+\makeatother
+
+% Paragraph titles end with a dot. Can be suppressed with "\paragraph*{title}".
+\renewcommand\paragraphmark[1]{.}
+
+\let\epsilonOld\epsilon
+\let\epsilon\varepsilon
+
+\let\phiOld\phi
+\let\phi\varphi
+
+% =====================================================
+% 	Variables and default values
+% =====================================================
+\pgfqkeys{/templateV1}{
+%
+	key/data/show/.initial					= {false},
+	key/data/year/.initial					= {},
+	key/data/publishing/.initial			= {},
+	key/data/copyrightOwner/.initial		= {},
+	key/data/printing/.initial				= {},
+	key/data/ISBN/.initial					= {},
+	key/data/ASIN/.initial					= {},
+%
+	key/data/copyrightDisclaimer/.initial	= {},
+%
+	key/data/trademarkDisclaimer/.initial	= {},
+	key/authors/.initial					= {},
+	key/title/.initial	 					= {},
+	key/subtitle/.initial 					= {},
+%
+	key/icon/width/.initial					= {},
+	key/icon/path/.initial					= {title.jpg},
+%
+	key/author/picture/.initial				= {author.jpg},
+	key/author/about/.initial				= {},
+%
+	key/index/box/blue/title/.initial 		= {},
+	key/index/box/blue/show/.initial 		= {false},
+	key/index/box/yellow/title/.initial 	= {},
+	key/index/box/yellow/show/.initial 		= {false},
+	key/index/box/green/title/.initial 		= {},
+	key/index/box/green/show/.initial 		= {false},
+	key/index/keyword/title/.initial 		= {Index},
+	key/index/keyword/show/.initial 		= {false},
+	key/index/literature/title/.initial 	= {Bibliography},
+	key/index/literature/show/.initial 		= {false},
+	key/index/tableOfContents/title/.initial= {Table of Contents},
+%
+	key/environment/example/title/.initial	= {Example},
+	key/environment/proof/title/.initial	= {Proof},
+	key/environment/analogy/title/.initial	= {Analogy},
+%
+	key/frontDedication/.initial			= {},
+	key/backDedication/.initial				= {},
+%
+	key/textAlignment/.initial				= {rl}
+}
+
+% =====================================================
+% 	Default content (title pages, dedication, indices, etc.)
+% =====================================================
+\AtBeginDocument{
+	
+	% Check parameter values
+	\begingroup
+	\newcommand{\checkbool}[1]{\ifthenelse{\equal{\get{#1}}{true} \OR \equal{\get{#1}}{false}}{}{\errmessage{Boolean '#1' must be 'true' or false'!}\stop}}
+	\checkbool{key/index/box/blue/show}
+	\checkbool{key/index/box/yellow/show}
+	\checkbool{key/index/box/green/show}
+	\checkbool{key/index/keyword/show}
+	\checkbool{key/index/literature/show}
+	\checkbool{key/data/show}
+	\endgroup
+	
+	% Design settings
+	\pagestyle{scrheadings}
+	\lehead{}
+	\cehead{\rightmark}
+	\cohead{\leftmark}
+	\rohead{}
+	\ofoot{\thepage}
+	\cfoot{}
+	\ifoot{}
+	
+	\renewcommand*\chapterpagestyle{empty}
+	
+	% Roman page numbers for first pages
+	\frontmatter
+	
+	% Book data page
+	\ifthenelse{\equal{\get{key/data/show}}{}}{}{
+		\newpage
+		\thispagestyle{empty}
+		\mbox{}
+		\newpage
+		
+		\thispagestyle{empty}
+		\vspace*{15em}
+		\small{
+			\noindent
+			\get{key/data/publishing}
+			\newline\newline
+			Copyright \copyright\xspace\get{key/data/year}, \get{key/data/copyrightOwner}
+			\newline\newline\newline
+			\get{key/data/copyrightDisclaimer}
+			\newline\newline
+			\get{key/data/trademarkDisclaimer}
+			\ifthenelse{\equal{\get{key/data/printing}}{}}{}{
+				\newline\newline\newline
+				\get{key/data/printing}
+				\newline
+			}
+			\ifthenelse{\equal{\get{key/data/ISBN}}{}}{}{
+				\newline
+				ISBN: \get{key/data/ISBN}
+			}
+			\ifthenelse{\equal{\get{key/data/ASIN}}{}}{}{
+				\newline
+				ASIN: \get{key/data/ASIN}
+			}
+		}
+		\newpage
+		\normalsize
+	}
+	
+	% Title page
+	\thispagestyle{empty}
+	\vspace*{10em}
+	\begin{center}
+		\ifthenelse{\equal{\get{key/title}}{}}{}{{\Huge \get{key/title}} \par\vspace*{1em}}
+		\get{key/subtitle}
+	\end{center}
+	
+	\begin{center}
+		\IfFileExists{\get{key/icon/path}}
+		{\vspace*{5em}\includegraphics[width=\get{key/icon/width}\textwidth]{\get{key/icon/path}}\vspace*{10em}}
+		{\vspace*{20em}}
+	\end{center}
+	
+	\StrSubstitute{\get{key/authors}}{&}{\tabularnewline}[\autorTemp]
+	\begin{flushright}
+		\begin{tabular}r \autorTemp \end{tabular}
+	\end{flushright}
+	\newpage
+	
+	% Author page
+	\begin{center}
+		\IfFileExists{\get{key/author/picture}}
+		{\includegraphics[width=0.3\textwidth]{\get{key/author/picture}}}{}
+		\vspace*{1em}
+	\end{center}
+	\small{\get{key/author/about}}
+	\normalsize
+	
+	% Dedication page
+	\ifthenelse{\equal{\get{key/frontDedication}}{}}{}{
+		\newpage
+		\thispagestyle{empty}
+		\mbox{}
+		\newpage
+		\thispagestyle{empty}
+		\vspace*{18em}
+		
+		\begin{center}
+			\textit{\get{key/frontDedication}}
+		\end{center}
+		\newpage
+	}
+	\thispagestyle{empty}
+	\mbox{}
+	\renewcommand{\contentsname}{\get{key/index/tableOfContents/title}}
+	\newgeometry{bottom=1.5in}\tableofcontents\newgeometry{bottom=0in}
+	
+	% Arabic page numbers for rest of book
+	\mainmatter
+	
+	\IfStrEqCase{\get{key/textAlignment}}{
+		{rl}{
+			\KOMAoptions{twoside=true}
+		}
+		{e}{
+			\KOMAoptions{twoside=false}
+		}
+	}[\errmessage{Ungueltiger Modus, erlaubt sind ausschließlich 'rl' oder 'e'}\stop]
+}
+
+\AtEndDocument{
+	\appendix
+
+	\ifthenelse{\equal{\get{key/index/literature/show}}{true}}
+	{
+		\renewcommand{\bibname}{\get{key/index/literature/title}}
+		\bibliographystyle{alphadin}
+		\nocite{*}
+		\bibliography{quellen}
+	}{}
+	
+	\ifthenelse{\equal{\get{key/index/box/blue/show}}{true}}{\tcblistof[\chapter]{blueboxes}{\get{key/index/box/blue/title}}}{}
+	
+	\ifthenelse{\equal{\get{key/index/box/yellow/show}}{true}}{\tcblistof[\chapter]{yellowboxes}{\get{key/index/box/yellow/title}}}{}
+	
+	\ifthenelse{\equal{\get{key/index/box/green/show}}{true}}{\tcblistof[\chapter]{greenboxes}{\get{key/index/box/green/title}}}{}
+	
+	\ifthenelse{\equal{\get{key/index/keyword/show}}{true}}{
+		\renewcommand{\indexname}{\get{key/index/keyword/title}}
+		\addcontentsline{toc}{chapter}{\indexname}
+		\printindex
+	}{}
+
+	\ifthenelse{\equal{\get{key/backDedication}}{}}{}{
+		\newpage
+		\thispagestyle{empty}
+		\mbox{}
+		\ifthispageodd{
+			\newpage
+			\thispagestyle{empty}
+			\mbox{}
+		}{}
+		\newpage
+		\thispagestyle{empty}
+		\vspace*{10em}
+		\begin{center}
+			\textit{\get{key/backDedication}}
+		\end{center}
+	}
+}
+

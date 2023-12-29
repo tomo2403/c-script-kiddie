@@ -1,0 +1,100 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   LaTeX-Arbeitsvorlage, Version 5.15                 	  	%
+%   Autor: 		Mirco Lukas <http://mircol.de>              %
+%   Lizenz: 	The MIT License (MIT)						%
+%   Updates: 	https://github.com/MircoL/LatexTemplateDE   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\dokumentTyp{Skript} 		% oder
+%\def\dokumentTyp{Thesis}	% oder
+%\def\dokumentTyp{Mitschrift}	% oder
+%\def\dokumentTyp{Buch} 			% oder
+%\def\dokumentTyp{Praesentation}
+
+\def\hauptsprache{ngerman}
+\def\andereSprachen{english}
+
+
+\input{../mircol-v6}
+
+% ===========================================================================
+
+% Die voreingestellten Werte werden verwendet, wenn sie hier nicht explizit überschrieben werden.
+% Alle überflüssigen Zeilen können gelöscht werden.
+\pgfqkeys{/VorlageVersion6}{
+	all/Autoren						= {Tom Mohr & Martin Ohmeyer},
+	all/Titel	 					= {Versuch V2},
+	all/Untertitel 					= {C752 Digitaltechnik},
+	all/VersionPraefix 				= {},
+	all/Version 					= {false},
+	all/Icon/Breite					= {.7},
+	all/Icon/URL					= {},
+	all/Index/Boxen/blau/titel 		= {Liste der Sätze und Definitionen},
+	all/Index/Boxen/blau/zeigen 	= {false},
+	all/Index/Boxen/gelb/titel 		= {Liste der Beispiele},
+	all/Index/Boxen/gelb/zeigen 	= {false},
+	all/Index/Boxen/gruen/titel 	= {Liste der Fragen},
+	all/Index/Boxen/gruen/zeigen 	= {false},
+	all/Index/Begriffe/titel 		= {Index},
+	all/Index/Begriffe/zeigen 		= {true},
+	all/Index/Literatur/titel 		= {Literaturverzeichnis},
+	all/Index/Literatur/zeigen 		= {false},
+%
+	% Zusätzlich für Skripte
+	Skript/AnmerkungenTitelseite 	= {},
+%
+	% Zusätzlich für Mitschriften
+	Mitschriften/Vorlesungsname 	= {},
+	Mitschriften/Typ 				= {\"Ubung},
+	Mitschriften/LfdNr 				= {},
+	Mitschriften/Gruppe 			= {},
+	Mitschriften/Headerhoehe		= {42pt},
+%
+	% Zusätzlich für Bücher
+	Buecher/Widmung					= {},
+	Buecher/Modus					= {rl},
+%
+	% Zusätzlich für Präsentationen
+	Praesentationen/TitelKurz		= {},
+	Praesentationen/Institut/lang	= {},
+	Praesentationen/Institut/kurz	= {},
+%
+	% Zusätzlich für Abschlussarbeiten
+	Thesis/AkademischerGrad/kurz	= {},
+	Thesis/AkademischerGrad/lang	= {},
+	Thesis/Fach/Nominativ			= {},
+	Thesis/Fach/Genitiv				= {},
+	Thesis/UniName/lang				= {},
+	Thesis/UniName/kurz				= {},
+	Thesis/EingereichtBei			= {},
+	Thesis/BetreuungDurch			= {},
+	Thesis/Abgabedatum				= {},
+	Thesis/Versicherung/zeigen		= {true},
+	Thesis/Versicherung/ort			= {},
+	Thesis/Versicherung/text		= {}
+}
+	
+
+% ===========================================================================
+%      Hier eigene Packages einbinden und eigene Befehle definieren
+
+
+% ===========================================================================
+
+
+\begin{document}
+
+\chapter{Aufgabe 4}
+\section{Aufgabe 4.1}
+
+\paragraph{Vorüberlegung}
+Die Aufgabenstellung grenzt die möglichen Protokolle ein: RS232 und DMX. Ein wesentlicher Unterschied der beiden besteht darin, dass DMX ein Differenzsignal nutzt und RS232 nicht. Mit diesem Wissen ist nun möglich, eine sichere Unterscheidung der beider Protokolle vorzunehmen.
+
+\paragraph{Durchführung}
+Die Aufgabenstellung enthält Schaltplan, nach welchem die Arduinos anzuschließen sind.
+
+\section{Aufgabe 4.2}
+\paragraph{Vorüberlegung}
+Die differentielle Signalübertragung wird in allen modernen Protokollen verwendet. Fast alle Bussysteme, die außerhalb eines Gerätes liegen, greifen auf sie zurück. Ihre Stärke liegt in einer hohen Fehlerresistenz auch bei niedrigen Spannungen, was schnelle Übertragungsraten ermöglicht. Die Übertragung eines differenziellen Signals erfolgt dazu über zwei Kabel. Während das eine Kabel positive Spannungsausschläge verwendet, überträgt das andere Kabel negative Spannungsausschläge des gleichen Betrages. Das ursprüngliche Signal wird dann durch Subtraktion der beiden einzelnen Spannungen errechnet. Der große Vorteil: Verdrillt man die beiden Kabel, so wirkt eine Störung von außen auf beide gleichermaßen. Zwar ändern sich die Spannungsausschläge, die durch die jeweiligen Kabel übertragen werden, ihre Differenz bleibt jedoch unberührt und die übermittelten Daten unbeschädigt.
+
+\end{document}

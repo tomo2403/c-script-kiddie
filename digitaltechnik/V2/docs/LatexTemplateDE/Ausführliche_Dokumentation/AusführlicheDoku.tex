@@ -1,0 +1,756 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%   LaTeX-Arbeitsvorlage, Version 5.12                 	  	%
+%   Autor: 		Mirco Lukas <http://mircol.de>              %
+%   Lizenz: 	The MIT License (MIT)						%
+%   Updates: 	https://github.com/MircoL/LatexTemplateDE   %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\def\dokumentTyp{Skript}
+
+\def\hauptsprache{ngerman}
+\def\andereSprachen{english}
+
+
+\input{../mircol-v6}
+
+% ===========================================================================
+
+% Die voreingestellten Werte werden verwendet, wenn sie hier nicht explizit überschrieben werden.
+% Alle überflüssigen Zeilen können gelöscht werden.
+\pgfqkeys{/VorlageVersion6}{
+	all/Autoren						= {Philipp Winniewski&Mirco Lukas},
+	all/Titel	 					= {Anleitung zur \LaTeX{}-Vorlage},
+	all/Untertitel 					= {Eine \LaTeX{}-Vorlage mit vielen vordefinierten Befehlen},
+	all/VersionPraefix 				= {1},
+	all/Version 					= {true},
+	all/Icon/Breite					= {.7},
+	all/Icon/URL					= {},
+	all/Index/Boxen/blau/titel 		= {Liste der Definitionen},
+	all/Index/Boxen/blau/zeigen 	= {false},
+	all/Index/Boxen/gelb/titel 		= {Liste der Hinweise},
+	all/Index/Boxen/gelb/zeigen 	= {false},
+	all/Index/Boxen/gruen/titel 	= {Liste der Tipps und Tricks},
+	all/Index/Boxen/gruen/zeigen 	= {false},
+	all/Index/Begriffe/titel 		= {Index der Begriffe},
+	all/Index/Begriffe/zeigen 		= {false},
+	all/Index/Literatur/titel 		= {Literaturverzeichnis},
+	all/Index/Literatur/zeigen 		= {false},
+%
+	% Zusätzlich für Skripte
+	Skript/AnmerkungenTitelseite 	= {}
+}
+
+
+% ===========================================================================
+%      Hier eigene Packages einbinden und eigene Befehle definieren
+
+\usepackage{caption}
+\newcommand{\ru}{\rule[-1mm]{0mm}{5mm}}
+% ===========================================================================
+
+
+\begin{document}
+	\chapter{Einführung}
+
+		\section{Vorwort}
+
+			Herzlich willkommen zur Anleitung der \LaTeX{}-Vorlage von \name{Mirco Lukas}! Auf den folgenden Seiten geht es darum, die Möglichkeiten des Designs kennenzulernen und für sich nutzbar zu machen. Hierbei wird davon ausgegangen, dass die meisten Grundlagen und das Arbeitsprinzip der Textsatzsprache \LaTeX{} bekannt sind. Dennoch richtet sich die Anleitung eher an fortgeschrittene Einsteiger, die die Vorlage möglichst schnell und unkompliziert verwenden möchten. Weit fortgeschrittene Anwender und Experten wird die Dokumentation zur Vorlage interessieren, in welcher Befehle samt ihrer Parameter exakt notiert sind. Die Nutzung der Vorlage selbst wird erfahrene Personen vor keine großen Schwierigkeiten stellen und sie können somit die vorliegende Anleitung einfach überfliegen.
+
+			\LaTeX{} stellt selbstverständlich diverse Dokumentklassen bereit, die schon viele (auch veränderbare) Standardeinstellungen umsetzen. Außerdem gibt es die Möglichkeit, an den vielen feinen Drehreglern der Software mit einzelnen Befehlen zu schrauben. Und nicht zuletzt existieren noch Unmengen von Paketen, die einfach per Befehl heruntergeladen und eingebunden werden können. Wozu also eine spezielle Vorlage? Nun, es gibt eine gewisse Menge an Dingen, die man immer wieder braucht, \zb die korrekte Formatierung von „z.\,B.“ oder farbige Infoboxen. Auch bestimmte Einstellungen für das Schreiben in deutscher Sprache müssen getätigt werden. Daher ist es sinnvoll, all diese Standardsachen in eine eigene Vorlage zu kombinieren. Insbesondere sind hier alle Pakete und Einstellungen in jeder Hinsicht aufeinander abgestimmt und mit deutschen Vorgaben und Format-Richtlinien kompatibel. Somit hat man stets den perfekten Ausgangspunkt, um mit einem neuen Werk zu starten, ganz ohne Vorarbeit.
+
+			Damit man aber wirklich alle Vorteile der Vorlage nutzen kann, muss man sie zuerst kennenlernen. Daher sind in dieser Anleitung sämtliche (nicht im Hintergrund arbeitenden) Funktionen aufgelistet. Zu jeder Funktion gibt es eine Beschreibung als Text, den Code und mindestens ein Beispiel.
+
+			Eine Anmerkung noch: Auch die vorliegende Anleitung wurde mit eben dieser Formatvorlage erstellt!
+
+		\section{Voraussetzungen}
+
+			Die Anleitung und die Verwendung der Vorlage setzt einen bestimmten Wissenstand voraus. Der Nutzer muss grundsätzlich imstande sein, mit \LaTeX{} zu arbeiten. Selbstverständlich muss bekannt sein, was \LaTeX{} eigentlich ist und was es macht. Außerdem ist Vorwissen über das Prinzip der Pakete und Befehle notwendig. Es schadet demnach nicht, sich schon in den Grundzügen mit \LaTeX{} auseinander gesetzt zu haben. Auf der anderen Seite nimmt die Vorlage einem viel Einarbeitung ab, da auch komplexere Funktionen leicht zugänglich gemacht werden und Feineinstellungen für Format und Sprache bereits integriert sind. Gerade deshalb ist das Design gut für das erste „richtige“ eigene Werk mit \LaTeX{}, nachdem man sich zuvor etwas in die Software eingearbeitet und selber ein wenig probiert hat. Jedoch werden auch fortgeschrittene Nutzer die eleganten Lösungen schätzen, die Zeit und Nerven sparen.
+
+			Zudem bestehen technische Voraussetzungen. Es muss eine \LaTeX{}-Software eingerichtet und funktionsfähig sein\footnote{Wir empfehlen TeXstudio (\url{http://www.texstudio.org/})}. Weil die Vorlage selber verschiedene Pakete benutzt, muss der Zugang zu diesen gewährleistet sein. Das bedeutet, dass entweder eine große Bibliothek mit allen Paketen auf dem jeweiligen System installiert ist oder die benötigten Pakete über eine bestehende Internetverbindung zu jedem Zeitpunkt nachgeladen werden können. Für den Download der Vorlage an sich braucht man ebenso eine Internetverbindung und einen Browser (oder ein Programm zum Download eines \emph{GitHub-Repositorys}). Ansonsten braucht man nichts.
+
+		\section{Einrichtung}
+
+			Zuallererst muss die Vorlage heruntergeladen werden. Die Dateien findet man in einem \emph{GitHub}-Repository\footnote{Ein \emph{Repository} ist eine Art digitales Archiv zur Verwaltung von Dateien. Diese werden sortiert abgelegt, beschrieben und wenn man etwas ändert, wird der Änderungsverlauf detailliert dargestellt.}. Zu erreichen ist das Projekt unter der URL \url{https://github.com/MircoL/LatexTemplateDE}. Auf der rechten Seite befindet sich eine Schaltfläche „Clone or download“\footnote{Das Seitendesign kann sich natürlich immer mal wieder ändern. Die Buttons werden jedoch in etwa wie hier beschrieben zu finden sein.}. Wählt man diesen an, kann „Download ZIP“ angeklickt werden und ein Download startet. Die Datei, das ZIP-Archiv, enthält die Vorlage in größenkomprimierter Form. Um die einzelnen Dateien zu erhalten, muss man das Archiv entpacken\footnote{Zum Beispiel mit dem Programm \emph{7-ZIP} (\url{http://www.7-zip.de/download.html})}.
+
+			Hat man das Archiv entpackt, erhält man einen Ordner mit folgender Dateistruktur:
+
+			\begin{verbatim}
+			Ausführliche Dokumentation
+			--Grafiken
+			--AusführlicheDoku.pdf
+			--AusführlicheDoku.tex
+			--index.ist
+			--quellen.bib
+			--titel.jpg
+			--version.dat
+			doc
+			--docu_v6.pdf
+			--docu_v6.tex
+			--index.ist
+			--muster-buch.pdf
+			--muster-buch.tex
+			--muster-mitschrift.pdf
+			--muster-mitschrift.tex
+			--muster-praesentation.pdf
+			--muster-praesentation.tex
+			--muster-skript.pdf
+			--muster-skript.tex
+			--muster-thesis.pdf
+			--muster-thesis.tex
+			--titel.jpg
+			--version.dat
+			Vorlage
+			--Vorlage.tex
+			--index.ist
+			--quellen.bib
+			--titel.jpg
+			LICENSE
+			README.md
+			mircol-v6.tex
+			\end{verbatim}
+
+			Im Unterordner „doc“ findet man diverse Beispieldokumente als PDF- und TEX-Datei. Zudem befindet sich hier die Dokumentation \texttt{docu\_v6.pdf}. Die Muster-Dokumente eignen sich gut, um damit ein neues Werk zu beginnen oder zu lernen, wie ein bestimmtes Ergebnis erzielt werden kann. Dazu schaut man in die entsprechende TEX-Datei.
+
+			Der nächste Unterordner enthält eine blanke Vorlage, nämlich \texttt{Vorlage.tex}. In die Datei „quellen.bib“ fügt man die verwendeten Quellen in BibTeX-Formatierung ein.
+
+			Das eigentliche Kernstück der Vorlage ist die Datei \texttt{mircol-v6.tex}, die die Einstellungen enthält. Im Grunde wäre also diese Datei mit dem Ordner „Vorlage“ zusammen die Minimalausstattung, um zu starten. Ein möglicher Projektordner „Meine\_Abschlussarbeit“ für ein neues Schriftstück könnte dann so aussehen:
+
+
+
+			\begin{verbatim}
+			Meine_Abschlussarbeit
+			--Vorlage
+			----Vorlage.tex
+			----index.ist
+			----quellen.bib
+			----titel.jpg
+			--mircol-v6.tex
+			\end{verbatim}
+
+			Man kann den Ordner \texttt{Vorlage} und die Datei \texttt{Vorlage.tex} auch umbenennen, \zb in \texttt{Thesis} und \texttt{Thesis.tex}.
+
+	\chapter{Funktionen}
+
+		\section{Allgemeine Einstellungen}
+
+			Es gibt eine Reihe von Einstellungen, die man immer vornimmt, egal für welchen Dokumenttypen man sich entscheidet. Die Konfigurationen geschehen in dem Dokument, das als Vorlage dient und in welches man sein Werk hineinschreibt. Im Kopfbereich findet man den dafür wichtigen Code-Abschnitt:
+
+			\begin{verbatim}
+			all/Autoren     = {Philipp Winniewski&Mirco Lukas},
+			all/Titel       = {Anleitung zur \LaTeX{}-Vorlage},
+			all/Untertitel  = {Eine \LaTeX{}-Vorlage mit vielen vordefinierten Befehlen},
+			all/VersionPraefix            = {1},
+			all/Version                   = {true},
+			all/Icon/Breite               = {.7},
+			all/Icon/URL                  = {},
+			all/Index/Boxen/blau/titel    = {Liste der verf\"ugbaren Befehle},
+			all/Index/Boxen/blau/zeigen   = {false},
+			all/Index/Boxen/gelb/titel    = {Liste der Hinweise},
+			all/Index/Boxen/gelb/zeigen   = {false},
+			all/Index/Boxen/gruen/titel   = {Liste der Tipps und Tricks},
+			all/Index/Boxen/gruen/zeigen  = {false},
+			all/Index/Begriffe/titel      = {Index},
+			all/Index/Begriffe/zeigen     = {true},
+			all/Index/Literatur/titel     = {Literaturverzeichnis},
+			all/Index/Literatur/zeigen    = {false},
+			\end{verbatim}
+
+			\subsection{Titelseite}
+
+				Man legt den Autor fest, indem man ihn in die erste Klammer schreibt. Bei mehreren Autoren trägt man ihre Namen mit einem Kaufmanns-Und „\&“ getrennt hintereinander ein. Den Titel der Arbeit legt man in der nächsten Klammer fest. Dazu gibt es die Möglichkeit eines weiteren Untertitels in der dritten Klammer. Möchte man einen der Punkte weglassen, so lässt man die entsprechende Klammer leer.
+
+				Die Vorlage bietet eine automatische Versionsverwaltung. Sobald man speichert, wird eine neue Versionsnummer erstellt (auf dem Deckblatt). Damit hat man eine gute Orientierung darüber, welche Datei die aktuellste ist, falls man viele verschiedene Versionen hat. Durch einen Vergleich der Nummer kann man so entscheiden, welche Datei die neuste ist. Um die Versionsverwaltung zu aktivieren, muss man in die Klammer hinter \texttt{all/Version} „true“ schreiben; ansonsten „false“ zur Deaktivierung. Die große Versionsnummer eines Dokuments legt man noch manuell fest, nämlich mit \texttt{all/VersionPraefix}. Das, was in der Klammer dahinter steht, ist dann die Hauptnummer. Steht dort eine „42“, so erhält man mit steigender Anzahl an Speichervorgängen die Versionen „42.1“, „42.2“, „42.3“ usw.
+
+				Das Titelbild auf dem Deckblatt kann leicht festgelegt werden. Verwendet wird das Bild „titel.jpg“ im jeweiligen Ordner der Vorlage. Möchte man sein eigenes Bild benutzen, so muss dieses im JPG-Format vorliegen und ebenfalls „titel.jpg“ heißen. Nun ersetzt man die Bilddatei im Ordner durch sein eigenes Bild. Ab sofort wird das neue Bild als Titelbild eingebunden. Falls gar kein Bild erscheinen soll, löscht man einfach „titel.jpg“ aus dem Dokumentordner. Die Größe des Bildes legt man in der Zeile \texttt{all/Icon/Breite} fest. In der Klammer dahinter steht der Vergrößerungsfaktor. „1“ bedeutet, dass das Bild in seiner Breite die volle Seitenbreite einnimmt, „.5“ steht für „0,5“ und bedeutet halbe Seitenbreite. „1.5“ hieße eineinhalbfache Seitenbreite (was aber nicht so sinnvoll ist, weil das Bild ja dann aus der Seite herausragt).
+
+			\subsection{Indices}
+
+				Das Konzept der Boxen soll an anderer Stelle erklärt werden. Wichtig ist in diesem Zusammenhang zunächst, dass es die Möglichkeit gibt, farbige Textboxen zu benutzen. Es stehen drei Farben zur Verfügung, sodass Abschnitte gleicher Bedeutung immer die gleichen Box-Farbe nutzen. Beispielsweise kann man einen argumentativen Beweis in einem blauen, eine selbst entwickelte Aussage immer in einem grünen Kasten anzeigen lassen. Die Beweise und Aussagen erhalten alle einen Titel bzw. eine Überschrift.
+
+				Im Kopfbereich der Vorlage kann man nun einstellen, ob für die jeweilige Box-Farbe an Ende des PDFs ein Index mit Auflistung der Box-Titel dieser Box-Art angezeigt wird oder nicht. Den Index-Titel legt man in den Zeilen\\ \texttt{all/Index/Boxen/.../titel} fest und die Entscheidung zur Darstellung des Index in der darauf folgenden Zeile \texttt{all/Index/Boxen/blau/zeigen}. Ein Beispiel soll dies verdeutlichen:
+
+				\newpage
+
+				\begin{verbatim}
+				all/Index/Boxen/blau/titel      = {Liste der Beispiele},
+				all/Index/Boxen/blau/zeigen     = {false},
+				all/Index/Boxen/gelb/titel      = {Liste der mathematischen Formeln},
+				all/Index/Boxen/gelb/zeigen     = {false},
+				all/Index/Boxen/gruen/titel     = {Liste der Aussagen},
+				all/Index/Boxen/gruen/zeigen    = {true},
+				\end{verbatim}
+
+				Es werden alle im Dokument vorkommenden Boxen angezeigt und in die PDF eingebaut. Aber nur die grünen Boxen werden am Schluss des Dokuments mit einem Index namens „Liste der Aussagen“ aufgelistet.
+
+				Auf die gleiche Weise funktioniert der Index der Begriffe, der ebenfalls im Kopfbereich des Dokuments aktiviert und deaktiviert wird.
+
+
+			\subsection{Literaturverzeichnis}
+
+				Am Beginn des Dokuments legt man fest, ob am Ende des PDFs ein Literaturverzeichnis angezeigt wird oder nicht. Zur Aktivierung setzt man einfach die Klammer der Zeile \texttt{all/Index/Literatur/zeigen} auf „true“ statt auf „false“. Die Überschrift des Verzeichnisses kann in der Zeile \texttt{all/Index/Literatur/titel} festgelegt werden. Ansonsten funktioniert dieses Literaturverzeichnis genauso, wie man es von klassischen \LaTeX{}-Dokumenten gewohnt ist.
+
+		\section{Auswahl der Dokumentklasse}
+
+			Man kann zwischen fünf verschiedenen Dokumenttypen wählen. Je nachdem, was für ein Schriftstück erstellt werden soll, entscheidet man sich zwischen \emph{Buch}, \emph{Mitschrift}, \emph{Skript}, \emph{Thesis} und \emph{Praesentation}. Im Kopfbereich des Dokuments befindet sich folgender Abschnitt:
+
+			\begin{verbatim}
+			\def\dokumentTyp{Skript}		% oder
+			%\def\dokumentTyp{Thesis}	% oder
+			%\def\dokumentTyp{Mitschrift}	% oder
+			%\def\dokumentTyp{Praesentation}
+			\end{verbatim}
+
+			Zur Wahl eines Dokumenttyps entfernt man das Prozentzeichen vor der entsprechenden Zeile und setzt die Zeichen vor alle anderen Zeilen. Um eine Thesis zu verfassen, müsste man den Code also wie folgt verändern:
+			\newpage
+			\begin{verbatim}
+			%\def\dokumentTyp{Skript}		% oder
+			\def\dokumentTyp{Thesis}	% oder
+			%\def\dokumentTyp{Mitschrift}	% oder
+			%\def\dokumentTyp{Praesentation}
+			\end{verbatim}
+
+			\begin{redbox}
+				Hinweis zum Typ \emph{Buch}:
+				Bitte hier an die Beispieldatei \texttt{/doc/muster-buch.pdf} halten, da dieser Dokumenttyp 2022 komplett neu überarbeitet wurde.
+			\end{redbox}
+
+			\subsection{Skript}
+
+				Ein \emph{Skript} hat ein Deckblatt, ein Inhaltsverzeichnis und die Ränder sind auf allen Seiten stets links und rechts gleich. Das Format ist DIN-A4. Das Deckblatt zeigt das Titelbild, Titel und Untertitel, Autor(en), ggf. Anmerkungen, Versionsnummer und Datum.
+
+				Dies eignet sich für längere, sachliche Texte. Beispiele für Skripte sind: Abschlussarbeiten, Anleitungen, Dokumentationen, Beschreibungen und alle Arten von stark strukturierten, langen Texten. Auch die hier vorliegende Anleitung nutzt genau diesen Typ.
+
+				Die Menge der notwendigen Einstellungen ist recht kurz. Im Kopfbereich gibt es nur folgende Zeile:
+
+				\begin{verbatim}
+				Skript/AnmerkungenTitelseite 	= {},
+				\end{verbatim}
+
+				Diese Einstellung ist optional. Wenn man etwas in die Klammer schreibt (und diesen Dokumenttyp nutzt), so wird der Inhalt der Klammer über Datum und Version eingefügt. Das sieht dann so aus:
+
+				\begin{center}
+					\fbox{\includegraphics[width=.7\textwidth]{Grafiken/1}}
+				\end{center}
+
+				Das Ergebnis wird mit Hilfe der folgenden Einstellung erreicht: \\
+				\texttt{Skript/AnmerkungenTitelseite = \{blabla\},}
+
+			\subsection{Mitschrift}
+
+				Eine \emph{Mitschrift} ist ein ein- oder mehrseitiges Dokument ohne Deckblatt. Auf jeder Seite sind Kopf- und Fußbereich vorhanden, durch Linien vom Seiteninhalt getrennt. Im Kopfbereich jeder Seite stehen Titel, Autor/-en, Datum, Zugehörigkeit zu einer Veranstaltung oder Sitzungsart und das Titelbild wird klein in der Mitte angezeigt. Der Fußbereich enthält die Seitenzahl. Es gibt kein Inhaltsverzeichnis.
+
+				Diese Art von Dokument eignet sich für alle Mitschriften, seien es Notizen einer Unterrichtsstunde oder Vorlesung, oder Protokolle einer Versammlung/Sitzung. Auch Hausaufgaben oder kurze gedankliche Skizzen lassen sich gut damit auf Papier bringen.
+
+				Für diese Dokumentart existieren mehrere Einstellungsmöglichkeiten:
+
+				\begin{verbatim}
+				Mitschriften/Vorlesungsname     = {},
+				Mitschriften/Typ                = {\"Ubung},
+				Mitschriften/LfdNr              = {},
+				Mitschriften/Gruppe             = {},
+				Mitschriften/Headerhoehe        = {42pt},
+				\end{verbatim}
+
+				Die erste Klammer „Vorlesungsname“ legt den Oberbegriff für die Mitschriften fest, also etwa den Namen eines Unterrichtsfachs oder einer Firma. An zweiter Stelle steht der Begriff für die Art der Sitzung. Dieser könnte beispielsweise „Hausaufgabe“, „Konferenz“ oder „Regionalkonvent“ lauten. Als drittes trägt man die Nummer der Mitschrift ein. Zusätzlich gibt es die Option, die Nummer der vorliegenden Arbeitsgruppe zu notieren. Als letztes erhält man die Möglichkeit, die Größe des Kopfbereichs anzupassen, wobei die bereits vorliegende Einstellung empfehlenswert ist. Auch hier gibt es ein Beispiel:
+
+				\begin{center}
+					\fbox{\includegraphics[width=.9\textwidth]{Grafiken/2}}
+				\end{center}
+
+				Dafür wurden folgende Einstellungen verwendet, wobei für das Bild eine eigene Grafik „titel.jpg“ verwendet wurde:
+
+				\begin{verbatim}
+				all/Autoren						= {Philipp Winniewski&Mirco Lukas},
+				all/Titel	 					= {Aufbau eines Zyklotrons},
+				all/Untertitel 					= {Das Synchrotron},
+				all/Icon/Breite					= {.05},
+				all/Version 					= {true},
+				Mitschriften/Vorlesungsname 	= {Physik},
+				Mitschriften/Typ 				= {Hausaufgabe},
+				Mitschriften/LfdNr 				= {23},
+				Mitschriften/Gruppe 			= {13},
+				\end{verbatim}
+
+				\begin{yellowboxIdx}{Hinweis 1: Keine Chapter!}
+					Eine Mitschrift hat keine Kapitel. Daher wird \texttt{$\backslash$chapter} automatisch zu \texttt{$\backslash$section} übersetzt.
+				\end{yellowboxIdx}
+
+			\subsection{Buch}
+
+				Die Vorlage für ein \emph{Buch} hat das deutliche Merkmal, dass die Seitengröße mit DIN-A5 kleiner ist als bei den zwei vorigen Typen. Das Deckblatt erinnert an jenes eines Skripts und man findet ebenfalls ein Inhaltsverzeichnis. Kapitel beginnen jeweils auf Seiten mit ungerader Seitenzahl und der Kapitelname wird über das gesamte Kapitel hinweg im Kopfbereich angezeigt. Darüber hinaus kann der Seitenrand für gerade und ungerade Seitenzahlen, welche in den Ecken oben am Außenrand dargestellt werden, unterschiedlich sein.
+
+				Ein solches Buch hat in etwa Taschenbuch-Format. Es eignet sich somit für längere Fließtexte wie \zb Romane.
+
+				\begin{redbox}
+					Bitte hier an die Beispieldatei \texttt{/doc/muster-buch.pdf} halten, da dieser Dokumenttyp 2022 komplett neu überarbeitet wurde.
+				\end{redbox}
+			
+			\subsection{Praesentation}
+
+				Die \emph{Praesentation} unterscheidet sich sehr stark von den anderen Typen. Genutzt wird hier die sogenannte \emph{Beamer}-Klasse von \LaTeX{}. Dabei handelt es sich um eine Formatierung, die auf Beamer- bzw. Projektor-Präsentationen ausgelegt ist. Die erzeugte PDF wird dann als Vollbild auf die Wand geworfen und Seite für Seite durchgeblättert.
+
+				Die hier genutzte Vorlage bietet dafür eine schlichte, jedoch ansehnliche Gestaltung. Es gibt eine Deck-Folie mit Datum, Autor, Titel und Untertitel. Zudem wird auf jeder Seite der Autor und die aktuelle Foliennummer unten angezeigt. Nach der zweiten Folie, dem Inhaltsverzeichnis, erhalten alle folgenden Folien eine Kopfleiste mit dem jeweiligen Folientitel.
+
+				Diese Einstellungen können mit der Vorlage gemacht werden:
+
+				\begin{verbatim}
+				Praesentationen/TitelKurz       = {},
+				Praesentationen/Institut        = {},
+				Praesentationen/InstitutKurz    = {}
+				\end{verbatim}
+
+		\section{Neue Befehle und Abkürzungen}
+
+			Die \LaTeX{}-Vorlage bietet eine Vielzahl neuer Befehle, die es eigentlich so in \LaTeX{} nicht gibt bzw. anders umschrieben werden müssen. Teilweise müsste man sehr langen Code nutzen, um zu bestimmten Ergebnissen zu kommen. Dies zu vermeiden ist das Anliegen der folgenden neuen Befehle, die in jeder Dokumentart verwendet werden können.
+
+			\subsection{Befehle für Fließtexte}
+
+				Sehr oft werden Zeichenabstände falsch gewählt. Die meisten Menschen wissen gar nicht, dass es etwa unterschiedliche Längen von Leerzeichen gibt. Da sich aber auch die meisten Menschen nicht damit auseinandersetzen möchten, bietet die Vorlage ein automatisches Setzen von Abkürzungen mit Hilfe leicht zu merkender Befehle, sodass etwa die Buchstaben bei „\zb“ näher rücken und nicht umgebrochen werden. Außerdem gibt es weitere nützliche Befehle.\newline
+
+				\begin{tabular}{|p{5 cm}|p{4 cm}|p{5 cm}|}
+					\hline \ru \textbf{Befehl} & \textbf{Ergebnis} & \textbf{Beschreibung} \\
+					\hline $\backslash$blitz & \blitz & Blitzsymbol, \zb Widersprüche \\
+					\hline $\backslash$colorref(1) & \colorref(1) & Nummerierung für Formeln zur Referenzierung (1 bis 4) \\
+					\hline $\backslash$ellipse & \ellipse & Auslassungszeichen \\
+					\hline $\backslash$fallunterscheidung[x=]\{2 $\backslash$fuer 3,\}\{4 $\backslash$sonst\} & \fallunterscheidung[x=]{1 \fuer 3,}{4 \sonst} & Geschweifte Klammer mit zwei Feldern rechts ($\backslash$fuer und $\backslash$sonst sind optional)\\
+					\hline $\backslash$length\{text\} & \length{text} & Setzt Text in gerade Linien \\
+					\hline $\backslash$name\{Mirco Lukas\} & \name{Mirco Lukas} & Kapitälchen für Namensnennungen \\
+					\hline $\backslash$teilaufgabe\{1\} & \teilaufgabe{1} & Überschrift für Teilaufgaben mit Aufgabennummer in Klammer \\
+					\hline
+				\end{tabular}
+
+				\begin{tabular}{|p{5 cm}|p{4 cm}|p{5 cm}|}
+					\hline \textbf{Befehl} & \textbf{Ergebnis} & \textbf{Beschreibung} \\
+					\hline $\backslash$textmarker\{green\}\{text\} &\textmarker{green}{text} & Farbiges Hinterlegen eines Textes, wobei die Farbe auf englisch angegeben wird (sehr viele Farben funktionieren!) \\
+					\hline $\backslash$qed & \qed & Beweis-Schlusszeichen bzw. \emph{quod erat demonstrandum} am Zeilenende \\
+					\hline $\backslash$wiki\{https://de.wikipedia. org/wiki/LaTeX\} & \wiki{https://de.wikipedia.org/wiki/LaTeX} & Link zu einer Wikipedia-Seite, wobei als Text nur „Wikipedia“ angezeigt wird \\
+					\hline $\backslash$dhe & \dhe & „das heißt“ \\
+					\hline $\backslash$Dhe & \Dhe & „Das heißt“ \\
+					\hline $\backslash$idr & \idr & „in der Regel“ \\
+					\hline $\backslash$Idr & \Idr & „In der Regel“ \\
+					\hline $\backslash$obda & \obda & „ohne Beschränkung der Allgemeinheit“ \\
+					\hline $\backslash$Obda & \Obda & „Ohne Beschränkung der Allgemeinheit“ \\
+					\hline $\backslash$sio &  \sio & „siehe oben“ \\
+					\hline $\backslash$Sio &  \Sio & „Siehe oben“ \\
+					\hline $\backslash$siu & \siu & „siehe unten“ \\
+					\hline $\backslash$Siu & \Siu & „Siehe unten“ \\
+					\hline $\backslash$ua & \ua & „unter anderem“ \\
+					\hline $\backslash$Ua & \Ua & „Unter anderem“ \\
+					\hline $\backslash$va & \va & „vor allem“ \\
+					\hline $\backslash$Va & \Va & „Vor allem“ \\
+					\hline $\backslash$zb & \zb & „zum Beispiel“ \\
+					\hline $\backslash$Zb & \Zb & „Zum Beispiel“ \\
+					\hline $\backslash$zt & \zt & „zum Teil“ \\
+					\hline $\backslash$Zt & \Zt & „Zum Teil“ \\
+					\hline $\backslash$href\{http://google.de\} \{Google\} & \href{http://google.de}{Google} & Link mit selbst definiertem, angezeigtem Text in der zweiten Klammer \\
+					\hline
+				\end{tabular} \newline
+
+				Die Abkürzungen existieren für Positionen mitten im Satz und für Satzanfänge. Die Versionen für Satzanfänge besitzt als ersten Buchstaben des Befehls auch einen Großbuchstaben, um sich dies leichter merken zu können.
+
+			\subsection{Befehle für mathematische Umgebungen}
+
+				In \LaTeX{} gibt es sogenannte \emph{Mathematische Umgebungen}. Diese erlauben andere Befehle als sonst und ändern auch die Formatierungen. Eine Mathematische Umgebung beginnt und endet mit einem Dollarzeichen „\$“. Innerhalb dieser Zeichen werden mathematische Formeln und Sonderzeichen eingefügt. Folgende Befehle stellt die Vorlage zusätzlich zu denen von \LaTeX{} für solche Textabschnitte zur Verfügung: \newline
+
+				\begin{tabular}{|p{5 cm}|p{4 cm}|p{5 cm}|}
+					\hline \textbf{Befehl} & \textbf{Ergebnis} & \textbf{Beschreibung} \\
+					\hline $\backslash$andd & $\andd$ & Konjunktionszeichen \\
+					\hline $\backslash$bigandd & $\bigandd$ & Großes Konjunktionszeichen \\
+					\hline $\backslash$bigorr & $\bigorr$ & Großes Disjunktionszeichen \\
+					\hline $\backslash$orr & $\orr$ & Disjunktionszeichen \\
+					\hline $\backslash$epsilon & $\epsilon$ & Alternatives Epsilon \\
+					\hline $\backslash$epsilonOld & $\epsilonOld$ & Standard-Version für Epsilon \\
+					\hline $\backslash$phi & $\phi$ & Alternatives Phi \\
+					\hline $\backslash$phiOld & $\phiOld$ & Standard-Version für Phi \\
+					\hline
+				\end{tabular}
+
+		\section{Begriffsdefinitionen}
+
+			In wissenschaftlichen Arbeiten kommt es häufig vor, dass eine Reihe fachlicher Begriffe genutzt, eingeführt, erklärt oder definiert wird. In vielen Fällen möchte man diese Wörter oder Wortkombinationen hervorheben und am Ende des Werks alphabetisch auflisten. Hierfür bietet die \LaTeX{}-Vorlage unterstützende Funktionen.
+
+			Es gibt folgende drei Befehle für neu im Werk erscheinende Begriffe:
+
+			\begin{verbatim}
+				\neuerbegriff{}
+				\neuerbegriffIdx{}
+				\neuerbegriffIdx[]{}
+			\end{verbatim}\newline
+
+			Alle drei Befehle setzen den Inhalt der jeweils hintersten Klammer in ein rotes Kästchen und hinterlegt es leicht grau. Die letzten beiden Befehle ermöglichen zudem das Eintragen des Begriffs in den dazugehörigen Index. Mit dem letzten Befehl kann man die Auflistung des Begriffs im Index mit einer alternativen Bezeichnung durchführen, wobei die Index-Bezeichnung in die eckige Klammer geschrieben wird.
+
+			Den Index bzw. die Auflistung der Begriffe im Anhang des Dokuments aktiviert und deaktiviert man im Kopfbereich der \LaTeX{}-Datei mit der Einstellung
+
+			\begin{verbatim}
+				all/Index/Begriffe/titel     = {Index der Begriffe},
+				all/Index/Begriffe/zeigen    = {true},
+			\end{verbatim}\newline
+
+			Dabei gibt man den Titel des Anhangs für Begriffe in der ersten Klammer an. Das Ein- und Ausschalten funktioniert mit der zweiten Klammer, indem man „true“ oder „false“ hineinschreibt. Es folgt ein Beispiel:
+
+			\begin{verbatim}
+			Ein \neuerbegriff{Autodidakt} ist ein Mensch, der selbstständig lernt. \\
+			Ein \neuerbegriffIdx{Lehrer} ist ein Mensch, der anderen Menschen oder
+			Tieren etwas lehrt. \\
+			Ein \neuerbegriffIdx[Auto, Automobil]{Auto} ist ein aus eigenem Antrieb
+			heraus fahrendes Transportmittel mit vier Rädern.
+			\end{verbatim}\newline
+
+			Das Ergebnis sieht so aus: \\
+
+			\fbox{\begin{minipage}{\textwidth}
+					Ein \neuerbegriff{Autodidakt} ist ein Mensch, der selbstständig lernt. \\
+					Ein \neuerbegriffIdx{Lehrer} ist ein Mensch, der anderen Menschen oder Tieren etwas lehrt. \\
+					Ein \neuerbegriffIdx[Auto, Automobil]{Auto} ist ein aus eigenem Antrieb heraus fahrendes Transportmittel mit vier Rädern.
+				\end{minipage}}\newline
+
+			Und der Index dazu am Ende der Arbeit hat diese Gestalt (Seitenausschnitt):
+
+			\begin{center}
+				\fbox{\includegraphics[width=.9\textwidth]{Grafiken/4}}
+			\end{center}
+
+		\section{Beispiele und Beweise}
+
+			Wissenschaftliche Arbeiten erfordern meist die Nennung von Beispielen und Beweisen. Für diese Fälle gibt es spezielle Umgebungen, die diese Vorlage realisiert. Somit werden diese Text-Ausschnitte angemessen dargestellt. Auch hier existieren drei Befehle:
+
+			\begin{verbatim}
+				\begin{beispiel}
+				\end{beispiel}
+
+				\begin{beispiele}
+				\end{beispiele}
+
+				\begin{beweis}
+				\end{beweis}
+			\end{verbatim}\newline
+
+			Jeweils \texttt{begin} und \texttt{end} rahmen einen solchen Abschnitt ein. Er beginnt immer mit einer fett geschriebenen Überschrift, also „Beispiel.“ oder „Beweis.“. Möchte man diese Überschrift präzisieren, so muss man hinter den Beginn-Befehl eine eckige Klammer mit der entsprechenden Erweiterung der Überschrift einsetzen. Hier einige Beispiele:
+
+			\begin{verbatim}
+				\begin{beispiel}
+					Das hier ist ein Beispiel.
+				\end{beispiel}
+
+				\begin{beispiele}
+					Das hier sind mehrere Beispiele.
+				\end{beispiel}
+
+				\begin{beispiel}[zur Nutzung von Lautsprechern]
+					Mit Lautsprechern kann man seine Nachbarn ärgern.
+				\end{beispiel}
+
+				\begin{beweis}
+					Ist halt so.
+				\end{beweis}
+
+				\begin{beweis}[für die Notwendigkeit von Speiseeis]
+					Dazu muss man nichts sagen!
+				\end{beweis}
+			\end{verbatim}\newline
+
+			Dieser Code erzeugt folgende Abschnitte:
+
+			\fbox{\begin{minipage}{\textwidth}
+					\begin{beispiel}
+						Das hier ist ein Beispiel.
+					\end{beispiel}
+
+					\begin{beispiele}
+						Das hier sind mehrere Beispiele.
+					\end{beispiele}
+
+					\begin{beispiel}[zur Nutzung von Lautsprechern]
+						Mit Lautsprechern kann man seine Nachbarn ärgern.
+					\end{beispiel}
+
+					\begin{beweis}
+						Ist halt so.
+					\end{beweis}
+
+					\begin{beweis}[für die Notwendigkeit von Speiseeis]
+						Dazu muss man nichts sagen!
+					\end{beweis}
+				\end{minipage}}\newline
+
+			Es kann sich hier leider ein Problem ergeben. Verwendet man eine andere Umgebung innerhalb der gerade vorgestellten Umgebungen, so entstehen große Abstände zwischen Überschrift und Inhalt. Bei Beweisen entsteht zudem ein Abstand zwischen Inhalt und Beweis-Schlusszeichen. Für diese Fälle kann man eine zweite eckige Klammer setzen mit dem Inhalt „o“ für „oben enger“, „u“ für „unten enger“ und „b“ für „beides enger“. Auch das soll am Beispiel gezeigt werden:
+
+			\begin{verbatim}
+			\begin{beweis}[für meine Theorie]
+				\begin{itemize}
+					\item Ich habe Recht.
+					\item Du hast Unrecht.
+				\end{itemize}
+			\end{beweis}
+
+			\begin{beweis}[für meine Theorie][b]
+				\begin{itemize}
+					\item Ich habe Recht.
+					\item Du hast Unrecht.
+				\end{itemize}
+			\end{beweis}
+			\end{verbatim}\newline
+
+			Dieser Code erzeugt folgende Abschnitte:
+
+			\fbox{\begin{minipage}{\textwidth}
+					\begin{beweis}[für meine Theorie]
+						\begin{itemize}
+							\item Ich habe Recht.
+							\item Du hast Unrecht.
+						\end{itemize}
+					\end{beweis}
+
+					\begin{beweis}[für meine Theorie][b]
+						\begin{itemize}
+							\item Ich habe Recht.
+							\item Du hast Unrecht.
+						\end{itemize}
+					\end{beweis}
+				\end{minipage}}\newline
+
+		\section{Aufzählungen}
+
+			Aufzählungen existieren auch ohne die Vorlage in \LaTeX{} und können \zb über den Befehl \texttt{$\backslash$begin\{enumerate\}} usw. eingefügt werden. Allerdings sind Optionen für alternative Aufzählungsformate kompliziert zu realisieren und man kann sie sich nicht so leicht merken. Genau für diesen Fall bietet die \LaTeX{}-Vorlage vier neue Aufzählungsumgebungen; eine für Listen mit Buchstaben und eine für Römische Zahlen (jeweils eine Version für große und kleine Zeichen). Die Umgebungen heißen „enumeratealpha“, „enumerateAlpha“, „enumerateroman“ und „enumerateRoman“.
+
+			Die normale Aufzählung soll mit den vier neuen Formaten im folgenden Beispiel verglichen werden:
+
+			\begin{verbatim}
+				\begin{enumerate}
+					\item Eins
+					\item Zwei
+					\item Drei
+				\end{enumerate}
+
+				\begin{enumeratealpha}
+					\item Eins
+					\item Zwei
+					\item Drei
+					\item Vier
+					\item Fünf
+				\end{enumeratealpha}
+
+
+				\begin{enumerateAlpha}
+					\item Eins
+					\item Zwei
+				\end{enumerateAlpha}
+
+				\begin{enumerateroman}
+					\item Eins
+					\item Zwei
+					\item Drei
+					\item Vier
+					\item Fünf
+				\end{enumerateroman}
+
+				\begin{enumerateRoman}
+					\item Eins
+					\item Zwei
+				\end{enumerateRoman}
+			\end{verbatim}\newline
+
+			Dieses Ergebnis erzeugt der obige Code: \newline
+
+			\fbox{\begin{minipage}{\textwidth}
+					\begin{enumerate}
+						\item Eins
+						\item Zwei
+						\item Drei
+					\end{enumerate}
+
+					\begin{enumeratealpha}
+						\item Eins
+						\item Zwei
+						\item Drei
+						\item Vier
+						\item Fünf
+					\end{enumeratealpha}
+
+					\begin{enumerateAlpha}
+						\item Eins
+						\item Zwei
+					\end{enumerateAlpha}
+				\end{minipage}}\newline
+
+			\fbox{\begin{minipage}{\textwidth}
+					\begin{enumerateroman}
+						\item Eins
+						\item Zwei
+						\item Drei
+						\item Vier
+						\item Fünf
+					\end{enumerateroman}
+
+					\begin{enumerateRoman}
+						\item Eins
+						\item Zwei
+					\end{enumerateRoman}
+				\end{minipage}}\newline
+
+		\section{Zitate}
+
+			Auch für Zitate hat \LaTeX{} von Haus aus zwei Umgebungen, nämlich „quote“ (für kurze Zitate oder Phrasen) und „quotation“ (für längere Zitate mit mehr als einem Absatz). Die Vorlage erweitert die Zitat-Funktion mit sinnvollen Mechanismen. Die Umgebungen heißen dann „quotex“ und „quotationx“, also mit einem „x“ hinter dem regulären Namen. Dann gibt es zwei neue Funktionen: zum einen kann man leicht die Quelle bzw. den Autor des Zitats nennen, zum anderen kann man zwischen vier verschiedenen Schriftarten wählen. Als Fonts stehen Standard-, Schreibmaschinen-, Hand- und Frakturschrift zur Auswahl. Auf diese Weise kann man bei jedem Zitat für die passende Gestalt sorgen.
+
+			Die Codes lauten:
+
+			\begin{verbatim}
+			\begin{quotex}[][]
+			\end{quotex}
+
+			\begin{quotationx}[][]
+			\end{quotationx}
+			\end{verbatim}\newline
+
+			Die erste eckige Klammer enthält den Ursprung, die Quelle oder den Autor des Zitats.
+
+			Man schreibt in die zweite eckige Klammer die Abkürzung der Schriftart. „tt“ steht hier für „typewriter“ (Schribmaschine) und „fraktur“ für Frakturschrift. Möchte man das Zitat jedoch in normaler Schrift belassen, lässt man diese Klammer einfach leer.
+
+			Für alle vier Schriftbilder folgen nun Beispiele mit „quotex“. Die Umgebung „quotationx“ funktioniert natürlich analog dazu.
+
+			\begin{verbatim}
+			\begin{quotex}[Helmut Kohl][]
+			Entscheidend ist, was hinten rauskommt.
+			\end{quotex}
+
+			\begin{quotex}[Helmut Kohl][tt]
+			Entscheidend ist, was hinten rauskommt.
+			\end{quotex}
+
+			\begin{quotex}[Helmut Kohl][fraktur]
+			Entscheidend ist, was: hinten raus:kommt.
+			\end{quotex}
+			\end{verbatim}\newline
+
+			Und dazu das Ergebnis: \newline
+
+			\fbox{\begin{minipage}{\textwidth}
+					\begin{quotex}[Helmut Kohl][]
+						Entscheidend ist, was hinten rauskommt.
+					\end{quotex}
+
+					\begin{quotex}[Helmut Kohl][tt]
+						Entscheidend ist, was hinten rauskommt.
+					\end{quotex}
+
+					\begin{quotex}[Helmut Kohl][fraktur]
+						Entscheidend ist, was: hinten raus:kommt.
+					\end{quotex}
+				\end{minipage}}\newline
+
+		\section{Boxen}
+
+			Eine besondere Fähigkeit der Vorlage ist das Bereitstellen farbiger Kästchen zur Hervorhebung bestimmter Teile des Werks und zur Auflistung der jeweiligen Titel im Anhang. Man unterscheidet hier zwischen normalen Boxen und Warnungsboxen.
+
+			\subsection{Farbige Kästchen}
+
+				Für Beispiele, Hinweise, Definitionen usw. kann man farbige Kästchen einsetzen. Die jeweilige Farbe ordnet man für sich einer inhaltlichen Kategorie zu, damit gleiche Farben auch das Gleiche bedeuten. Zur Auswahl stehen Blau, Gelb und Grün. Ähnlich wie bei Begriffshervorhebungen können hier jeweils Kästchen einer Farbe zusammengefasst und als Auflistung im Anhang gezeigt werden. Die Einstellung erfolgt im Kopfbereich des Dokuments:
+
+				\begin{verbatim}
+					all/Index/Boxen/blau/titel      = {Index 1},
+					all/Index/Boxen/blau/zeigen     = {false},
+					all/Index/Boxen/gelb/titel      = {Index 2},
+					all/Index/Boxen/gelb/zeigen     = {true},
+					all/Index/Boxen/gruen/titel     = {Index 3},
+					all/Index/Boxen/gruen/zeigen    = {false},
+				\end{verbatim}
+
+				In die Klammern hinter \texttt{all/Index/Boxen/.../titel} schreibt man den Titel für den entsprechenden Index im Anhang für die genannte Farbe. In der Zeile darunter hinter \texttt{all/Index/Boxen/.../zeigen} schreibt man in die Klammer entweder „true“, wenn der Index für diese Farbe erstellt werden soll, oder „false“ falls nicht. Im Code oben würde demnach nur ein Anhang für gelbe Kästchen erstellt werden, und zwar mit der Überschrift „Index 2“ und der Auflistung der Titel aller gelben Kästchen.
+
+				Der Code für die Boxen selber sieht wie folgt aus:
+
+				\begin{verbatim}
+				\begin{blueboxIdx}[]{}
+				\end{blueboxIdx}
+				\end{verbatim}
+
+				Der Umgebungsname lautet für die blaue Box „blueboxIdx“ und für Gelb und Grün entsprechend „yellowboxIdx“ bzw. „greenboxIdx“. Die eckige Klammer trägt optional einen \LaTeX{}-Label zur Referenzierung, auf welchen über \texttt{$\backslash$ref} oder \texttt{$\backslash$vref} zugegriffen werden kann. Die geschweifte Klammer beinhaltet den Titel der Box. In dieser Klammer kann per Befehl \texttt{$\backslash$boxnummer} auf die fortlaufende Nummerierung der Kästchen zugegriffen werden. Somit passt sich die Nummer automatisch an, falls Boxen dazukommen oder entfernt werden.
+
+				Ein Beispiel soll dies alles zeigen: \newline
+
+				\begin{verbatim}
+				\begin{blueboxIdx}{Definition \boxnummer: Innenwinkel eines Polygons}
+				Die Innenwinkel eines Polygons sind in der Geometrie die Winkel,
+				die durch zwei benachbarte Polygonseiten eingeschlossen werden
+				und in Inneren des Polygons liegen. Die Ecken des Polygons
+				bilden dabei die Scheitelpunkte der Innenwinkel. Jedes $n$-Eck
+				besitzt genau $n$ Innenwinkel.
+				\end{blueboxIdx}
+
+
+				\begin{yellowboxIdx}{Satz \boxnummer: Innenwinkelsumme im Dreieck}
+				Die Summe der Innenwinkel eines Dreiecks ist stets 180 Grad.
+				\end{yellowboxIdx}
+
+				\begin{greenboxIdx}{Beispiel \boxnummer: Innenwinkel eines
+				gleichseitigen Dreiecks}
+				Da alle Seiten gleich lang sind, sind auch alle Winkel
+				gleich groß. Damit ergibt sich folgende Rechnung:
+				\begin{equation}
+				180 / 3 = 60
+				\end{equation}
+				\end{greenboxIdx}
+				\end{verbatim}
+
+				Das Resultat: \newline
+
+				\fbox{\begin{minipage}{\textwidth}
+						\begin{blueboxIdx}{Definition \boxnummer: Innenwinkel eines Polygons}
+							Die Innenwinkel eines Polygons sind in der Geometrie die Winkel, die durch zwei benachbarte Polygonseiten eingeschlossen werden und in Inneren des Polygons liegen. Die Ecken des Polygons bilden dabei die Scheitelpunkte der Innenwinkel. Jedes $n$-Eck besitzt genau $n$ Innenwinkel.
+						\end{blueboxIdx}
+
+						\begin{yellowboxIdx}{Satz \boxnummer: Innenwinkelsumme im Dreieck}
+							Die Summe der Innenwinkel eines Dreiecks ist stets 180 Grad.
+						\end{yellowboxIdx}
+
+						\begin{greenboxIdx}{Beispiel \boxnummer: Innenwinkel eines gleichseitigen Dreiecks}
+							Da alle Seiten gleich lang sind, sind auch alle Winkel gleich groß. Damit ergibt sich folgende Rechnung:
+							\begin{equation}
+							180 / 3 = 60
+							\end{equation}
+						\end{greenboxIdx}
+					\end{minipage}}\newline
+
+				Aktiviert man nun den Index mit dem Titel „Liste der Definitionen“ (im Kopfbereich des Dokuments) für gelbe Boxen, gäbe es folgende Seite für das obige Beispiel im Anhang:
+
+				\begin{center}
+					\fbox{\includegraphics[width=.9\textwidth]{Grafiken/5}}
+				\end{center}
+
+					\begin{yellowboxIdx}{Hinweis 2: Indices mit TeXstudio}
+						Möchte man einen oder mehrere Indices in sein Dokument einfügen, dann muss direkt vor der Berechnung des PDFs der Menüpunkt Tools/Index in der Menüleiste von TeXstudio angeklickt werden. Auch, wenn man den Index aktualisieren möchte, muss dieser Schritt durchgeführt werden.
+					\end{yellowboxIdx}
+
+			\subsection{Warnungskästchen}
+
+				Zusätzlich zu diesen Farben gibt es noch rote Kästchen, die für Warnungen gedacht sind. Diese tragen als Titel stets „Achtung!“ und können nicht in einem Index aufgelistet werden. Hier das Beispiel:
+
+				\begin{verbatim}
+				\begin{redbox}
+					Man sollte nie unhöflich sein!
+				\end{redbox}
+				\end{verbatim}
+
+				\fbox{\begin{minipage}{\textwidth}
+						\begin{redbox}
+							Man sollte nie unhöflich sein!
+						\end{redbox}
+					\end{minipage}}\newline
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

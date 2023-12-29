@@ -1,0 +1,69 @@
+% Languages
+\def\mainLanguage{english}
+\def\otherLanguage{ngerman}
+
+
+\input{../book-v1}
+
+% ===========================================================================
+
+% Placeholders (if different than template defaults)
+\pgfqkeys{/templateV1}{
+	%	Data
+	key/data/show					= {true},
+	key/data/year					= {2022},
+	key/data/publishing				= {Private publishing},
+	key/data/copyrightOwner			= {Cowner},
+	key/data/printing				= {22 1},
+	key/data/ISBN					= {any ISBN},
+	key/data/ASIN					= {any ASIN},
+	%
+	key/data/copyrightDisclaimer	= {All rights reserved. No part of this book covered by copyright hereon may be reproduced, or distributed, or transmitted in any form or by any means, or stored in a database or retrieval system, electronic, mechanical, photocopying, or otherwise, without the prior written permission of the publisher.},
+	%
+	key/data/trademarkDisclaimer	= {Many of the designations used by manufacturers and sellers to distinguish their products are claimed as trademarks. Where those designations appear in the book, and the publisher was aware of the trademark claim, the designations have been printed in initial caps or all caps.},
+	%	General
+	key/authors						= {Author},
+	key/title	 					= {The Book\\Title},
+	key/subtitle 					= {The Book\\Subtitle},
+	%	Title picture
+	key/icon/width					= {.1},	% 0.1 - 1.0
+	key/icon/path					= {icon.png},
+	%	Author page
+	key/author/picture				= {author.jpg},
+	key/author/about				= {About the author},
+	%	Indices
+	key/index/box/blue/title 		= {Comments},
+	key/index/box/blue/show 		= {false},
+	key/index/box/yellow/title 		= {},
+	key/index/box/yellow/show 		= {false},
+	key/index/box/green/title 		= {},
+	key/index/box/green/show 		= {false},
+	key/index/keyword/title 		= {Index of Keywords},
+	key/index/keyword/show 			= {true},
+	key/index/literature/title 		= {Bibliography},
+	key/index/literature/show 		= {false},
+	key/index/tableOfContents/title	= {Table of Contents},
+	%	Environments
+	key/environment/example/title	= {Example}, % \begin{example}
+	key/environment/proof/title		= {Proof},	% \begin{proof}
+	key/environment/analogy/title	= {Analogy},	% \begin{analogy}
+	%	Dedications
+	key/frontDedication				= {},
+	key/backDedication				= {},
+	%	Design
+	key/textAlignment				= {rl}	% e or rl
+}
+
+
+% ===========================================================================
+%      Hier eigene Packages einbinden und eigene Befehle definieren
+
+
+% ===========================================================================
+
+
+	\begin{document}
+	\chapter{Kapitel}
+		\lipsum[2-10]
+
+\end{document}
