@@ -41,7 +41,7 @@ gdp/cmake-build-debug/
 *.pio/
 
 # LaTeX
-#*.template-locator.tex
+*.template-locator.tex
 *.aux
 *.log
 *.synctex.gz
