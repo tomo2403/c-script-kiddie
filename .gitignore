@@ -38,3 +38,4 @@ gdp/cmake-build-debug/
 *.idea
 *.dSYM/
 *.vs/
+*.pio/
