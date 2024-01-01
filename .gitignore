@@ -39,3 +39,10 @@ gdp/cmake-build-debug/
 *.dSYM/
 *.vs/
 *.pio/
+
+# LaTeX
+#*.template-locator.tex
+*.aux
+*.log
+*.synctex.gz
+*.toc
