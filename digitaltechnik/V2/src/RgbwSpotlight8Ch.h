@@ -29,7 +29,7 @@ public:
     bool blinkOn = false;
     bool isFading = false;
 
-    DmxCommand commandList[18] = {
+    DmxCommand commandList[24] = {
             {100,   BlueDimming,  255},
             {200,   TotalDimming, 100},
             {400,   Blink,        255},
@@ -39,13 +39,19 @@ public:
             {1950,  Blink,        255},
             {2350,  Blink,        255},
             {2700,  Blink,        255},
-            {2990,  BlinkTimeout, 300},
+            {2990,  BlinkTimeout, 255},
             {3000,  Blink,        255},
             {3400,  BlinkTimeout, 100},
             {3550,  Blink,        255},
             {3900,  Blink,        255},
             {4200,  Blink,        255},
             {4700,  TotalDimming, 0},
+            {4701,  RedDimming,   100},
+            {16000, RedDimming,   255},
+            {16001, BlueDimming,  0},
+            {22000, GreenDimming, 255},
+            {22001, RedDimming,   0},
+            {26000, WhiteDimming, 200},
             {31000, Fade,         255},
             {32800, Stop,         0}
     };
@@ -62,7 +68,7 @@ public:
                     case PrintTime:
                         PrintTimeToSerial(currentMillis);
                     case Blink:
-                        StartBlink(currentMillis);
+                        StartBlink(currentMillis, cmd.value);
                         break;
                     case Fade:
                         StartFading(currentMillis);
@@ -98,11 +104,10 @@ public:
         }
     }
 
-    void StartBlink(unsigned int currentMillis) {
+    void StartBlink(unsigned int currentMillis, unsigned char value) {
         blinkOn = true;
         blinkStart = currentMillis;
-        totalDimmingValue = 255;
-        Set(TotalDimming, totalDimmingValue);
+        Set(TotalDimming, value);
     }
 
     void StartFading(unsigned int currentMillis) {
@@ -119,7 +124,7 @@ protected:
     unsigned int blinkStart = 0;
     unsigned short blinkTimeout = 100;
 
-    unsigned int fadingLastCall = 0;
+    unsigned int fadingLastCall;
     unsigned char fadingTimeout = 7;
     unsigned char fadingInterval[2] = {
             255, //From

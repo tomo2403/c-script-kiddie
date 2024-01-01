@@ -1,4 +1,4 @@
-#define DEMO 1         //Demomodus AUS bei 0
+#define DEMO 0         //Demomodus AUS bei 0
 #define BPM_IN_MS 484  //Quotient aus 60.000ms und BPM
 
 #include <Arduino.h>
@@ -7,12 +7,12 @@
 
 #if DEMO == 0
 RgbwSpotlight8Ch spotlights[2] = {
-        {RgbwSpotlight8Ch(2)},
-        {RgbwSpotlight8Ch(4)}
+        {RgbwSpotlight8Ch(1)},
+        {RgbwSpotlight8Ch(37)}
 };
 MiniMovingHead14Ch movingHeads[2] = {
-        {MiniMovingHead14Ch(3)},
-        {MiniMovingHead14Ch(5)}
+        {MiniMovingHead14Ch(9)},
+        {MiniMovingHead14Ch(23)}
 };
 
 #else
@@ -48,7 +48,7 @@ void BeatDetector(unsigned int currentMillis) {
                 //Serial.print(interval[1]); Serial.print(" < "); Serial.println(currentMillis);
 
                 for (auto &spotlight: spotlights) {
-                    spotlight.StartBlink(currentMillis);
+                    spotlight.StartBlink(currentMillis, 255);
                 }
                 break;
             }

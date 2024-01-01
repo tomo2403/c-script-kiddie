@@ -35,12 +35,66 @@ public:
     bool blinkOn = false;
     bool isFading = false;
 
-    DmxCommand commandList[5] = {
-            {1, BlueDimming, 255},
-            {2, Effect, 134},
-            {3, Effect, 255},
-            {31000, Fade, 255},
-            {32800, Stop, 0}
+    DmxCommand commandList[49] = {
+            {1,     BlueDimming,  200},
+            {2,     GreenDimming, 200},
+            {3,     Pan,          128},
+            {4,     Tilt,         128},
+            {4700,  Speed,        251},
+            {4701,  Effect,       255},
+            {4702,  Tilt,         255},
+            {4703,  Effect,       190},
+            {16000, Speed,        0},
+            {16001, Effect,       0},
+            {16002, Effect,       255},
+
+            {16003, Pan,          255},
+            {16004, Tilt,         255},
+            {16005, BlueDimming,  0},
+            {16005, GreenDimming, 0},
+            {16005, RedDimming,   255},
+
+            {18000, Speed,        100},
+            {18000, Pan,          0},
+            {18000, Tilt,         0},
+            {18001, GreenDimming, 100},
+
+            {21000, Pan,          200},
+            {21000, Tilt,         180},
+            {21001, RedDimming,   0},
+            {21001, WhiteDimming, 100},
+
+            {24000, Pan,          0},
+            {24000, Tilt,         0},
+            {24001, BlueDimming,  100},
+
+            {26000, Pan,          80},
+            {26000, Tilt,         190},
+            {26001, BlueDimming,  0},
+            {26001, GreenDimming, 0},
+            {26001, RedDimming,   0},
+            {26001, WhiteDimming, 255},
+
+            {27000, Pan,          40},
+            {27000, Tilt,         150},
+            {27001, WhiteDimming, 0},
+            {27001, BlueDimming,  255},
+
+            {28000, Pan,          80},
+            {28000, Tilt,         190},
+            {28001, RedDimming,   250},
+
+            {29000, Pan,          255},
+            {29000, Tilt,         0},
+            {29001, BlueDimming,  0},
+            {29001, GreenDimming, 255},
+
+            {30500, Speed,        190},
+            {30501, Pan,          128},
+            {30501, Tilt,         128},
+
+            {31000, Fade,         255},
+            {32800, Stop,         0}
     };
 
     void RunTick(unsigned int currentMillis) override {
