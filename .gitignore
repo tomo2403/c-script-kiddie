@@ -46,3 +46,4 @@ gdp/cmake-build-debug/
 *.log
 *.synctex.gz
 *.toc
+*_minted*

@@ -4,10 +4,12 @@
 #include "DmxDevice.h"
 #include "DmxCommand.h"
 
+/// @brief Beschreibt einen DMX-Scheinwerfer mit acht Kanälen.
 class RgbwSpotlight8Ch : public DmxDevice {
 public:
     explicit RgbwSpotlight8Ch(unsigned short address) : DmxDevice(address) {}
 
+    /// @brief Alle Funktionen, welche das Gerät unterstützt.
     enum Functions {
         TotalDimming,
         RedDimming,
@@ -29,6 +31,7 @@ public:
     bool blinkOn = false;
     bool isFading = false;
 
+    /// @brief List der Befehle des Geräts.
     DmxCommand commandList[24] = {
             {100,   BlueDimming,  255},
             {200,   TotalDimming, 100},
@@ -91,11 +94,13 @@ public:
     };
 
     void CleanUp(unsigned int currentMillis) override {
+        // Blinken beenden
         if (blinkOn && (currentMillis - blinkStart) > blinkTimeout) {
             Set(TotalDimming, totalDimmingValue);
             blinkOn = false;
         }
 
+        // Dimmen fortsetzen falls aktiv
         if (isFading && (currentMillis - fadingLastCall) > fadingTimeout) {
             totalDimmingValue--;
             fadingLastCall = currentMillis;
@@ -104,12 +109,17 @@ public:
         }
     }
 
+    /// @brief Bereitet das Blinken des Lichts vor.
+    /// @param currentMillis Der aktuelle Zeitstempel.
+    /// @param value Die Stärke des blinkenden Lichts.
     void StartBlink(unsigned int currentMillis, unsigned char value) {
         blinkOn = true;
         blinkStart = currentMillis;
         Set(TotalDimming, value);
     }
 
+    /// @brief Bereitet das dimmen des Lichts vor.
+    /// @param currentMillis Der aktuelle Zeitstempel.
     void StartFading(unsigned int currentMillis) {
         isFading = true;
         fadingLastCall = currentMillis;
@@ -118,17 +128,24 @@ public:
     }
 
 protected:
+    /// @brief Die aktuelle Zeile in der Befehlsliste.
     unsigned short commandIndex = 0;
+    /// @brief Die aktuelle Gesamthelligkeit.
     unsigned char totalDimmingValue = 0;
 
+    /// @brief Zeitpunkt des Starts des blinkens.
     unsigned int blinkStart = 0;
+    /// @brief Dauer des blinkenden Lichts.
     unsigned short blinkTimeout = 100;
 
+    /// @brief Letzter Zeitpunkt des dimmens.
     unsigned int fadingLastCall;
+    /// @brief Zeit zwichen dem Dimmen zweier Werte.
     unsigned char fadingTimeout = 7;
+    /// @brief Intervall des dimmens.
     unsigned char fadingInterval[2] = {
-            255, //From
-            0 //To
+            255,    //Anfang
+            0       //Ende
     };
 };
 

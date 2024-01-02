@@ -1,0 +1,26 @@
+%!TEX root = DT_V2_tom-mohr_martin-ohmeyer.tex
+\section{Aufgabe 4.4}
+\paragraph{Aufgabenstellung}
+Wählen Sie ein Musikstück aus und programmieren Sie für die ersten 30s die Beleuchtungssequenz.
+
+\paragraph{Vorüberlegung}
+Um die DMX-Geräte ansteuern zu können, wird eine Klasse bereitgestellt, welche man mit einer einfachen Funktion, der man Adresse und gewünschten DMX-Werte gibt, bedienen kann. Da die Geräte nur an einem Ort erreichbar sind, sollte das Programm während der Entwicklung auch mit lokalen LEDs an den Pins des Arduinos ausführbar sein und einen schnellen Wechsel zwischen Test- \& Produktionsmodus ermöglichen, ohne den Code in großem Umfang abändern zu müssen. Um dies zu realisieren, werden Klassen mit Polymorphismus benötigt. Da die Geräte ihre Befehle selbstständig abarbeiten sollen, kann hier nicht mit der Delay-Funktion des Arduinos gearbeitet werden. Ein anderer Ansatz ist, fortlaufend die verstrichene Zeit ermitteln und die Objekte selbst entscheiden lassen, wann sie ihre Befehle anführen.
+
+\paragraph{Durchführung}
+In der Hauptdatei werden die Geräte als Objekte initialisiert, das DMX-Interface vorbereitet und in einer Endlosschleife die Objekte aufgerufen um ihre Befehle abzuarbeiten.
+\inputminted[linenos=true, breaklines, fontsize=\fontsize{10pt}{10pt}]{cpp}{../src/main.cpp}
+
+Damit die Geräte später einheitlich angesteuert werden können und eine gleiche Befehlsstruktur verwenden, definiert \textit{DmxCommand} die Befehle. Jeder Befehl enthält einen Zeitstempel, den Kanal und welchen Wert dieser annehmen soll.
+\inputminted[linenos=true, breaklines, fontsize=\fontsize{10pt}{10pt}]{cpp}{../src/DmxCommand.h}
+
+Um dem Polymorphismus gerecht zu werden, wird eine Basisklasse benötigt. Von \textit{DmxDevice} erben die Klassen für Scheinwerfer und Movingheads mit einer Grundstruktur von Funktionen und Variablen.
+\inputminted[linenos=true, breaklines, fontsize=\fontsize{10pt}{10pt}]{cpp}{../src/DmxDevice.h}
+
+Von dieser Basisklasse kann nun die Klasse RgbwSpotlight8Ch für die Spotlichter erben, ihre Befehle definieren und Funktionen erweitern.
+\inputminted[linenos=true, breaklines, fontsize=\fontsize{10pt}{10pt}]{cpp}{../src/RgbwSpotlight8Ch.h}
+
+Damit im Testmodus statt den Scheinwerfern LEDs verwendet werden können, erbt eine weitere Klasse \textit{RgbwSpotlight8ChDemo} von \textit{RgbwSpotlight8Ch}, um das DMX-Interface lokal emulieren zu können.
+\inputminted[linenos=true, breaklines, fontsize=\fontsize{10pt}{10pt}]{cpp}{../src/RgbwSpotlight8ChDemo.h}
+
+\paragraph{Schlussfolgerung}
+Zur Kompilierzeit wird festgelegt, ob sich das Programm im Test- oder Produktionsmodus befindet. Objekte aus Klassen können in beiden Modi gleich angesteuert werden, was das testen von Befehlen stark vereinfacht. Das Programm lässt die Geräte in einer Endlosschleife selbstständig ihre Befehle abarbeiten, ohne dass diese sich durch Verzögerungen blockieren. Der Versuch ist erfolgreich.
