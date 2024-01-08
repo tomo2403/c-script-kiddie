@@ -1,0 +1,22 @@
+$ /mnt/datadisk/reset_arduino.sh rs323 ttyUSB1
+
+avrdude: [...]
+
+avrdude: AVR device initialized and ready to accept instructions
+
+Reading | ################################################## | 100% 0.00s
+
+avrdude: Device signature = 0x1e950f (probably m328p)
+avrdude: safemode: lfuse reads as 0
+avrdude: safemode: hfuse reads as 0
+avrdude: safemode: efuse reads as 0
+avrdude: reading input file "/mnt/datadisk/rs323_default.hex"
+avrdude: can't open input file /mnt/datadisk/rs323_default.hex: No such file or directory
+avrdude: read from file '/mnt/datadisk/rs323_default.hex' failed
+
+avrdude: safemode: lfuse reads as 0
+avrdude: safemode: hfuse reads as 0
+avrdude: safemode: efuse reads as 0
+avrdude: safemode: Fuses OK (E:00, H:00, L:00)
+
+avrdude done.  Thank you.
