@@ -47,3 +47,6 @@ gdp/cmake-build-debug/
 *.synctex.gz
 *.toc
 *_minted*
+
+
+gdp/woche*/cmake-build-debug
