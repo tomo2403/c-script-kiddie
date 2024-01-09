@@ -44,7 +44,7 @@ unsigned int loopStartMillis = 0;
 
 /// @brief Zeitintervalls, in denen erkannte Beats verarbeitet werden sollen.
 unsigned int beatIntervals[1][2] = {
-        {4770, 31000},
+        {4770, 30000},
 };
 
 /// @brief Prüft bei jedem Aufruf, ob inder bereits verstrichenen Zeit ein Beat auftrat.

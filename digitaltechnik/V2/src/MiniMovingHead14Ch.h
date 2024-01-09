@@ -93,7 +93,7 @@ public:
             {30501, Pan,          128},
             {30501, Tilt,         128},
 
-            {31000, Fade,         255},
+            {31000, Fade,         30},
             {32800, Stop,         0}
     };
 
@@ -112,11 +112,10 @@ public:
                         StartBlink(currentMillis);
                         break;
                     case Fade:
+                        fadingTimeout = cmd.value;
                         StartFading(currentMillis);
                     case BlinkTimeout:
                         blinkTimeout = cmd.value;
-                    case FadeTimeout:
-                        fadingTimeout = cmd.value;
                     case Effect:
                         if (cmd.value > 8 && cmd.value < 134) {
                             totalDimmingValue = cmd.value;

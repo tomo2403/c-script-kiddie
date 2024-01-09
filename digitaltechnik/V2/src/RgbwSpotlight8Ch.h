@@ -23,7 +23,6 @@ public:
         Blink = 100,
         Fade = 101,
         BlinkTimeout = 200,
-        FadeTimeout = 201,
 
         Stop = 300,
         PrintTime = 301
@@ -32,7 +31,7 @@ public:
     bool isFading = false;
 
     /// @brief List der Befehle des Geräts.
-    DmxCommand commandList[24] = {
+    DmxCommand commandList[25] = {
             {100,   BlueDimming,  255},
             {200,   TotalDimming, 100},
             {400,   Blink,        255},
@@ -55,9 +54,16 @@ public:
             {22000, GreenDimming, 255},
             {22001, RedDimming,   0},
             {26000, WhiteDimming, 200},
-            {31000, Fade,         255},
+            {30000, TotalDimming, 255},
+            {31000, Fade,         30},
             {32800, Stop,         0}
     };
+
+    /*DmxCommand commandList[3] = {
+            {100,   BlueDimming,  255},
+            {100,   TotalDimming,  255},
+            {100,   Fade,  10}
+    };*/
 
     void RunTick(unsigned int currentMillis) override {
         DmxCommand cmd = commandList[commandIndex];
@@ -74,11 +80,10 @@ public:
                         StartBlink(currentMillis, cmd.value);
                         break;
                     case Fade:
+                        fadingTimeout = cmd.value;
                         StartFading(currentMillis);
                     case BlinkTimeout:
                         blinkTimeout = cmd.value;
-                    case FadeTimeout:
-                        fadingTimeout = cmd.value;
                     case TotalDimming:
                         totalDimmingValue = cmd.value;
                         Set(TotalDimming, totalDimmingValue);
@@ -141,7 +146,7 @@ protected:
     /// @brief Letzter Zeitpunkt des dimmens.
     unsigned int fadingLastCall;
     /// @brief Zeit zwichen dem Dimmen zweier Werte.
-    unsigned char fadingTimeout = 7;
+    unsigned char fadingTimeout = 10;
     /// @brief Intervall des dimmens.
     unsigned char fadingInterval[2] = {
             255,    //Anfang
