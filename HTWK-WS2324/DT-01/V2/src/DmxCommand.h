@@ -3,11 +3,13 @@
 
 /// @brief Beschreibt einen Befehl, der über DMX ausgeführt werden soll.
 struct DmxCommand {
+    /// @brief Die Gerätegruppe, welche verwendet werden soll.
+    uint8_t deviceGroup;
     /// @brief Der Zeitpunkt der geplanten Ausführung.
-    unsigned int executionTime;
+    unsigned short executionTime;
     /// @brief Der Kanal oder die Funktion, welche bedient wird.
-    int function;
+    short function;
     /// @brief Der Wert, welcher die Funktion verändert.
-    unsigned char value;
+    uint8_t value;
 };
 #endif
