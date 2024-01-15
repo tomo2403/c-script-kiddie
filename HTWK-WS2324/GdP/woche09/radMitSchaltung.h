@@ -3,41 +3,49 @@
 
 #include "eingangrad.h"
 
-class RadMitSchaltung : public EingangRad {
+class RadMitSchaltung : public EingangRad
+{
 public:
-    RadMitSchaltung(int zVorne, int zHinten, double d) : EingangRad(zVorne, zHinten, d){
+    RadMitSchaltung(int zVorne, int zHinten, double d) : EingangRad(zVorne, zHinten, d)
+    {
 
     }
 
-    double bestimmeEntfaltung() override {
-        return (double) ritzel[gangVorne] / kettenblaetter[gangHinten] * bestimmeRadumfang();
+    double bestimmeEntfaltung() override
+    {
+        return (double) kettenblaetter[gangHinten] / ritzel[gangVorne] * bestimmeRadumfang();
     }
 
-    int anzahlRitzel(){
+    int anzahlRitzel()
+    {
         return ritzel[gangHinten];
     }
-    int anzahlKettenblaetter(){
+
+    int anzahlKettenblaetter()
+    {
         return kettenblaetter[gangVorne];
     }
 
-    void setzeGang(int kettenblattNummer, int ritzelNummer){
+    void setzeGang(int kettenblattNummer, int ritzelNummer)
+    {
         gangVorne = kettenblattNummer;
         gangHinten = ritzelNummer;
     }
 
-    std::vector<int> gaenge(){
-        return {sizeof(ritzel), sizeof(kettenblaetter)};
+    std::vector<int> gaenge()
+    {
+        return {static_cast<int>(ritzel.size()), static_cast<int>(kettenblaetter.size())};
     }
 
 private:
     unsigned char gangVorne = 0;
     unsigned char gangHinten = 0;
 
-    unsigned char kettenblaetter[2] = {
+    std::vector<char> kettenblaetter = {
             34,
             50
     };
-    unsigned char ritzel[9] = {
+    std::vector<char> ritzel = {
             28,
             24,
             21,
