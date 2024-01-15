@@ -3,13 +3,12 @@
 
 /// @brief Liste aller zu sendenden Befehle
 DmxCommand dmxCommandList[74] = {
-        {1, 0,     MiniMovingHead14Ch::BlueDimming,  200},
-        {1, 0,     MiniMovingHead14Ch::GreenDimming, 200},
+        {1, 0,     MiniMovingHead14Ch::RGB,          51400},
         {1, 0,     MiniMovingHead14Ch::Pan,          128},
         {1, 0,     MiniMovingHead14Ch::Tilt,         128},
 
-        {0, 0,     RgbwSpotlight8Ch::BlueDimming,    255},
-        {0, 0,     RgbwSpotlight8Ch::TotalDimming,   100},
+        {0, 0,     RgbwSpotlight8Ch::RGB,            255},
+        {0, 0,     RgbwSpotlight8Ch::TotalDimming,   255},
         {0, 400,   RgbwSpotlight8Ch::Blink,          255},
         {0, 800,   RgbwSpotlight8Ch::Blink,          255},
         {0, 1100,  RgbwSpotlight8Ch::Blink,          255},
@@ -24,7 +23,7 @@ DmxCommand dmxCommandList[74] = {
         {0, 3900,  RgbwSpotlight8Ch::Blink,          255},
         {0, 4200,  RgbwSpotlight8Ch::Blink,          255},
         {0, 4700,  RgbwSpotlight8Ch::TotalDimming,   0}, //???????
-        {0, 4700,  RgbwSpotlight8Ch::RedDimming,     100},
+        {0, 4700,  RgbwSpotlight8Ch::RGB,            65280},
 
         {1, 4700,  MiniMovingHead14Ch::Speed,        251},
         {1, 4700,  MiniMovingHead14Ch::Effect,       255},
@@ -35,9 +34,7 @@ DmxCommand dmxCommandList[74] = {
         {1, 16000, MiniMovingHead14Ch::Effect,       255},
         {1, 16000, MiniMovingHead14Ch::Pan,          255},
         {1, 16000, MiniMovingHead14Ch::Tilt,         255},
-        {1, 16000, MiniMovingHead14Ch::BlueDimming,  0},
-        {1, 16000, MiniMovingHead14Ch::GreenDimming, 0},
-        {1, 16000, MiniMovingHead14Ch::RedDimming,   255},
+        {1, 16000, MiniMovingHead14Ch::RGB,          16711680},
 
         {0, 16000, RgbwSpotlight8Ch::RedDimming,     255},
         {0, 16000, RgbwSpotlight8Ch::BlueDimming,    0},
@@ -63,7 +60,7 @@ DmxCommand dmxCommandList[74] = {
         {1, 26000, MiniMovingHead14Ch::Tilt,         190},
         {1, 26000, MiniMovingHead14Ch::BlueDimming,  0},
         {1, 26000, MiniMovingHead14Ch::GreenDimming, 0},
-        {1, 26000, MiniMovingHead14Ch::RedDimming,   0},
+        {1, 26000, MiniMovingHead14Ch::RGB,          0},
         {1, 26000, MiniMovingHead14Ch::WhiteDimming, 255},
 
         {0, 26000, RgbwSpotlight8Ch::WhiteDimming,   200},
@@ -71,16 +68,15 @@ DmxCommand dmxCommandList[74] = {
         {1, 27000, MiniMovingHead14Ch::Pan,          40},
         {1, 27000, MiniMovingHead14Ch::Tilt,         150},
         {1, 27000, MiniMovingHead14Ch::WhiteDimming, 0},
-        {1, 27000, MiniMovingHead14Ch::BlueDimming,  255},
+        {1, 27000, MiniMovingHead14Ch::RGB,          255},
 
         {1, 28000, MiniMovingHead14Ch::Pan,          80},
         {1, 28000, MiniMovingHead14Ch::Tilt,         190},
-        {1, 28000, MiniMovingHead14Ch::RedDimming,   250},
+        {1, 28000, MiniMovingHead14Ch::RGB,          16711680},
 
         {1, 29000, MiniMovingHead14Ch::Pan,          255},
         {1, 29000, MiniMovingHead14Ch::Tilt,         0},
-        {1, 29000, MiniMovingHead14Ch::BlueDimming,  0},
-        {1, 29000, MiniMovingHead14Ch::GreenDimming, 255},
+        {1, 29000, MiniMovingHead14Ch::RGB,          65280},
 
         {0, 30000, RgbwSpotlight8Ch::TotalDimming,   255},
 

@@ -5,12 +5,15 @@
 #include "DmxCommand.h"
 
 /// @brief Beschreibt einen DMX-Scheinwerfer mit acht Kanälen.
-class RgbwSpotlight8Ch : public DmxDevice {
+class RgbwSpotlight8Ch : public DmxDevice
+{
 public:
-    explicit RgbwSpotlight8Ch(unsigned short address) : DmxDevice(address) {}
+    explicit RgbwSpotlight8Ch(unsigned short address) : DmxDevice(address)
+    { }
 
     /// @brief Alle Funktionen, welche das Gerät unterstützt.
-    enum Functions {
+    enum Functions
+    {
         TotalDimming,
         RedDimming,
         GreenDimming,
@@ -22,6 +25,7 @@ public:
 
         Blink = 100,
         Fade = 101,
+        RGB = 102,
         BlinkTimeout = 200,
 
         Stop = 300,
@@ -30,9 +34,12 @@ public:
     bool blinkOn = false;
     bool isFading = false;
 
-    void RunTick(uint16_t currentMillis, DmxCommand cmd) override {
-        if (cmd.function != Stop) {
-            switch (cmd.function) {
+    void RunTick(uint16_t currentMillis, DmxCommand cmd) override
+    {
+        if (cmd.function != Stop)
+        {
+            switch (cmd.function)
+            {
                 case PrintTime:
                     PrintTimeToSerial(currentMillis);
                 case Blink:
@@ -46,24 +53,34 @@ public:
                 case TotalDimming:
                     totalDimmingValue = cmd.value;
                     Set(TotalDimming, totalDimmingValue);
+                case RGB:
+                    ConvertDecimalToRgb(cmd.value, red, green, blue);
+                    Set(RedDimming, red);
+                    Set(GreenDimming, green);
+                    Set(BlueDimming, blue);
+                    break;
                 default:
                     Set(static_cast<Functions>(cmd.function), cmd.value);
                     break;
             }
-        } else {
+        } else
+        {
             Set(TotalDimming, 0);
         }
     };
 
-    void CleanUp(uint16_t currentMillis) override {
+    void CleanUp(uint16_t currentMillis) override
+    {
         // Blinken beenden
-        if (blinkOn && (currentMillis - blinkStart) > blinkTimeout) {
+        if (blinkOn && (currentMillis - blinkStart) > blinkTimeout)
+        {
             Set(TotalDimming, totalDimmingValue);
             blinkOn = false;
         }
 
         // Dimmen fortsetzen falls aktiv
-        if (isFading && (currentMillis - fadingLastCall) > fadingTimeout) {
+        if (isFading && (currentMillis - fadingLastCall) > fadingTimeout)
+        {
             totalDimmingValue--;
             fadingLastCall = currentMillis;
             Set(TotalDimming, totalDimmingValue);
@@ -74,7 +91,8 @@ public:
     /// @brief Bereitet das Blinken des Lichts vor.
     /// @param currentMillis Der aktuelle Zeitstempel.
     /// @param value Die Stärke des blinkenden Lichts.
-    void StartBlink(uint16_t currentMillis, uint8_t value) {
+    void StartBlink(uint16_t currentMillis, uint8_t value)
+    {
         blinkOn = true;
         blinkStart = currentMillis;
         Set(TotalDimming, value);
@@ -82,7 +100,8 @@ public:
 
     /// @brief Bereitet das dimmen des Lichts vor.
     /// @param currentMillis Der aktuelle Zeitstempel.
-    void StartFading(uint16_t currentMillis) {
+    void StartFading(uint16_t currentMillis)
+    {
         isFading = true;
         fadingLastCall = currentMillis;
         totalDimmingValue = fadingInterval[0];

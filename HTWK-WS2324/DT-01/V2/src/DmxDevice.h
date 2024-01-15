@@ -35,6 +35,20 @@ public:
         Serial.print(currentMillis);
         Serial.println("ms");
     }
+
+protected:
+    uint8_t red = 0, green = 0, blue = 0;
+
+    static void ConvertDecimalToRgb(uint32_t rgbw, uint8_t &red, uint8_t &green, uint8_t &blue) {
+        // Hier wird die Dezimalzahl in RGBW-Werte umgewandelt
+        red = rgbw >> 16 & 0xFF;   // Extrahiert den Rot-Wert
+        green = rgbw >> 8 & 0xFF; // Extrahiert den Grün-Wert
+        blue = rgbw & 0xFF;   // Extrahiert den Blau-Wert
+
+        Serial.println(red);
+        Serial.println(green);
+        Serial.println(blue);
+    }
 };
 
 #endif

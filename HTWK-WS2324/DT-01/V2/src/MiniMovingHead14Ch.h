@@ -3,11 +3,14 @@
 
 #include "DmxDevice.h"
 
-class MiniMovingHead14Ch : public DmxDevice {
+class MiniMovingHead14Ch : public DmxDevice
+{
 public:
-    explicit MiniMovingHead14Ch(unsigned short address) : DmxDevice(address) {}
+    explicit MiniMovingHead14Ch(unsigned short address) : DmxDevice(address)
+    { }
 
-    enum Functions {
+    enum Functions
+    {
         Pan,
         PanFine,
         Tilt,
@@ -25,6 +28,7 @@ public:
 
         Blink = 100,
         Fade = 101,
+        RGB = 102,
         BlinkTimeout = 200,
 
         Stop = 300,
@@ -33,9 +37,12 @@ public:
     bool blinkOn = false;
     bool isFading = false;
 
-    void RunTick(uint16_t currentMillis, DmxCommand cmd) override {
-        if (cmd.function != Stop) {
-            switch (cmd.function) {
+    void RunTick(uint16_t currentMillis, DmxCommand cmd) override
+    {
+        if (cmd.function != Stop)
+        {
+            switch (cmd.function)
+            {
                 case PrintTime:
                     PrintTimeToSerial(currentMillis);
                 case Blink:
@@ -47,28 +54,40 @@ public:
                 case BlinkTimeout:
                     blinkTimeout = cmd.value;
                 case Effect:
-                    if (cmd.value > 8 && cmd.value < 134) {
+                    if (cmd.value > 8 && cmd.value < 134)
+                    {
                         totalDimmingValue = cmd.value;
-                    } else if (cmd.value >= 240) {
+                    } else if (cmd.value >= 240)
+                    {
                         totalDimmingValue = 134;
                     }
                     Set(Effect, totalDimmingValue);
+                case RGB:
+                    ConvertDecimalToRgb(cmd.value, red, green, blue);
+                    Set(RedDimming, red);
+                    Set(GreenDimming, green);
+                    Set(BlueDimming, blue);
+                    break;
                 default:
                     Set(static_cast<Functions>(cmd.function), cmd.value);
                     break;
             }
-        } else {
+        } else
+        {
             Set(Effect, 0);
         }
     };
 
-    void CleanUp(uint16_t currentMillis) override {
-        if (blinkOn && (currentMillis - blinkStart) > blinkTimeout) {
+    void CleanUp(uint16_t currentMillis) override
+    {
+        if (blinkOn && (currentMillis - blinkStart) > blinkTimeout)
+        {
             Set(Effect, totalDimmingValue);
             blinkOn = false;
         }
 
-        if (isFading && (currentMillis - fadingLastCall) > fadingTimeout) {
+        if (isFading && (currentMillis - fadingLastCall) > fadingTimeout)
+        {
             totalDimmingValue--;
             fadingLastCall = currentMillis;
             Set(Effect, totalDimmingValue);
@@ -76,14 +95,16 @@ public:
         }
     }
 
-    void StartBlink(uint16_t currentMillis) {
+    void StartBlink(uint16_t currentMillis)
+    {
         blinkOn = true;
         blinkStart = currentMillis;
         totalDimmingValue = 134;
         Set(Effect, totalDimmingValue);
     }
 
-    void StartFading(uint16_t currentMillis) {
+    void StartFading(uint16_t currentMillis)
+    {
         isFading = true;
         fadingLastCall = currentMillis;
         totalDimmingValue = fadingInterval[0];

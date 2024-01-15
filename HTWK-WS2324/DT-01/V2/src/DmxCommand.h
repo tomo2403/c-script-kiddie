@@ -10,6 +10,6 @@ struct DmxCommand {
     /// @brief Der Kanal oder die Funktion, welche bedient wird.
     short function;
     /// @brief Der Wert, welcher die Funktion verändert.
-    uint8_t value;
+    uint32_t value;
 };
 #endif
