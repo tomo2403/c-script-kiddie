@@ -4,76 +4,103 @@
 \paragraph{Aufgabenstellung}
 Schließen Sie das Oszilloskop an den TXD Ausgang des Arduinos an. Analysieren Sie das Signal.
 
-\begin{figure}
+\paragraph{Vorbereitung}
+Um den Arduino verwenden zu können, benötigt er eine Betriebsspannung von 5V, welche das Netzteil bereitstellt. Der Arduino wird mit den Pins VIN und GND mit dem Netzteil verbunden.
+
+\paragraph{Durchführung}
+Mit einem Trigger wird die Erfassung des Signals am Oszilloskop angehalten, damit es abgelesen werden kann. Danach werden die Hochs und Tiefs des Signal als 1 und 0 interpretiert. Durch manuelles Ablesen erhält man eine Folge binärer Daten, welche es nun zu interpretieren gilt.
+
+\paragraph{Schlussfolgerung: Verwendetes Protokoll}
+Bei dem verwendeten Protokoll gibt es (der Aufgabenstellung nach) zwei Möglichkeiten: DMX und RS232. Während DMX differentiell übertragen wird, ist dies bei RS232 nicht der Fall. In dieser Aufgabe ist das Signal nicht differentiell, weswegen es sich um \textbf{RS232} handeln muss.
+
+\paragraph{Schlussfolgerung: Baudrate}
+
+\mbox{}\\
+\noindent
+\begin{minipage}{0.5\textwidth}
+	\textbf{geg.:} $f_s$ = $120 \mu s$ = $1,2 \times 10^{-4} s$
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\textbf{ges.:} $T_s$
+\end{minipage}
+
+\vspace{0.25cm}
+
+\noindent
+\textbf{Lsg:}
+\begin{align*}
+	T_s &= \frac{1s}{f_s} \\
+	T_s &= \frac{1s}{1,2 \times 10^{-4}s} \\
+	T_s &= \SI{8333,3}{Bd} \approx \SI{8,3}{kBd}
+\end{align*}
+
+\paragraph{Schlussfolgerung: Stopbits}
+Es wird ein einzelnes Stopbit verwendet. Dieses ist 1.
+
+\paragraph{Schlussfolgerung: Fehler bei der Übertragung}
+Um Fehler bei der Übertragung von Daten festzustellen, gibt es drei Möglichkeiten: Die Verwendung eines Paritätsbits, die Verwendung einer Prüfsumme oder die Anwendung eines kryptografischen Verfahrens. Diese Möglichkeiten werden, in Reihenfolge ihrer Auflistung, immer sicherer, aber auch komplexer. Im Fall des während des Experimentes übertragenen Signals, kam keine Fehlerüberprüfung zum Einsatz. Anhand des Signals selbst ist folglich nicht feststellbar, ob Fehler bei der Übertragung auftraten. Nach der Auswertung der Daten ist jedoch ersichtlich: Alle Daten wurden korrekt übertragen.
+
+\paragraph{Schlussfolgerung: Übertragene Daten}
+Bei der manuellen Auswertung des Signal ist zu beachten, dass das \textit{least significant bit} zuerst und das \textit{most significant bit} zuletzt übertragen wird. Das Signal muss also "rückwärts" gelesen werden. Zur Interpretation der erhaltenen Dezimalzahlen wird die ASCII-Tabelle herangezogen. Es folgt die Analyse der ersten 30 bits des übertragenen Signals. Startbits sind grün, Stopbits rot markiert.
+
+$$
+	\textcolor{ForestGreen}{0}\underbrace{00100010}_{68 \ \equiv \ D}\textcolor{red}{1}
+	\textcolor{ForestGreen}{0}\underbrace{10000110}_{97 \ \equiv \ a}\textcolor{red}{1}
+	\textcolor{ForestGreen}{0}\underbrace{11001110}_{115 \ \equiv \ s}\textcolor{red}{1}
+$$
+
+\begin{figure}[!h]
 	\centering
 	\includegraphics[width=.6\textwidth]{task4-1.jpg}
 	\caption{Bildschirmfoto}
 	\label{task4-1}
 \end{figure}
 
-\paragraph{Vorbereitung}
-Um den Arduino verwenden zu können, benötigt er eine Betriebsspannung von 5V, welche das Netzteil bereitstellt. Der Arduino wird mit den Pins VIN und GND mit dem Netzteil verbunden.
-
-\paragraph{Durchführung}
-Mit einem Trigger wird die Erfassung des Signals am Oszilloskop angehalten, damit es abgelesen werden kann.\\\\
-\begin{tabular}{ll}
-	Verwendetes Protokoll: & UART       \\
-	Baudrate:              & \SI{8333}{Bd} \\
-	Anzahl Stopbits:       & 1          \\
-	Fehler:                & Keine Paritätsbits       \\
-	Daten:                 & Das
-\end{tabular}
-
-\paragraph{Schlussfolgerung}
-
-
 \section{Aufgabe 4.2}
 \paragraph{Aufgabenstellung}
 Schließen Sie das Oszilloskop an die D+ und D- Pins des DMX-Boards an. Nutzen Sie die Mathematikfunktion um das Differenzsignal darzustellen.
 
-\begin{figure}
+\paragraph{Vorteile der differentiellen Signalübertragung}
+Die differentielle Signalübertragung wird in allen modernen Protokollen verwendet. Fast alle Bussysteme, die außerhalb eines Gerätes liegen, greifen auf sie zurück. Ihre Stärke liegt in einer hohen Fehlerresistenz auch bei niedrigen Spannungen, was schnelle Übertragungsraten ermöglicht. Die Übertragung eines differenziellen Signals erfolgt dazu über zwei Kabel. Während das eine Kabel positive Spannungsausschläge verwendet, überträgt das andere Kabel negative des gleichen Betrages. Das ursprüngliche Signal wird dann durch Subtraktion der beiden einzelnen Spannungen errechnet. Der große Vorteil: Verdrillt man die beiden Kabel, so wirkt eine Störung von außen auf beide gleichermaßen. Zwar ändern sich die Spannungsausschläge, welche durch die jeweiligen Kabel übertragen werden, ihre Differenz bleibt jedoch unberührt und die übermittelten Daten unbeschädigt.
+
+\paragraph{Durchführung}
+Das Oszilloskop verwendet eine Mathe-Funktion, um beide Signale voneinander zu subtrahieren. Dabei entsteht des in der Abbildung grüne Signal, welches nun wie gewohnt gelesen werden kann. \\\\
+
+\begin{figure}[!h]
 	\centering
 	\includegraphics[width=.6\textwidth]{task4-2.jpg}
 	\caption{Bildschirmfoto}
 	\label{task4-2}
 \end{figure}
 
-\paragraph{Vorteile der differentiellen Signalübertragung}
-Die differentielle Signalübertragung wird in allen modernen Protokollen verwendet. Fast alle Bussysteme, die außerhalb eines Gerätes liegen, greifen auf sie zurück. Ihre Stärke liegt in einer hohen Fehlerresistenz auch bei niedrigen Spannungen, was schnelle Übertragungsraten ermöglicht. Die Übertragung eines differenziellen Signals erfolgt dazu über zwei Kabel. Während das eine Kabel positive Spannungsausschläge verwendet, überträgt das andere Kabel negative des gleichen Betrages. Das ursprüngliche Signal wird dann durch Subtraktion der beiden einzelnen Spannungen errechnet. Der große Vorteil: Verdrillt man die beiden Kabel, so wirkt eine Störung von außen auf beide gleichermaßen. Zwar ändern sich die Spannungsausschläge, welche durch die jeweiligen Kabel übertragen werden, ihre Differenz bleibt jedoch unberührt und die übermittelten Daten unbeschädigt.
-
-\paragraph{Durchführung}
-Die Baudrate beträgt \SI{31205}{Bd}.
-\\\\
-\begin{tabular}{|l|l|l|l|}
-	\hline
-	Kanal & Binär    & Dezimal & Parameter \\ \hline\hline
-	1     & 00000000 & 255     &           \\ \hline
-	2     & 00000000 & 255     &           \\ \hline
-	3     & 00000000 & 255     &           \\ \hline
-	4     & 00000000 & 255     &           \\ \hline
-	5     & 00000000 & 255     &           \\ \hline
-	6     & 00000000 & 255     &           \\ \hline
-	7     & 00000000 & 255     &           \\ \hline
-	8     & 00000000 & 255     &           \\ \hline
-\end{tabular}
-
 \paragraph{Schlussfolgerung}
-
+Die Baudrate beträgt \SI{31205}{Bd}.
 
 \section{Aufgabe 4.3}
 \paragraph{Aufgabenstellung}
 Benutzen Sie den Logicanalyser um das Zitat zu dekodieren welches der RS232-Arduino sendet.
 
 \paragraph{Vorbereitung}
-Um das Signal mittels des Logicanalyser auslesen zu können, muss dieser über einen beliebigen Kanal und GND mit dem Arduino verbunden werden. In der Anwendung PulseView wird für die Darstellung der Decoder DMX512 ausgewählt und mit dem angeschlossenen Kanal verknüpft.
+Der Logicanalyzer ist ein Werkzeug, welches ein eingehendes Signal automatisch untersucht und interpretiert.
 
 \paragraph{Durchführung}
+Der größte Teil des Signals wurde mit Hilfe eines Logicanalyzers ausgelesen. Dessen Rückseite ist zu entnehmen, an welchem Anschluss GND und an welchen Anschlüssen das Signal anliegen muss. Zur Untersuchung des Signals wurde das Programm "Pulsview" verwendet. Es ist wichtig zu beachten, dass die Abtastrate des Analyzers (deutlich) über der Frequenz des zu analysierenden Signals liegt. Die genauen Einstellungen des Programms, können Sie der folgenden Übersicht entnehmen. \\
 
+\begin{tabular}{ll}
+	Verwendetes Protokoll: & UART       \\
+	Baudrate:              & \SI{8333}{Bd} \\
+	Anzahl Stopbits:       & 1          \\
+	Fehler:                & Keine Paritätsbits       \\
+\end{tabular}
 
 \paragraph{Schlussfolgerung}
-
-
-
+Das übertragene Zitat lautet:
+\begin{center}
+	\begin{minipage}{13cm}
+		"Das einzig sichere System müsste ausgeschaltet, in einem versiegelten und von Stahlbeton ummantelten Raum und von bewaffneten Schutztruppen umstellt sein." \\\\
+		Gene Spafford - Sicherheitsexperte
+	\end{minipage}
+\end{center}
 
 \input{aufgabe-4-4.tex}
 
