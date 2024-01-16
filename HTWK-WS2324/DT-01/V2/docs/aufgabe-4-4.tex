@@ -4,19 +4,19 @@
 Wählen Sie ein Musikstück aus und programmieren Sie für die ersten 30s die Beleuchtungssequenz.
 
 \paragraph{Vorüberlegung}
-Um die DMX-Geräte ansteuern zu können, wird eine Klasse bereitgestellt, welche man mit einer einfachen Funktion, der man Adresse und gewünschten DMX-Werte gibt, bedienen kann. Da die Geräte nur an einem Ort erreichbar sind, sollte das Programm während der Entwicklung auch mit lokalen LEDs an den Pins des Arduinos ausführbar sein und einen schnellen Wechsel zwischen Test- \& Produktionsmodus ermöglichen, ohne den Code in großem Umfang abändern zu müssen. Um dies zu realisieren, werden Klassen mit Polymorphismus benötigt. Da die Geräte ihre Befehle selbstständig abarbeiten sollen, kann hier nicht mit der Delay-Funktion des Arduinos gearbeitet werden. Ein anderer Ansatz ist, fortlaufend die verstrichene Zeit ermitteln und die Objekte selbst entscheiden lassen, wann sie ihre Befehle anführen.
+Um die DMX-Geräte ansteuern zu können, wird eine Klasse bereitgestellt, welche man mit einer einfachen Funktion, der man Adresse und gewünschten DMX-Wert übergibt, bedienen kann. Da die Geräte nur an einem Ort erreichbar sind, sollte das Programm während der Entwicklung auch mit lokalen LEDs an den Pins des Arduinos ausführbar sein und einen schnellen Wechsel zwischen Test- \& Produktionsmodus ermöglichen, ohne den Code in großem Umfang abändern zu müssen. Um dies zu realisieren, werden Klassen mit Polymorphismus benötigt. Da die Geräte ihre Befehle selbstständig abarbeiten sollen, kann hier nicht mit der Delay-Funktion des Arduinos gearbeitet werden. Ein anderer Ansatz ist, fortlaufend die verstrichene Zeit ermitteln und die Objekte selbst entscheiden lassen, wann sie ihre Befehle anführen.
 
 \paragraph{Durchführung}
-In der Hauptdatei werden die Geräte als Objekte initialisiert, das DMX-Interface vorbereitet und in einer Endlosschleife die Objekte aufgerufen um ihre Befehle abzuarbeiten.
+In der Hauptdatei werden die Geräte als Objekte initialisiert, das DMX-Interface vorbereitet und die Objekte in einer Endlosschleife aufgerufen um ihre Befehle abzuarbeiten.
 \inputminted[linenos=true, breaklines, fontsize=\fontsize{10pt}{10pt}]{cpp}{../src/main.cpp}
 
-Damit die Geräte später einheitlich angesteuert werden können und eine gleiche Befehlsstruktur verwenden, definiert \textit{DmxCommand} die Befehle. Jeder Befehl enthält einen die Gerätegruppe, Zeitstempel, den Kanal und welchen Wert dieser annehmen soll. Geräten gleichen Typs werden in einer Gruppe zusammengefasst.
+Damit die Geräte später einheitlich angesteuert werden können und eine gleiche Befehlsstruktur verwenden, definiert \textit{DmxCommand} die Befehle. Jeder Befehl enthält eine Gerätegruppe, einen Zeitstempel, einen Kanal und den anzunehmenden Wert. Geräte gleichen Typs werden in einer Gruppe zusammengefasst.
 \inputminted[linenos=true, breaklines, fontsize=\fontsize{10pt}{10pt}]{cpp}{../src/DmxCommand.h}
 
 Um dem Polymorphismus gerecht zu werden, wird eine Basisklasse benötigt. Von \textit{DmxDevice} erben die Klassen für Scheinwerfer und Movingheads mit einer Grundstruktur von Funktionen und Variablen.
 \inputminted[linenos=true, breaklines, fontsize=\fontsize{10pt}{10pt}]{cpp}{../src/DmxDevice.h}
 
-Von dieser Basisklasse kann nun die Klasse RgbwSpotlight8Ch für die Spotlichter erben und Funktionen erweitern.
+Von dieser Basisklasse kann nun die Klasse RgbwSpotlight8Ch für die Spotlichter erben und um Funktionen erweitern.
 \inputminted[linenos=true, breaklines, fontsize=\fontsize{10pt}{10pt}]{cpp}{../src/RgbwSpotlight8Ch.h}
 
 Die Befehle für alle Geräte werden in einem Array zusammengefasst.

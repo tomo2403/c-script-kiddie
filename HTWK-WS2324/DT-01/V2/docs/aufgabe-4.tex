@@ -26,7 +26,7 @@ Mit einem Trigger wird die Erfassung des Signals am Oszilloskop angehalten, dami
 \end{tabular}
 
 \paragraph{Schlussfolgerung}
-Das übertragene Signal nicht differentiell, weswegen es sich bei dem Protokoll um \textit{RS232} handeln muss. Es wird ein einzelnes Stopbit verwendet, welches 1 ist. Die Baudrate beträgt \SI{8,3}{kBd}. Mögliche Fehler bei der Übertragung wären durch Paritätsbits sichtbar geworden, jedoch wurden diese nicht eingesetzt. Daher war eine Fehlerüberprüfung nicht möglich. Die Übertragung liefert das Wort \glqq{}Das\grqq{}.
+Das übertragene Signal ist nicht differentiell, weswegen es sich bei dem Protokoll um \textit{RS232} handeln muss. Es wird ein einzelnes Stopbit verwendet, welches 1 ist. Die Baudrate beträgt \SI{8,3}{kBd}. Mögliche Fehler bei der Übertragung wären durch Paritätsbits sichtbar geworden, jedoch wurden diese nicht eingesetzt. Daher war eine Fehlerüberprüfung nicht möglich. Die Übertragung liefert das Wort \glqq{}Das\grqq{}.
 
 \begin{figure}[!h]
 	\centering
@@ -40,7 +40,7 @@ Das übertragene Signal nicht differentiell, weswegen es sich bei dem Protokoll 
 Schließen Sie das Oszilloskop an die D+ und D- Pins des DMX-Boards an. Nutzen Sie die Mathematikfunktion um das Differenzsignal darzustellen.
 
 \paragraph{Vorteile der differentiellen Signalübertragung}
-Die differentielle Signalübertragung wird in allen modernen Protokollen verwendet. Fast alle Bussysteme, die außerhalb eines Gerätes liegen, greifen auf sie zurück. Ihre Stärke liegt in einer hohen Fehlerresistenz auch bei niedrigen Spannungen, was schnelle Übertragungsraten ermöglicht. Die Übertragung eines differenziellen Signals erfolgt dazu über zwei Kabel. Während das eine Kabel positive Spannungsausschläge verwendet, überträgt das andere Kabel negative des gleichen Betrages. Das ursprüngliche Signal wird dann durch Subtraktion der beiden einzelnen Spannungen errechnet. Der große Vorteil: Verdrillt man die beiden Kabel, so wirkt eine Störung von außen auf beide gleichermaßen. Zwar ändern sich die Spannungsausschläge, welche durch die jeweiligen Kabel übertragen werden, ihre Differenz bleibt jedoch unberührt und die übermittelten Daten unbeschädigt.
+Die differentielle Signalübertragung wird in allen modernen Protokollen verwendet. Fast alle Bussysteme, die außerhalb eines Gerätes liegen, greifen auf sie zurück. Ihre Stärke liegt in einer hohen Fehlerresistenz auch bei niedrigen Spannungen, was schnelle Übertragungsraten ermöglicht. Die Übertragung eines differenziellen Signals erfolgt dazu über zwei Kabel. Während das eine Kabel positive Spannungsausschläge verwendet, überträgt das andere Kabel negative Spannungsausschläge des gleichen Betrages. Das ursprüngliche Signal wird dann durch Subtraktion der beiden einzelnen Spannungen errechnet. Der große Vorteil: Verdrillt man die beiden Kabel, so wirkt eine Störung von außen auf beide gleichermaßen. Zwar ändern sich die Beträge der Spannungsausschläge, ihre Differenz bleibt jedoch unberührt und die übermittelten Daten unbeschädigt.
 
 \paragraph{Durchführung}
 Das Oszilloskop subtrahiert beide vom DMX-Board kommende Signale voneinander, sodass dabei das in Abb. \vref{task4-2-img} differentielle Signal als grüne Welle dargestellt wird.
@@ -60,7 +60,7 @@ Die Baudrate beträgt \SI{31205}{Bd}.
 Benutzen Sie den Logicanalyser um das Zitat zu dekodieren welches der RS232-Arduino sendet.
 
 \paragraph{Vorbereitung}
-Der Pinbelegung des Logicanalyser nach, wird dieser mit dem Arduino über \textit{D0} und \textit{GND} verbunden. Um die Messwerte auszuwerten kann das Programm \textit{Pulsview} verwendet werden. Die Abtatsrate des Signals müssen höher sein, als die der gesendeten Daten, um verlustfreie Ergebnisse zu erhalten
+Der Pinbelegung des Logicanalyser nach, wird dieser mit dem Arduino über \textit{D0} und \textit{GND} verbunden. Um die Messwerte auszuwerten kann das Programm \textit{Pulsview} verwendet werden. Die Abtatsrate des Signals muss höher sein, als die Frequenz der gesendeten Daten.
 
 \paragraph{Durchführung}
 Das Programm wird mit dem Typ des Logicanalysers, \SI{5}{M Samples} und \SI{1}{Mhz} konfiguriert. Der Kanal 0 wird mittels \textit{UART} und der Baudrate aus Aufgabe 4.1 ausgewertet. Die Auswertung bestätigt alle Annahmen aus Aufgabe 4.1, dass keine Paritätsbits vorhanden sind und ein Stopbit zu verwendet wird.
@@ -86,4 +86,4 @@ Mithilfe des Befehls wird der Arduino zurückgesetzt:
 \inputminted[breaklines, fontsize=\fontsize{10pt}{10pt}]{bash}{../docs/reset-dmx.txt}
 
 \paragraph{Schlussfolgerung}
-Der Arduino befindet sich in seinem Ausgangszustand und wurden Ordnungsgemäß zurück geräumt.
+Die Arduinos befinden sich in ihren Ausgangszuständen und wurden Ordnungsgemäß zurück geräumt.
