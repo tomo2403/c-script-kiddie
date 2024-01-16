@@ -25,7 +25,7 @@ Bei dem verwendeten Protokoll gibt es (der Aufgabenstellung nach) zwei Möglichk
 \mbox{}\\
 \noindent
 \begin{minipage}{0.5\textwidth}
-	\textbf{geg.:} $f_s$ = $120 \mu s$ = $12 \times 10^{-5} s$
+	\textbf{geg.:} $f_s$ = $120 \mu s$ = $1,2 \times 10^{-4} s$
 \end{minipage}%
 \begin{minipage}{0.5\textwidth}
 	\textbf{ges.:} $T_s$
@@ -37,19 +37,35 @@ Bei dem verwendeten Protokoll gibt es (der Aufgabenstellung nach) zwei Möglichk
 \textbf{Lsg:}
 \begin{align*}
 	T_s &= \frac{1s}{f_s} \\
-	T_s &= \frac{1s}{10^{-5}s} \\
-	T_s &= \SI{8333,3}{Bd}
+	T_s &= \frac{1s}{1,2 \times 10^{-4}s} \\
+	T_s &= \SI{8333,3}{Bd} \approx \SI{8,3}{kBd}
 \end{align*}
 
 \vspace{0.25cm}
 
-\textbf{Antwort:} Die Baudrate beträgt \SI{8333,3}{Bd}.
+\textbf{Antwort:} Die Baudrate beträgt rund $\SI{8,3}{kBd}$.
 
 \paragraph{Schlussfolgerung: Stopbits}
 Es wird ein Stopbit verwendet. Dieses ist 1.
 
 \paragraph{Schlussfolgerung: Fehler bei der Übertragung}
 Um Fehler bei der Übertragung von Daten festzustellen, gibt es drei Möglichkeiten: Die Verwendung eines Paritätsbits, die Verwendung einer Prüfsumme oder die Anwendung eines kryptografischen Verfahrens. Diese Möglichkeiten werden, in Reihenfolge ihrer Auflistung, immer sicherer, aber auch komplexer. Im Fall des während des Experimentes übertragenen Signals, kam keine Fehlerüberprüfung zum Einsatz. Anhand des Signals selbst ist folglich nicht feststellbar, ob Fehler bei der Übertragung auftraten. Nach der Auswertung der Daten ist jedoch ersichtlich: Alle Daten wurden korrekt übertragen.
+
+\paragraph{Schlussfolgerung: Übertragene Daten}
+Bei der Auswertung des Signal ist zu beachten, dass das \textit{least significant bit} zuerst und das \textit{most significant bit} zuletzt übertragen wird. Das Signal muss also "rückwärts" gelesen werden. Zur Interpretation der erhaltenen Dezimalzahlen wird die ASCII-Tabelle herangezogen. Es folgt die Analyse der ersten 30 bits des übertragenen Signals. Startbits sind grün, Stopbits rot markiert.
+
+$$
+	\textcolor{ForestGreen}{0}\underbrace{00100010}_{68 \ \equiv \ D}\textcolor{red}{1}
+	\textcolor{ForestGreen}{0}\underbrace{10000110}_{97 \ \equiv \ a}\textcolor{red}{1}
+	\textcolor{ForestGreen}{0}\underbrace{11001110}_{115 \ \equiv \ s}\textcolor{red}{1}
+$$
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=.6\textwidth]{task4-1.jpg}
+	\caption{Bildschirmfoto}
+	\label{task4-1}
+\end{figure}
 
 \section{Aufgabe 4.2}
 \paragraph{Aufgabenstellung}
