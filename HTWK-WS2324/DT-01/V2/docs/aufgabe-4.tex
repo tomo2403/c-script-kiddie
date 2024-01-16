@@ -4,13 +4,6 @@
 \paragraph{Aufgabenstellung}
 Schließen Sie das Oszilloskop an den TXD Ausgang des Arduinos an. Analysieren Sie das Signal.
 
-\begin{figure}
-	\centering
-	\includegraphics[width=.6\textwidth]{task4-1.jpg}
-	\caption{Bildschirmfoto}
-	\label{task4-1}
-\end{figure}
-
 \paragraph{Vorbereitung}
 Um den Arduino verwenden zu können, benötigt er eine Betriebsspannung von 5V, welche das Netzteil bereitstellt. Der Arduino wird mit den Pins VIN und GND mit dem Netzteil verbunden.
 
@@ -24,19 +17,43 @@ Mit einem Trigger wird die Erfassung des Signals am Oszilloskop angehalten, dami
 	Daten:                 & Das
 \end{tabular}
 
-\paragraph{Schlussfolgerung}
+\paragraph{Schlussfolgerung: Verwendetes Protokoll}
+Bei dem verwendeten Protokoll gibt es (der Aufgabenstellung nach) zwei Möglichkeiten: DMX und RS232. Während DMX differentiell übertragen wird, ist ist dies bei RS232 nicht der Fall. In dieser Aufgabe ist das Signal nicht differentiell, weswegen es sich um \textbf{RS232} handeln muss.
 
+\paragraph{Schlussfolgerung: Baudrate}
+
+\mbox{}\\
+\noindent
+\begin{minipage}{0.5\textwidth}
+	\textbf{geg.:} $f_s$ = $120 \mu s$ = $12 \times 10^{-5} s$
+\end{minipage}%
+\begin{minipage}{0.5\textwidth}
+	\textbf{ges.:} $T_s$
+\end{minipage}
+
+\vspace{0.25cm}
+
+\noindent
+\textbf{Lsg:}
+\begin{align*}
+	T_s &= \frac{1s}{f_s} \\
+	T_s &= \frac{1s}{10^{-5}s} \\
+	T_s &= \SI{8333,3}{Bd}
+\end{align*}
+
+\vspace{0.25cm}
+
+\textbf{Antwort:} Die Baudrate beträgt \SI{8333,3}{Bd}.
+
+\paragraph{Schlussfolgerung: Stopbits}
+Es wird ein Stopbit verwendet. Dieses ist 1.
+
+\paragraph{Schlussfolgerung: Fehler bei der Übertragung}
+Um Fehler bei der Übertragung von Daten festzustellen, gibt es drei Möglichkeiten: Die Verwendung eines Paritätsbits, die Verwendung einer Prüfsumme oder die Anwendung eines kryptografischen Verfahrens. Diese Möglichkeiten werden, in Reihenfolge ihrer Auflistung, immer sicherer, aber auch komplexer. Im Fall des während des Experimentes übertragenen Signals, kam keine Fehlerüberprüfung zum Einsatz. Anhand des Signals selbst ist folglich nicht feststellbar, ob Fehler bei der Übertragung auftraten. Nach der Auswertung der Daten ist jedoch ersichtlich: Alle Daten wurden korrekt übertragen.
 
 \section{Aufgabe 4.2}
 \paragraph{Aufgabenstellung}
 Schließen Sie das Oszilloskop an die D+ und D- Pins des DMX-Boards an. Nutzen Sie die Mathematikfunktion um das Differenzsignal darzustellen.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=.6\textwidth]{task4-2.jpg}
-	\caption{Bildschirmfoto}
-	\label{task4-2}
-\end{figure}
 
 \paragraph{Vorteile der differentiellen Signalübertragung}
 Die differentielle Signalübertragung wird in allen modernen Protokollen verwendet. Fast alle Bussysteme, die außerhalb eines Gerätes liegen, greifen auf sie zurück. Ihre Stärke liegt in einer hohen Fehlerresistenz auch bei niedrigen Spannungen, was schnelle Übertragungsraten ermöglicht. Die Übertragung eines differenziellen Signals erfolgt dazu über zwei Kabel. Während das eine Kabel positive Spannungsausschläge verwendet, überträgt das andere Kabel negative des gleichen Betrages. Das ursprüngliche Signal wird dann durch Subtraktion der beiden einzelnen Spannungen errechnet. Der große Vorteil: Verdrillt man die beiden Kabel, so wirkt eine Störung von außen auf beide gleichermaßen. Zwar ändern sich die Spannungsausschläge, welche durch die jeweiligen Kabel übertragen werden, ihre Differenz bleibt jedoch unberührt und die übermittelten Daten unbeschädigt.
@@ -73,7 +90,12 @@ Um das Signal mittels des Logicanalyser auslesen zu können, muss dieser über e
 \paragraph{Schlussfolgerung}
 
 
-
+\begin{figure}
+	\centering
+	\includegraphics[width=.6\textwidth]{task4-2.jpg}
+	\caption{Bildschirmfoto}
+	\label{task4-2}
+\end{figure}
 
 \input{aufgabe-4-4.tex}
 
