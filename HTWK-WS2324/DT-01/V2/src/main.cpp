@@ -51,8 +51,8 @@ unsigned short beatIntervals[1][2] = {
         {4770, 30000},
 };
 
-/// @brief Prüft bei jedem Aufruf, ob inder bereits verstrichenen Zeit ein Beat auftrat.
-/// @param currentMillis Der Zeitpunkt des Aufrufs in.
+/// @brief Prüft bei jedem Aufruf, ob in der bereits verstrichenen Zeit ein Beat auftrat.
+/// @param currentMillis Der Zeitpunkt des Aufrufs.
 void BeatDetector(uint16_t currentMillis)
 {
     if ((currentMillis - previousMillis) >= BPM_IN_MS)
