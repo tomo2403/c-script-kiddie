@@ -10,7 +10,7 @@ Um die DMX-Geräte ansteuern zu können, wird eine Klasse bereitgestellt, welche
 In der Hauptdatei werden die Geräte als Objekte initialisiert, das DMX-Interface vorbereitet und in einer Endlosschleife die Objekte aufgerufen um ihre Befehle abzuarbeiten.
 \inputminted[linenos=true, breaklines, fontsize=\fontsize{10pt}{10pt}]{cpp}{../src/main.cpp}
 
-Damit die Geräte später einheitlich angesteuert werden können und eine gleiche Befehlsstruktur verwenden, definiert \textit{DmxCommand} die Befehle. Jeder Befehl enthält einen Zeitstempel, den Kanal und welchen Wert dieser annehmen soll.
+Damit die Geräte später einheitlich angesteuert werden können und eine gleiche Befehlsstruktur verwenden, definiert \textit{DmxCommand} die Befehle. Jeder Befehl enthält einen die Gerätegruppe, Zeitstempel, den Kanal und welchen Wert dieser annehmen soll. Geräten gleichen Typs werden in einer Gruppe zusammengefasst.
 \inputminted[linenos=true, breaklines, fontsize=\fontsize{10pt}{10pt}]{cpp}{../src/DmxCommand.h}
 
 Um dem Polymorphismus gerecht zu werden, wird eine Basisklasse benötigt. Von \textit{DmxDevice} erben die Klassen für Scheinwerfer und Movingheads mit einer Grundstruktur von Funktionen und Variablen.
