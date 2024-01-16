@@ -249,7 +249,6 @@ ISR(ISR_NAME, ISR_NOBLOCK) {
 void dmxWrite(int channel, uint8_t value) {
     if (!dmxStarted) dmxBegin();
     if ((channel > 0) && (channel <= DMX_SIZE)) {
-        if (value < 0) value = 0;
         if (value > 255) value = 255;
         dmxMax = max((unsigned) channel, dmxMax);
         dmxBuffer[channel - 1] = value;

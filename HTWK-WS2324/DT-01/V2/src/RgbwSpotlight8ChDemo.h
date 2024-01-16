@@ -13,7 +13,7 @@ public:
     /// @brief Überschreibt den DMX-Ausgang mit lokalen Pins.
     /// @param channel Die Funktion oder der Kanal.
     /// @param value Der Wert der Funktion
-    void Set(int channel, unsigned char value) override {
+    void Set(unsigned short channel, uint8_t value) override {
         switch (channel) {
             case 0:
                 if (value <= 100) {
@@ -29,7 +29,7 @@ public:
 
     /// @brief Überschreibt den Reinigungsprozess um Pins benutzen zu können.
     /// @param currentMillis Der aktuelle Zeitstempel.
-    void CleanUp(unsigned int currentMillis) override {
+    void CleanUp(uint16_t currentMillis) override {
         if (blinkOn && (currentMillis - blinkStart) > 100) {
             digitalWrite(Address, LOW);
             blinkOn = false;
