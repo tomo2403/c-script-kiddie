@@ -13,10 +13,13 @@
 #define DMX_SIZE 512
 #endif
 
-class DmxSimpleClass {
+class DmxSimpleClass
+{
 public:
     static void maxChannel(int);
+
     static void write(int, uint8_t);
+
     static void usePin(uint8_t);
 };
 

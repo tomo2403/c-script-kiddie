@@ -84,7 +84,8 @@ IntervalTimer DMXtimer;
 
 /** Initialise the DMX engine
  */
-void dmxBegin() {
+void dmxBegin()
+{
     dmxStarted = 1;
 
     // Set up port pointers for interrupt routine
@@ -116,7 +117,8 @@ void dmxBegin() {
 /** Stop the DMX engine
  * Turns off the DMX interrupt routine
  */
-void dmxEnd() {
+void dmxEnd()
+{
     TIMER2_INTERRUPT_DISABLE();
 #if defined(CORE_TEENSY) && defined(__arm__)
     DMXtimer.end();
@@ -133,7 +135,8 @@ void dmxEnd() {
  */
 #if defined(__AVR__)
 
-void dmxSendByte(volatile uint8_t value) {
+void dmxSendByte(volatile uint8_t value)
+{
     uint8_t bitCount, delCount;
     __asm__ volatile(
             "cli\n"
@@ -209,15 +212,18 @@ void dmxSendByte(uint8_t value) {
  * own routine, so the TIMER2 interrupt is disabled for the duration of
  * the service routine.
  */
-ISR(ISR_NAME, ISR_NOBLOCK) {
+ISR(ISR_NAME, ISR_NOBLOCK)
+{
 
     // Prevent this interrupt running recursively
     TIMER2_INTERRUPT_DISABLE();
 
     uint16_t bitsLeft = BITS_PER_TIMER_TICK;  // DMX Bit periods per timer tick
     bitsLeft >>= 2;                           // 25% CPU usage
-    while (true) {
-        if (dmxState == 0) {
+    while (true)
+    {
+        if (dmxState == 0)
+        {
             // Next thing to send is reset pulse and start code
             // which takes 35 bit periods
             uint8_t i;
@@ -228,7 +234,8 @@ ISR(ISR_NAME, ISR_NOBLOCK) {
             *dmxPort |= dmxBit;
             delayMicroseconds(12);
             dmxSendByte(0);
-        } else {
+        } else
+        {
             // Now send a channel which takes 11 bit periods
             if (bitsLeft < 11) break;
             bitsLeft -= 11;
@@ -236,7 +243,8 @@ ISR(ISR_NAME, ISR_NOBLOCK) {
         }
         // Successfully completed that stage - move state machine forward
         dmxState++;
-        if (dmxState > dmxMax) {
+        if (dmxState > dmxMax)
+        {
             dmxState = 0;  // Send next frame
             break;
         }
@@ -246,21 +254,26 @@ ISR(ISR_NAME, ISR_NOBLOCK) {
     TIMER2_INTERRUPT_ENABLE();
 }
 
-void dmxWrite(int channel, uint8_t value) {
+void dmxWrite(int channel, uint8_t value)
+{
     if (!dmxStarted) dmxBegin();
-    if ((channel > 0) && (channel <= DMX_SIZE)) {
+    if ((channel > 0) && (channel <= DMX_SIZE))
+    {
         if (value > 255) value = 255;
         dmxMax = max((unsigned) channel, dmxMax);
         dmxBuffer[channel - 1] = value;
     }
 }
 
-void dmxMaxChannel(int channel) {
-    if (channel <= 0) {
+void dmxMaxChannel(int channel)
+{
+    if (channel <= 0)
+    {
         // End DMX transmission
         dmxEnd();
         dmxMax = 0;
-    } else {
+    } else
+    {
         dmxMax = min(channel, DMX_SIZE);
         if (!dmxStarted) dmxBegin();
     }
@@ -273,7 +286,8 @@ void dmxMaxChannel(int channel) {
 /** Set output pin
  * @param pin Output digital pin to use
  */
-void DmxSimpleClass::usePin(uint8_t pin) {
+void DmxSimpleClass::usePin(uint8_t pin)
+{
     bool restartRequired = dmxStarted;
 
     if (restartRequired) dmxEnd();
@@ -284,14 +298,16 @@ void DmxSimpleClass::usePin(uint8_t pin) {
 /** Set DMX maximum channel
  * @param channel The highest DMX channel to use
  */
-void DmxSimpleClass::maxChannel(int channel) {
+void DmxSimpleClass::maxChannel(int channel)
+{
     dmxMaxChannel(channel);
 }
 
 /** Write to a DMX channel
  * @param address DMX address in the range 1 - 512
  */
-void DmxSimpleClass::write(int address, uint8_t value) {
+void DmxSimpleClass::write(int address, uint8_t value)
+{
     dmxWrite(address, value);
 }
 

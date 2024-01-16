@@ -120,6 +120,7 @@ void loop()
                 }
                 break;
             default:
+                // Fehlerhafte Gerätegruppen während des Debuggens anzeigen
                 Serial.print(&"Unknown device group: "[currentCommand.deviceGroup]);
                 Serial.println(&" at "[currentMillis]);
                 break;
@@ -127,6 +128,7 @@ void loop()
         dmxCommandIndex++;
     }
 
+    //Laufende Befehle fortführen / beenden
     for (auto &spotlight: spotlights)
     {
         spotlight.CleanUp(currentMillis);

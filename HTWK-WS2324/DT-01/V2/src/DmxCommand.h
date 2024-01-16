@@ -2,7 +2,8 @@
 #define DmxCommand_h
 
 /// @brief Beschreibt einen Befehl, der über DMX ausgeführt werden soll.
-struct DmxCommand {
+struct DmxCommand
+{
     /// @brief Die Gerätegruppe, welche verwendet werden soll.
     uint8_t deviceGroup;
     /// @brief Der Zeitpunkt der geplanten Ausführung.
