@@ -6,9 +6,11 @@
 #include <Arduino.h>
 
 /// @brief Basisklasse für alle DMX-Geräte
-class DmxDevice {
+class DmxDevice
+{
 public:
-    explicit DmxDevice(unsigned short address) : Address(address) {}
+    explicit DmxDevice(unsigned short address) : Address(address)
+    { }
 
     /// @brief Die Adresse des Geräts
     unsigned short Address;
@@ -16,7 +18,8 @@ public:
     /// @brief Erzeugt ein DMX-Signal an einem Kanal des Geräts.
     /// @param channel Der Kanal des Geräts, beginnend bei Kanal 0.
     /// @param value Der Wert des Signals im Bereich von 0 bis 255.
-    virtual void Set(unsigned short channel, uint8_t value) {
+    virtual void Set(unsigned short channel, uint8_t value)
+    {
         DmxSimpleClass::write(static_cast<int>(Address + channel), value);
     };
 
@@ -30,7 +33,8 @@ public:
 
     /// @brief Werkzeug für das debuggen von Befehlen.
     /// @param currentMillis Der aktuelle Zeitstempel.
-    static void PrintTimeToSerial(uint16_t currentMillis) {
+    static void PrintTimeToSerial(uint16_t currentMillis)
+    {
         Serial.print("Time elapsed: ");
         Serial.print(currentMillis);
         Serial.println("ms");
@@ -39,15 +43,16 @@ public:
 protected:
     uint8_t red = 0, green = 0, blue = 0;
 
-    static void ConvertDecimalToRgb(uint32_t rgbw, uint8_t &red, uint8_t &green, uint8_t &blue) {
-        // Hier wird die Dezimalzahl in RGBW-Werte umgewandelt
-        red = rgbw >> 16 & 0xFF;   // Extrahiert den Rot-Wert
-        green = rgbw >> 8 & 0xFF; // Extrahiert den Grün-Wert
-        blue = rgbw & 0xFF;   // Extrahiert den Blau-Wert
-
-        Serial.println(red);
-        Serial.println(green);
-        Serial.println(blue);
+    /// \brief Konvertiert eine Dezimalzahl in einzelne RGB-Werte
+    /// \param rgbw Die Dezimalzahl
+    /// \param red Rot Wert
+    /// \param green Grün Wert
+    /// \param blue Blau Wert
+    static void ConvertDecimalToRgb(uint32_t rgbw, uint8_t &red, uint8_t &green, uint8_t &blue)
+    {
+        red = rgbw >> 16 & 0xFF;
+        green = rgbw >> 8 & 0xFF;
+        blue = rgbw & 0xFF;
     }
 };
 

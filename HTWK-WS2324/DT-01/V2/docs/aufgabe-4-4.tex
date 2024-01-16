@@ -16,8 +16,11 @@ Damit die Geräte später einheitlich angesteuert werden können und eine gleich
 Um dem Polymorphismus gerecht zu werden, wird eine Basisklasse benötigt. Von \textit{DmxDevice} erben die Klassen für Scheinwerfer und Movingheads mit einer Grundstruktur von Funktionen und Variablen.
 \inputminted[linenos=true, breaklines, fontsize=\fontsize{10pt}{10pt}]{cpp}{../src/DmxDevice.h}
 
-Von dieser Basisklasse kann nun die Klasse RgbwSpotlight8Ch für die Spotlichter erben, ihre Befehle definieren und Funktionen erweitern.
+Von dieser Basisklasse kann nun die Klasse RgbwSpotlight8Ch für die Spotlichter erben und Funktionen erweitern.
 \inputminted[linenos=true, breaklines, fontsize=\fontsize{10pt}{10pt}]{cpp}{../src/RgbwSpotlight8Ch.h}
+
+Die Befehle für alle Geräte werden in einem Array zusammengefasst.
+\inputminted[linenos=true, breaklines, fontsize=\fontsize{10pt}{10pt}]{cpp}{../src/CommandList.h}
 
 Damit im Testmodus statt den Scheinwerfern LEDs verwendet werden können, erbt eine weitere Klasse \textit{RgbwSpotlight8ChDemo} von \textit{RgbwSpotlight8Ch}, um das DMX-Interface lokal emulieren zu können.
 \inputminted[linenos=true, breaklines, fontsize=\fontsize{10pt}{10pt}]{cpp}{../src/RgbwSpotlight8ChDemo.h}

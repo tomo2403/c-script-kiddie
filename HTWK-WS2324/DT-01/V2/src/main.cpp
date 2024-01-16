@@ -53,14 +53,18 @@ unsigned short beatIntervals[1][2] = {
 
 /// @brief Prüft bei jedem Aufruf, ob inder bereits verstrichenen Zeit ein Beat auftrat.
 /// @param currentMillis Der Zeitpunkt des Aufrufs in.
-void BeatDetector(uint16_t currentMillis) {
-    if ((currentMillis - previousMillis) >= BPM_IN_MS) {
+void BeatDetector(uint16_t currentMillis)
+{
+    if ((currentMillis - previousMillis) >= BPM_IN_MS)
+    {
         previousMillis = currentMillis;
 
-        for (auto const* interval: beatIntervals)
-            if (interval[0] <= currentMillis && currentMillis <= interval[1]) {
+        for (auto const *interval: beatIntervals)
+            if (interval[0] <= currentMillis && currentMillis <= interval[1])
+            {
                 //Event eines Beats
-                for (auto &spotlight: spotlights) {
+                for (auto &spotlight: spotlights)
+                {
                     spotlight.StartBlink(currentMillis, 255);
                 }
                 break;
@@ -70,7 +74,8 @@ void BeatDetector(uint16_t currentMillis) {
 }
 
 /// @brief Bereitet den Programmablauf vor.
-void setup() {
+void setup()
+{
 #if DEMO == 0
     // DMX Interface vorbereiten.
     DmxSimpleClass::usePin(3);
@@ -92,20 +97,25 @@ void setup() {
 }
 
 /// @brief Speichert den aktuellen Zeitpunkt und gibt ihn an die Geräte zum Ausführen von Befehlen weiter.
-void loop() {
+void loop()
+{
     uint16_t currentMillis = millis() - loopStartMillis;
     BeatDetector(currentMillis);
 
     DmxCommand currentCommand = dmxCommandList[dmxCommandIndex];
-    if (currentCommand.executionTime < currentMillis) {
-        switch (currentCommand.deviceGroup) {
+    if (currentCommand.executionTime < currentMillis)
+    {
+        switch (currentCommand.deviceGroup)
+        {
             case 0:
-                for (auto &spotlight: spotlights) {
+                for (auto &spotlight: spotlights)
+                {
                     spotlight.RunTick(currentMillis, currentCommand);
                 }
                 break;
             case 1:
-                for (auto &movingHead: movingHeads) {
+                for (auto &movingHead: movingHeads)
+                {
                     movingHead.RunTick(currentMillis, currentCommand);
                 }
                 break;
@@ -117,10 +127,12 @@ void loop() {
         dmxCommandIndex++;
     }
 
-    for (auto &spotlight: spotlights) {
+    for (auto &spotlight: spotlights)
+    {
         spotlight.CleanUp(currentMillis);
     }
-    for (auto &movingHead: movingHeads) {
+    for (auto &movingHead: movingHeads)
+    {
         movingHead.CleanUp(currentMillis);
     }
 }

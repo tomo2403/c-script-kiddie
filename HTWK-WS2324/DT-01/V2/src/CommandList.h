@@ -22,7 +22,7 @@ DmxCommand dmxCommandList[74] = {
         {0, 3550,  RgbwSpotlight8Ch::Blink,          255},
         {0, 3900,  RgbwSpotlight8Ch::Blink,          255},
         {0, 4200,  RgbwSpotlight8Ch::Blink,          255},
-        {0, 4700,  RgbwSpotlight8Ch::TotalDimming,   0}, //???????
+        {0, 4700,  RgbwSpotlight8Ch::TotalDimming,   0},
         {0, 4700,  RgbwSpotlight8Ch::RGB,            65280},
 
         {1, 4700,  MiniMovingHead14Ch::Speed,        251},
