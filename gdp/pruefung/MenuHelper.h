@@ -24,17 +24,17 @@ public:
     {
         menuId = menuId == -1 ? currentMenuId : menuId;
 
+        std::system("clear");
+        std::cout << "SOFTWARE NAME" << std::endl;
+        std::cout << std::endl;
+
         try
         {
-            std::cout << "\033[2J\033[H";
-            std::cout << "SOFTWARE NAME" << std::endl;
-            std::cout << std::endl;
-
             menus[menuId].Print();
         }
-        catch (std::out_of_range &ex)
+        catch (...)
         {
-
+            std::cerr << "\\033[1;31mFATAL ERROR: " << menuId << " is not valid! \\033[0m" << std::endl;
         }
         currentMenuId = menuId;
     }
