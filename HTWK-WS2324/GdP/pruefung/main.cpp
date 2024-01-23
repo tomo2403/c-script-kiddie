@@ -1,43 +1,36 @@
 #include <iostream>
-#include "MenuHelper.h"
-#include "ConsoleHelpers.h"
+#include "InputManager.h"
+#include "OutputManager.h"
 
 int main()
 {
-    bool isClosing = false;
+    Menu availableMenus[] = {
+            {Menu(MenuContent(
+                    {
+                            KeyMap('0', 0, "Zurück zum Hauptmenü"),
+                            KeyMap('1', 1, "Mitarbeiterliste")
+                    },
+                    {([]()
+                    {
+                        std::cout << "Prüfungsleistung" << std::endl;
+                    })}
+            ), "Hauptmenü")},
+            {Menu(MenuContent(
+                    {
+                            KeyMap('0', 0, "Zurück zum Hauptmenü")
+                    },
+                    {([]()
+                    {
+                        std::cout << "Liste aller Mitarbeiter" << std::endl;
+                    })}
+            ), "Mitarbeiterliste")}
+    };
 
-    MenuHelper navigation;
-    navigation.GoToMenu(0);
+    OutputManager output(availableMenus);
+    InputManager input(output);
 
-    char key;
-    while (!isClosing)
-    {
-        std::cout << COLOR_BLUE;
-        std::string input;
-        std::cin >> input;
-        std::cout << RESET_STYLE;
+    output.GoToMenu(0);
+    while (input.Interact());
 
-        if (input == "quit" || input == "exit")
-        {
-            isClosing = true;
-            continue;
-        }
-        else
-        {
-            key = input[0];
-        }
-
-        int nav = navigation.CurrentMenu().GetNavigation(key);
-
-        switch (nav)
-        {
-            case -1:
-                std::cout << STYLE_BOLD << COLOR_RED "Menü nicht verfügbar!"
-                            << RESET_STYLE << STYLE_UNDERLINE << "\n\nGehe zu:" << RESET_STYLE << " ";
-                break;
-            default:
-                navigation.GoToMenu(nav);
-                break;
-        }
-    }
+    return 0;
 }

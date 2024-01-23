@@ -2,37 +2,33 @@
 #define PRUEFUNG_MENU_H
 
 #include <utility>
-
+#include "MenuContent.h"
 #include "KeyMap.h"
 #include "ConsoleHelpers.h"
 
 class Menu
 {
 public:
-    Menu(std::string name, std::vector<KeyMap> keys, std::vector<std::string> displayLines)
-            : name(std::move(name)), keys(std::move(keys)), displayLines(std::move(displayLines))
+    explicit Menu(MenuContent content, std::string name) : _content(std::move(content)), _name(std::move(name))
     { }
-
-    std::string name;
-    std::vector<KeyMap> keys;
 
     void Print()
     {
-        for (const auto &displayLine: displayLines)
-        {
-            std::cout << displayLine << std::endl;
-        }
+        std::cout << STYLE_BOLD << COLOR_MAGENTA << _name << std::endl << std::endl << RESET_STYLE;
 
-        for (auto &map: keys)
+        _content.codeToExecute();
+
+        std::cout << COLOR_YELLOW << "\n\nNavigation:\n";
+        for (auto &map: _content.keys)
         {
             std::cout << "[" << map.key << "]\t" << map.action << std::endl;
         }
-        std::cout << std::endl << STYLE_UNDERLINE << "Gehe zu:" << RESET_STYLE << " ";
+        std::cout << RESET_STYLE << std::endl << STYLE_UNDERLINE << "Gehe zu:" << RESET_STYLE << " ";
     }
 
     int GetNavigation(unsigned char key)
     {
-        for (auto &map: keys)
+        for (auto &map: _content.keys)
         {
             if (map.key == key)
             {
@@ -42,8 +38,9 @@ public:
         return -1;
     }
 
-protected:
-    std::vector<std::string> displayLines;
+private:
+    std::string _name;
+    MenuContent _content;
 };
 
 #endif //PRUEFUNG_MENU_H

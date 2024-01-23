@@ -1,8 +1,6 @@
 #ifndef PRUEFUNG_CONSOLEHELPERS_H
 #define PRUEFUNG_CONSOLEHELPERS_H
 
-#include <iostream>
-
 #define RESET_STYLE "\033[0m"
 
 #define STYLE_BOLD "\033[1m"
