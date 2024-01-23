@@ -4,6 +4,7 @@
 #include <utility>
 
 #include "KeyMap.h"
+#include "ConsoleHelpers.h"
 
 class Menu
 {
@@ -26,6 +27,7 @@ public:
         {
             std::cout << "[" << map.key << "]\t" << map.action << std::endl;
         }
+        std::cout << std::endl << STYLE_UNDERLINE << "Gehe zu:" << RESET_STYLE << " ";
     }
 
     int GetNavigation(unsigned char key)

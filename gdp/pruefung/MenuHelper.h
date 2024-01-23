@@ -5,11 +5,11 @@
 #include "exception"
 
 std::vector<KeyMap> menu01Keys = {
-        {'0', 0, "Zurueck zum Hauptmenue"}
+        {'0', 0, "Zurück zum Hauptmenü"}
 };
 
 std::vector<std::string> menu01Lines = {
-        "Waehlen Sie ein Untermenue aus:",
+        "Wählen Sie ein Untermenü aus:",
 };
 
 class MenuHelper
@@ -34,7 +34,7 @@ public:
         }
         catch (...)
         {
-            std::cerr << "\\033[1;31mFATAL ERROR: " << menuId << " is not valid! \\033[0m" << std::endl;
+            std::cerr << STYLE_BOLD << COLOR_RED "FATAL ERROR: " << menuId << " is not valid!" << RESET_STYLE << std::endl;
         }
         currentMenuId = menuId;
     }
@@ -42,7 +42,7 @@ public:
 private:
     int currentMenuId = 0;
     Menu menus[1] = {
-            {Menu("Hauptmenue", menu01Keys, menu01Lines)}
+            {Menu("Hauptmenü", menu01Keys, menu01Lines)}
     };
 };
 

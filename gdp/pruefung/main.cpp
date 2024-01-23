@@ -1,6 +1,6 @@
 #include <iostream>
-#include "Mitarbeiterdatenbank.h"
 #include "MenuHelper.h"
+#include "ConsoleHelpers.h"
 
 int main()
 {
@@ -8,15 +8,16 @@ int main()
 
     MenuHelper navigation;
     navigation.GoToMenu(0);
-    navigation.GoToMenu(21345);
 
     char key;
     while (!isClosing)
     {
+        std::cout << COLOR_BLUE;
         std::string input;
         std::cin >> input;
+        std::cout << RESET_STYLE;
 
-        if (input == "quit")
+        if (input == "quit" || input == "exit")
         {
             isClosing = true;
             continue;
@@ -31,7 +32,8 @@ int main()
         switch (nav)
         {
             case -1:
-                std::cout << "Menu nicht verfügbar!" << std::endl;
+                std::cout << STYLE_BOLD << COLOR_RED "Menü nicht verfügbar!"
+                            << RESET_STYLE << STYLE_UNDERLINE << "\n\nGehe zu:" << RESET_STYLE << " ";
                 break;
             default:
                 navigation.GoToMenu(nav);
