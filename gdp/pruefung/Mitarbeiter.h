@@ -6,21 +6,40 @@
 class Mitarbeiter
 {
 public:
-    Mitarbeiter(int mitarbeiterNummer, std::string name, std::string vorname, unsigned int postleitzahl, double gehalt)
-            : mitarbeiterNummer(mitarbeiterNummer), name(std::move(name)), vorname(std::move(vorname)), postleitzahl(postleitzahl), gehalt(gehalt)
+    Mitarbeiter(std::string name, std::string vorname, std::string postleitzahl, double gehalt)
+            : _name(std::move(name)), _vorname(std::move(vorname)), _postleitzahl(std::move(postleitzahl)),
+              _gehalt(gehalt)
     { }
 
-    int getMitarbeiterNummer()
+    std::string name()
     {
-        return mitarbeiterNummer;
+        return _name;
     }
-    std::string name;
-    std::string vorname;
-    unsigned int postleitzahl;
-    double gehalt;
 
-private:
-    int mitarbeiterNummer;
+    std::string vorname()
+    {
+        return _vorname;
+    }
+
+    std::string postleitzahl()
+    {
+        return _postleitzahl;
+    }
+
+    double gehalt(double neuesGehalt = 0)
+    {
+        if (neuesGehalt == 0)
+            return _gehalt;
+
+        _gehalt = neuesGehalt;
+        return _gehalt;
+    }
+
+protected:
+    std::string _name;
+    std::string _vorname;
+    std::string _postleitzahl;
+    double _gehalt;
 };
 
 #endif //PRUEFUNG_MITARBEITER_H
