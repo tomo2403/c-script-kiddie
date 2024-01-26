@@ -91,8 +91,13 @@ void MitarbeiterDatenbank::deserialisieren()
     while (std::getline(file, line))
     {
         //Leere Zeile überspringen
-        if (lastLineRead) continue;
+        if (lastLineRead)
+        {
+            lastLineRead = false;
+            continue;
+        }
         else lastLineRead = true;
+
 
         std::stringstream stream(line);
         std::vector<std::string> result;
@@ -106,11 +111,11 @@ void MitarbeiterDatenbank::deserialisieren()
         // Mitarbeiter-Objekt erstellen und zur Map hinzufügen
         _mitarbeiterListe.insert({std::stoi(result[0]),
                                   Mitarbeiter(
-                                         result[1],
-                                         result[2],
-                                         result[3],
-                                         std::stod(result[4]))
-                                });
+                                          result[1],
+                                          result[2],
+                                          result[3],
+                                          std::stod(result[4]))
+                                 });
     }
 
     file.close();
