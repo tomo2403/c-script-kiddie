@@ -1,7 +1,8 @@
+#include <iomanip>
 #include "Menu.cpp"
 #include "../Header/IOManager.h"
 
-IOManager::IOManager(Menu menus[]) : _menus(menus)
+IOManager::IOManager(Menu menus[], int availableMenusCount) : _menus(menus), _availableMenusCount(availableMenusCount)
 { }
 
 Menu IOManager::CurrentMenu()
@@ -44,21 +45,27 @@ void IOManager::GoToMenu(int menuId)
 
     try
     {
-        _menus[menuId].Print();
+        if (menuId >= 0 && menuId < _availableMenusCount)
+        {
+            _menus[menuId].Print();
+            _currentMenuId = menuId;
+        }
+        else
+        {
+            throw std::out_of_range("Menu ID is out of range");
+        }
     }
-    catch (...)
+    catch (const std::out_of_range &ex)
     {
-        std::cout << STYLE_BOLD << COLOR_RED << "FATAL ERROR: " << menuId << " is not valid!" << RESET_STYLE
-                  << std::endl;
+        std::cout << STYLE_BOLD << COLOR_RED << "FATAL ERROR: " << ex.what() << RESET_STYLE << std::endl;
     }
-    _currentMenuId = menuId;
 }
 
 void IOManager::printHeader()
 {
     std::system("clear");
-    std::cout << COLOR_CYAN << STYLE_BOLD << STYLE_UNDERLINE << "===== MITARBEITERDATENBANK =====" << std::endl;
-    std::cout << RESET_STYLE << std::endl;
+    std::cout << COLOR_CYAN << STYLE_BOLD << STYLE_UNDERLINE << std::setfill('=') << std::setw(10) << "=" << " MITARBEITERDATENBANK "
+              << std::setfill('=') << std::setw(10) << "=" << std::setfill(' ') << std::endl << RESET_STYLE << std::endl;
 }
 
 std::string IOManager::getInput()

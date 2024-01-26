@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip>
 #include "Implementation/IOManager.cpp"
 #include "Implementation/Mitarbeiterdatenbank.cpp"
 #include "Implementation/Utilities.cpp"
@@ -7,20 +8,36 @@ Menu buildMainMenu();
 
 Menu buildHelpMenu();
 
-Menu buildMitarbeiterliste();
-
 Menu buildSaveMenu();
 
 Menu buildLoadMenu();
 
+Menu buildMitarbeiterliste();
+
+Menu buildMitarbeiterDetail();
+
+Menu buildSearchMenu();
+
+Menu buildAddMenu();
+
+Menu buildModifyMenu();
+
+Menu buildRemoveMenu();
+
 int main(int argc, char *argv[])
 {
-    Menu availableMenus[] = {
+    const int availableMenusCount = 10;
+    Menu availableMenus[availableMenusCount] = {
             {buildMainMenu()},
             {buildHelpMenu()},
-            {buildMitarbeiterliste()},
             {buildSaveMenu()},
-            {buildLoadMenu()}
+            {buildLoadMenu()},
+            {buildMitarbeiterliste()},
+            {buildMitarbeiterDetail()},
+            {buildSearchMenu()},
+            {buildAddMenu()},
+            {buildModifyMenu()},
+            {buildRemoveMenu()}
     };
 
     MitarbeiterDatenbank::Init("mitarbeiter.csv", ';', 0);
@@ -38,7 +55,7 @@ int main(int argc, char *argv[])
         }
     }
 
-    IOManager ioManager(availableMenus);
+    IOManager ioManager(availableMenus, availableMenusCount);
     ioManager.GoToMenu(0);
     while (ioManager.Interact());
 
@@ -48,11 +65,11 @@ int main(int argc, char *argv[])
 Menu buildMainMenu()
 {
     return {"Hauptmenü",
-            {{'0', 0, "Ansicht Bereinigen"},
-             {'1', 1, "Hilfe"},
-             {'2', 2, "Mitarbeiterliste"},
-             {'s', 3, "Speichern"},
-             {'l', 4, "Laden"}},
+            {{'d', 4, "Mitarbeiterverzeichnis öffnen"},
+             {'e', 2, "Datenbank exportieren"},
+             {'i', 3, "Datenbank importieren"},
+             {'c', 0, "Ansicht Bereinigen"},
+             {'h', 1, "Hilfe anzeigen"}},
             {[]()
              {
                  std::cout << "Prüfungsleistung" << std::endl;
@@ -62,7 +79,7 @@ Menu buildMainMenu()
 Menu buildHelpMenu()
 {
     return {"Hilfe",
-            {{'0', 0, "Zurück zum Hauptmenü"}},
+            {{'b', 0, "Zurück"}},
             {[]()
              {
                  std::cout << "Jedes Menü enthält eine Liste von Befehlen. " << std::endl
@@ -74,8 +91,11 @@ Menu buildHelpMenu()
 
 Menu buildMitarbeiterliste()
 {
-    return {"Mitarbeiterliste",
-            {{'0', 0, "Zurück zum Hauptmenü"}},
+    return {"Mitarbeiterverzeichnis",
+            {{'s', 6, "Suche"},
+             {'a', 7, "Hinzufügen"},
+             {'d', 5, "Detailansicht"},
+             {'b', 0, "Zurück"}},
             {[]()
              {
                  std::map<int, Mitarbeiter> mitarbeiterMap = MitarbeiterDatenbank::alleMitarbeiter();
@@ -103,8 +123,8 @@ Menu buildMitarbeiterliste()
 
 Menu buildSaveMenu()
 {
-    return {"Speichern",
-            {{'0', 0, "Zurück zum Hauptmenü"}},
+    return {"Exportieren",
+            {{'b', 0, "Zurück"}},
             {[]()
              {
                  MitarbeiterDatenbank::serialisieren();
@@ -114,11 +134,62 @@ Menu buildSaveMenu()
 
 Menu buildLoadMenu()
 {
-    return {"Laden",
-            {{'0', 0, "Zurück zum Hauptmenü"}},
+    return {"Importieren",
+            {{'b', 0, "Zurück"}},
             {[]()
              {
                  MitarbeiterDatenbank::deserialisieren();
                  std::cout << "Geladen!" << std::endl;
+             }}};
+}
+
+Menu buildMitarbeiterDetail()
+{
+    return {"Mitarbeiter Detailansicht",
+            {{'m', 8, "Bearbeiten"},
+             {'r', 9, "Entfernen"},
+             {'b', 4, "Zurück"}},
+            {[]()
+             {
+
+             }}};
+}
+
+Menu buildSearchMenu()
+{
+    return {"Mitarbeiter suchen",
+            {{'s', 6, "Neue suche"},
+             {'b', 4, "Zurück"}},
+            {[]()
+             {
+
+             }}};
+}
+
+Menu buildAddMenu()
+{
+    return {"Mitarbeiter hinzufügen",
+            {{'b', 4, "Zurück"}},
+            {[]()
+             {
+
+             }}};
+}
+
+Menu buildModifyMenu(){
+    return {"Mitarbeiter bearbeiten",
+            {{'b', 5, "Zurück"}},
+            {[]()
+             {
+
+             }}};
+}
+
+Menu buildRemoveMenu(){
+    return {"Mitarbeiter entfernen",
+            {{'b', 5, "Zurück"}},
+            {[]()
+             {
+
              }}};
 }

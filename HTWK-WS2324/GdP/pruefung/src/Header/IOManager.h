@@ -6,7 +6,7 @@
 class IOManager
 {
 public:
-    explicit IOManager(Menu menus[]);
+    explicit IOManager(Menu menus[], int availableMenusCount);
 
     Menu CurrentMenu();
 
@@ -15,6 +15,7 @@ public:
 
 private:
     int _currentMenuId = 0;
+    const int _availableMenusCount;
     Menu *_menus;
 
     static void printHeader();
