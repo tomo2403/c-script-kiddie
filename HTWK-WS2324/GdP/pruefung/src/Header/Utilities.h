@@ -11,12 +11,20 @@ public:
                                      int &maxTotalWidth);
 
     static bool tryParse(std::string& input, int& output);
+    static bool tryParse(std::string& input, double& output);
     static bool tryGetMitarbeiterId(int& mitarbeiterId);
 
+    static void inputMitarbeiter(std::string &name, std::string &vorname, std::string &plz, std::string &gehaltStr);
     static void printMitarbeiter(int mitarbeiterId);
+    static void printMitarbeiterDifferences(Mitarbeiter &m1, Mitarbeiter &m2);
 
     static void printWarning(const std::string &message);
     static void printError(const std::string &message);
+
+    static bool containsOnlyLetters(const std::string& input);
+    static bool isValidPostalCode(const std::string &input);
+
+    static Mitarbeiter validateMitarbeiter(std::string &name, std::string &vorname, std::string &plz, std::string &gehaltStr);
 };
 
 #endif //PRUEFUNG_UTILITIES_H

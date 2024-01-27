@@ -38,6 +38,18 @@ bool Utilities::tryParse(std::string &input, int &output)
     return true;
 }
 
+bool Utilities::tryParse(std::string &input, double &output)
+{
+    try
+    {
+        output = std::stod(input);
+    } catch (std::invalid_argument &)
+    {
+        return false;
+    }
+    return true;
+}
+
 void Utilities::printWarning(const std::string &message)
 {
     std::cout << COLOR_YELLOW << STYLE_BOLD << STYLE_UNDERLINE << message << RESET_STYLE << std::endl;
@@ -84,4 +96,77 @@ bool Utilities::tryGetMitarbeiterId(int &mitarbeiterId)
     }
 
     return mitarbeiterId != 0;
+}
+
+bool Utilities::containsOnlyLetters(const std::string &input)
+{
+    return std::ranges::all_of(input, [](char c)
+    {
+        return std::isalpha(static_cast<unsigned char>(c));
+    });
+}
+
+bool Utilities::isValidPostalCode(const std::string &input)
+{
+    // Überprüfen, ob die Länge 5 ist
+    if (input.length() != 5)
+    {
+        return false;
+    }
+
+    // Überprüfen, ob alle Zeichen Ziffern sind
+    return std::ranges::all_of(input, [](char c)
+    {
+        return std::isdigit(static_cast<unsigned char>(c));
+    });
+}
+
+void Utilities::inputMitarbeiter(std::string &name, std::string &vorname, std::string &plz, std::string &gehaltStr)
+{
+    std::cin.ignore();
+
+    std::cout << "Neuer Name: ";
+    std::getline(std::cin, name);
+
+    std::cout << "Neuer Vorname: ";
+    std::getline(std::cin, vorname);
+
+    std::cout << "Neue PLZ: ";
+    std::getline(std::cin, plz);
+
+    std::cout << "Neues Gehalt: ";
+    std::getline(std::cin, gehaltStr);
+}
+
+void Utilities::printMitarbeiterDifferences(Mitarbeiter &m1, Mitarbeiter &m2)
+{
+    std::cout << RESET_STYLE << m1.name() << " --> ";
+    if (m2.name().empty())
+        std::cout << COLOR_YELLOW << "Ungültige Änderung!";
+    else std::cout << (m1.name() == m2.name() ? COLOR_RED : COLOR_GREEN) << m2.name();
+
+    std::cout << RESET_STYLE<< std::endl << m1.vorname() << " --> ";
+    if (m2.vorname().empty())
+        std::cout << COLOR_YELLOW << "Ungültige Änderung!";
+    else std::cout << (m1.vorname() == m2.vorname() ? COLOR_RED : COLOR_GREEN) << m2.vorname();
+
+    std::cout << RESET_STYLE<< std::endl << m1.postleitzahl() << " --> ";
+    if (m2.postleitzahl().empty())
+        std::cout << COLOR_YELLOW << "Ungültige Änderung!";
+    else std::cout << (m1.postleitzahl() == m2.postleitzahl() ? COLOR_RED : COLOR_GREEN) << m2.postleitzahl();
+
+    std::cout << RESET_STYLE<< std::endl << m1.gehalt() << " --> ";
+    if (m2.gehalt() == 0)
+        std::cout << COLOR_YELLOW << "Ungültige Änderung!";
+    else std::cout << (m1.gehalt() == m2.gehalt() ? COLOR_RED : COLOR_GREEN) << m2.gehalt();
+    std::cout << RESET_STYLE << std::endl;
+}
+
+Mitarbeiter Utilities::validateMitarbeiter(std::string &name, std::string &vorname, std::string &plz, std::string &gehaltStr)
+{
+    name = containsOnlyLetters(name) ? name : "";
+    vorname = containsOnlyLetters(vorname) ? vorname : "";
+    plz = isValidPostalCode(plz) ? plz : "";
+    double gehalt = tryParse(gehaltStr, gehalt) ? gehalt : 0.0;
+    return {name, vorname, plz, gehalt};
 }

@@ -5,23 +5,14 @@
 #include "Header/Utilities.h"
 
 Menu buildMainMenu();
-
 Menu buildHelpMenu();
-
 Menu buildSaveMenu();
-
 Menu buildLoadMenu();
-
 Menu buildMitarbeiterliste();
-
 Menu buildMitarbeiterDetail();
-
 Menu buildSearchMenu();
-
 Menu buildAddMenu();
-
 Menu buildModifyMenu();
-
 Menu buildRemoveMenu();
 
 int main(int argc, char *argv[])
@@ -73,7 +64,8 @@ Menu buildMainMenu()
             {[]()
              {
                  std::cout << "Prüfungsleistung" << std::endl;
-             }}, true};
+             }}, true
+    };
 }
 
 Menu buildHelpMenu()
@@ -86,7 +78,8 @@ Menu buildHelpMenu()
                            << "Diese Befehle können über das eingeben des Schlüssels ausgewählt werden. "
                            << std::endl
                            << R"(Um das Programm zu beenden, geben Sie "quit" oder "exit" ein.)" << std::endl;
-             }}};
+             }}
+    };
 }
 
 Menu buildMitarbeiterliste()
@@ -117,7 +110,8 @@ Menu buildMitarbeiterliste()
                                << std::setw(maxPLZWidth) << mitarbeiter.postleitzahl()
                                << std::setw(maxGehaltWidth) << mitarbeiter.gehalt() << std::setw(0) << std::endl;
                  }
-             }}};
+             }}
+    };
 }
 
 Menu buildSaveMenu()
@@ -128,7 +122,8 @@ Menu buildSaveMenu()
              {
                  MitarbeiterDatenbank::serialisieren();
                  std::cout << "Gespeichert!" << std::endl;
-             }}};
+             }}
+    };
 }
 
 Menu buildLoadMenu()
@@ -139,7 +134,8 @@ Menu buildLoadMenu()
              {
                  MitarbeiterDatenbank::deserialisieren();
                  std::cout << "Geladen!" << std::endl;
-             }}};
+             }}
+    };
 }
 
 Menu buildMitarbeiterDetail()
@@ -159,7 +155,8 @@ Menu buildMitarbeiterDetail()
                  {
                      Utilities::printWarning("Vorgang abgebrochen!");
                  }
-             }}};
+             }}
+    };
 }
 
 Menu buildSearchMenu()
@@ -169,7 +166,8 @@ Menu buildSearchMenu()
             {[]()
              {
 
-             }}};
+             }}
+    };
 }
 
 Menu buildAddMenu()
@@ -179,17 +177,24 @@ Menu buildAddMenu()
             {[]()
              {
 
-             }}};
+             }}
+    };
 }
 
 Menu buildModifyMenu()
 {
-    return {"Mitarbeiter bearbeiten", 5,
+    return {"Mitarbeiter bearbeiten", 4,
             {},
             {[]()
              {
+                 std::string name, vorname, plz, gehaltStr;
+                 Mitarbeiter mCurrent = MitarbeiterDatenbank::getMitarbeiter(MitarbeiterDatenbank::selectedId);
 
-             }}};
+                 Utilities::inputMitarbeiter(name, vorname, plz, gehaltStr);
+                 Mitarbeiter nNew = Utilities::validateMitarbeiter(name, vorname, plz, gehaltStr);
+                 Utilities::printMitarbeiterDifferences(mCurrent, nNew);
+             }}
+    };
 }
 
 Menu buildRemoveMenu()
@@ -199,5 +204,6 @@ Menu buildRemoveMenu()
             {[]()
              {
 
-             }}};
+             }}
+    };
 }
