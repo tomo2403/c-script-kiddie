@@ -1,6 +1,9 @@
 #include <iomanip>
-#include "Menu.cpp"
+#include <iostream>
+#include "../Header/ConsoleHelpers.h"
+#include "../Header/Menu.h"
 #include "../Header/IOManager.h"
+#include "../Header//Utilities.h"
 
 IOManager::IOManager(Menu menus[], int availableMenusCount) : _menus(menus), _availableMenusCount(availableMenusCount)
 { }
@@ -57,7 +60,7 @@ void IOManager::GoToMenu(int menuId)
     }
     catch (const std::out_of_range &ex)
     {
-        std::cout << STYLE_BOLD << COLOR_RED << "FATAL ERROR: " << ex.what() << RESET_STYLE << std::endl;
+        Utilities::printError(ex.what());
     }
 }
 

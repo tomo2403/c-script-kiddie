@@ -1,19 +1,24 @@
 #include <utility>
+#include <iostream>
 #include "../Header/Menu.h"
 #include "../Header/ConsoleHelpers.h"
 
-Menu::Menu(std::string name, const std::vector<KeyMap> &keys, const std::function<void()> &codeToExecute)
-        : _name(std::move(name)), keys(keys), codeToExecute(codeToExecute)
-{ }
+Menu::Menu(std::string name, unsigned char parent, const std::vector<KeyMap> &keys, const std::function<void()> &codeToExecute,
+           bool hideBackKey)
+        : _name(std::move(name)), _keys(keys), _codeToExecute(codeToExecute), _parent(parent)
+{
+    if (!hideBackKey)
+        _keys.insert(_keys.end(), {'b', _parent, "Zurück"});
+}
 
 void Menu::Print()
 {
     std::cout << STYLE_BOLD << COLOR_MAGENTA << _name << std::endl << std::endl << RESET_STYLE;
 
-    codeToExecute();
+    _codeToExecute();
 
     std::cout << COLOR_YELLOW << "\n\nNavigation:\n";
-    for (auto &map: keys)
+    for (auto &map: _keys)
     {
         std::cout << "[" << map.key << "]\t" << map.action << std::endl;
     }
@@ -22,7 +27,7 @@ void Menu::Print()
 
 int Menu::GetNavigation(unsigned char key)
 {
-    for (auto &map: keys)
+    for (auto &map: _keys)
     {
         if (map.key == key)
         {

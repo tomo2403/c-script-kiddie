@@ -1,8 +1,8 @@
 #include <iostream>
 #include <iomanip>
-#include "Implementation/IOManager.cpp"
-#include "Implementation/Mitarbeiterdatenbank.cpp"
-#include "Implementation/Utilities.cpp"
+#include "Header/IOManager.h"
+#include "Header/Mitarbeiterdatenbank.h"
+#include "Header/Utilities.h"
 
 Menu buildMainMenu();
 
@@ -64,7 +64,7 @@ int main(int argc, char *argv[])
 
 Menu buildMainMenu()
 {
-    return {"Hauptmenü",
+    return {"Hauptmenü", 0,
             {{'d', 4, "Mitarbeiterverzeichnis öffnen"},
              {'e', 2, "Datenbank exportieren"},
              {'i', 3, "Datenbank importieren"},
@@ -73,13 +73,13 @@ Menu buildMainMenu()
             {[]()
              {
                  std::cout << "Prüfungsleistung" << std::endl;
-             }}};
+             }}, true};
 }
 
 Menu buildHelpMenu()
 {
-    return {"Hilfe",
-            {{'b', 0, "Zurück"}},
+    return {"Hilfe", 0,
+            {},
             {[]()
              {
                  std::cout << "Jedes Menü enthält eine Liste von Befehlen. " << std::endl
@@ -91,11 +91,10 @@ Menu buildHelpMenu()
 
 Menu buildMitarbeiterliste()
 {
-    return {"Mitarbeiterverzeichnis",
+    return {"Mitarbeiterverzeichnis", 0,
             {{'s', 6, "Suche"},
              {'a', 7, "Hinzufügen"},
-             {'d', 5, "Detailansicht"},
-             {'b', 0, "Zurück"}},
+             {'d', 5, "Detailansicht"}},
             {[]()
              {
                  std::map<int, Mitarbeiter> mitarbeiterMap = MitarbeiterDatenbank::alleMitarbeiter();
@@ -123,8 +122,8 @@ Menu buildMitarbeiterliste()
 
 Menu buildSaveMenu()
 {
-    return {"Exportieren",
-            {{'b', 0, "Zurück"}},
+    return {"Exportieren", 0,
+            {},
             {[]()
              {
                  MitarbeiterDatenbank::serialisieren();
@@ -134,8 +133,8 @@ Menu buildSaveMenu()
 
 Menu buildLoadMenu()
 {
-    return {"Importieren",
-            {{'b', 0, "Zurück"}},
+    return {"Importieren", 0,
+            {},
             {[]()
              {
                  MitarbeiterDatenbank::deserialisieren();
@@ -145,21 +144,28 @@ Menu buildLoadMenu()
 
 Menu buildMitarbeiterDetail()
 {
-    return {"Mitarbeiter Detailansicht",
+    return {"Mitarbeiter Detailansicht", 4,
             {{'m', 8, "Bearbeiten"},
-             {'r', 9, "Entfernen"},
-             {'b', 4, "Zurück"}},
+             {'r', 9, "Entfernen"}},
             {[]()
              {
+                 int mitarbeiterId;
 
+                 if (Utilities::tryGetMitarbeiterId(mitarbeiterId))
+                 {
+                     Utilities::printMitarbeiter(mitarbeiterId);
+                 }
+                 else
+                 {
+                     Utilities::printWarning("Vorgang abgebrochen!");
+                 }
              }}};
 }
 
 Menu buildSearchMenu()
 {
-    return {"Mitarbeiter suchen",
-            {{'s', 6, "Neue suche"},
-             {'b', 4, "Zurück"}},
+    return {"Mitarbeiter suchen", 4,
+            {{'s', 6, "Neue suche"}},
             {[]()
              {
 
@@ -168,26 +174,28 @@ Menu buildSearchMenu()
 
 Menu buildAddMenu()
 {
-    return {"Mitarbeiter hinzufügen",
-            {{'b', 4, "Zurück"}},
+    return {"Mitarbeiter hinzufügen", 4,
+            {},
             {[]()
              {
 
              }}};
 }
 
-Menu buildModifyMenu(){
-    return {"Mitarbeiter bearbeiten",
-            {{'b', 5, "Zurück"}},
+Menu buildModifyMenu()
+{
+    return {"Mitarbeiter bearbeiten", 5,
+            {},
             {[]()
              {
 
              }}};
 }
 
-Menu buildRemoveMenu(){
-    return {"Mitarbeiter entfernen",
-            {{'b', 5, "Zurück"}},
+Menu buildRemoveMenu()
+{
+    return {"Mitarbeiter entfernen", 5,
+            {},
             {[]()
              {
 

@@ -6,15 +6,16 @@
 class Menu
 {
 public:
-    Menu(std::string name, const std::vector<KeyMap> &keys, const std::function<void()> &codeToExecute);
+    Menu(std::string name, unsigned char parent, const std::vector<KeyMap> &keys, const std::function<void()> &codeToExecute, bool hideBackKey = false);
 
     void Print();
     int GetNavigation(unsigned char key);
 
 private:
     std::string _name;
-    std::vector<KeyMap> keys;
-    std::function<void()> codeToExecute;
+    unsigned char _parent;
+    std::vector<KeyMap> _keys;
+    std::function<void()> _codeToExecute;
 };
 
 #endif //PRUEFUNG_MENU_H

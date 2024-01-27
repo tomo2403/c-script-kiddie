@@ -3,7 +3,6 @@
 #include <iostream>
 #include <utility>
 
-#include "Mitarbeiter.cpp"
 #include "../Header/Mitarbeiterdatenbank.h"
 
 int MitarbeiterDatenbank::provideId()
@@ -133,6 +132,13 @@ void MitarbeiterDatenbank::Init(std::string saveToFilename, char csvSeparator, i
     _nextId = nextId;
 }
 
+Mitarbeiter MitarbeiterDatenbank::getMitarbeiter(int id)
+{
+    auto it = _mitarbeiterListe.find(id);
+    return it != _mitarbeiterListe.end() ? it->second : throw std::out_of_range("No value for this id");
+}
+
+int MitarbeiterDatenbank::selectedId;
 int MitarbeiterDatenbank::_nextId;
 std::map<int, Mitarbeiter> MitarbeiterDatenbank::_mitarbeiterListe;
 std::string MitarbeiterDatenbank::_saveToFilename;
