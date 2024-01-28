@@ -31,7 +31,8 @@ bool Utilities::tryParse(std::string &input, int &output)
     try
     {
         output = std::stoi(input);
-    } catch (std::invalid_argument &)
+    }
+    catch (std::invalid_argument &)
     {
         return false;
     }
@@ -50,14 +51,27 @@ bool Utilities::tryParse(std::string &input, double &output)
     return true;
 }
 
+void Utilities::printMessage(const std::string &message)
+{
+    std::cout << STYLE_BOLD << STYLE_UNDERLINE << message << RESET_STYLE << std::endl;
+}
+
+void Utilities::printSuccess(const std::string &message)
+{
+    std::cout << COLOR_GREEN;
+    printMessage(message);
+}
+
 void Utilities::printWarning(const std::string &message)
 {
-    std::cout << COLOR_YELLOW << STYLE_BOLD << STYLE_UNDERLINE << message << RESET_STYLE << std::endl;
+    std::cout << COLOR_YELLOW;
+    printMessage(message);
 }
 
 void Utilities::printError(const std::string &message)
 {
-    std::cout << COLOR_RED << STYLE_BOLD << RESET_UNDERLINE << message << RESET_STYLE << std::endl;
+    std::cout << COLOR_RED;
+    printMessage(message);
 }
 
 void Utilities::printMitarbeiter(int mitarbeiterId)
@@ -67,13 +81,13 @@ void Utilities::printMitarbeiter(int mitarbeiterId)
         Mitarbeiter mitarbeiter = MitarbeiterDatenbank::getMitarbeiter(mitarbeiterId);
         MitarbeiterDatenbank::selectedId = mitarbeiterId;
 
-        std::cout << "\nName: " << mitarbeiter.name() << ", " << mitarbeiter.vorname() << std::endl;
-        std::cout << "PLZ: " << mitarbeiter.postleitzahl() << std::endl;
-        std::cout << "Gehalt: " << mitarbeiter.gehalt() << "€" << std::endl;
+        std::cout << RESET_STYLE << "\nName: " << mitarbeiter.name() << ", " << mitarbeiter.vorname() << std::endl << "PLZ: "
+                  << mitarbeiter.postleitzahl() << std::endl << "Gehalt: " << mitarbeiter.gehalt() << "€" << std::endl;
     }
     catch (std::out_of_range &)
     {
         Utilities::printWarning("Kein Mitarbeiter unter dieser Id verfügbar!");
+        MitarbeiterDatenbank::selectedId = 0;
     }
 }
 
@@ -82,20 +96,22 @@ bool Utilities::tryGetMitarbeiterId(int &mitarbeiterId)
     std::string input;
     while (true)
     {
-        std::cout << "Mitarbeiternummer: ";
-        std::cin >> input;
+        std::cout << RESET_STYLE << "Mitarbeiternummer: " << COLOR_BLUE;
+        std::getline(std::cin, input);
 
-        if (!Utilities::tryParse(input, mitarbeiterId))
+        if (input.empty())
         {
-            Utilities::printError("Ungültige Eingabe! (\"0\" eingeben um abzubrechen)\n");
+            return false;
+        }
+        else if (!Utilities::tryParse(input, mitarbeiterId))
+        {
+            Utilities::printError("Ungültige Eingabe!\n");
         }
         else
         {
-            break;
+            return true;
         }
     }
-
-    return mitarbeiterId != 0;
 }
 
 bool Utilities::containsOnlyLetters(const std::string &input)
@@ -145,17 +161,17 @@ void Utilities::printMitarbeiterDifferences(Mitarbeiter &m1, Mitarbeiter &m2)
         std::cout << COLOR_YELLOW << "Ungültige Änderung!";
     else std::cout << (m1.name() == m2.name() ? COLOR_RED : COLOR_GREEN) << m2.name();
 
-    std::cout << RESET_STYLE<< std::endl << m1.vorname() << " --> ";
+    std::cout << RESET_STYLE << std::endl << m1.vorname() << " --> ";
     if (m2.vorname().empty())
         std::cout << COLOR_YELLOW << "Ungültige Änderung!";
     else std::cout << (m1.vorname() == m2.vorname() ? COLOR_RED : COLOR_GREEN) << m2.vorname();
 
-    std::cout << RESET_STYLE<< std::endl << m1.postleitzahl() << " --> ";
+    std::cout << RESET_STYLE << std::endl << m1.postleitzahl() << " --> ";
     if (m2.postleitzahl().empty())
         std::cout << COLOR_YELLOW << "Ungültige Änderung!";
     else std::cout << (m1.postleitzahl() == m2.postleitzahl() ? COLOR_RED : COLOR_GREEN) << m2.postleitzahl();
 
-    std::cout << RESET_STYLE<< std::endl << m1.gehalt() << " --> ";
+    std::cout << RESET_STYLE << std::endl << m1.gehalt() << " --> ";
     if (m2.gehalt() == 0)
         std::cout << COLOR_YELLOW << "Ungültige Änderung!";
     else std::cout << (m1.gehalt() == m2.gehalt() ? COLOR_RED : COLOR_GREEN) << m2.gehalt();
@@ -169,4 +185,29 @@ Mitarbeiter Utilities::validateMitarbeiter(std::string &name, std::string &vorna
     plz = isValidPostalCode(plz) ? plz : "";
     double gehalt = tryParse(gehaltStr, gehalt) ? gehalt : 0.0;
     return {name, vorname, plz, gehalt};
+}
+
+bool Utilities::askQuestion(const std::string &question, bool defaultIsYes)
+{
+    std::string answer;
+    while (true)
+    {
+        std::cout << question << " " << (defaultIsYes ? "(Y/n)" : "(y/N)") << ": " << COLOR_BLUE;
+        std::getline(std::cin, answer);
+        std::cout << RESET_STYLE;
+        if (answer.empty())
+            return defaultIsYes;
+        else
+        {
+            switch (std::tolower(answer[0]))
+            {
+                case 'y':
+                    return true;
+                case 'n':
+                    return false;
+                default:
+                    break;
+            }
+        }
+    }
 }

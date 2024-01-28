@@ -10,6 +10,7 @@ public:
 
     void Print();
     int GetNavigation(unsigned char key);
+    int GetParent();
 
 private:
     std::string _name;

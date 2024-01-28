@@ -15,11 +15,12 @@ Menu IOManager::CurrentMenu()
 
 bool IOManager::Interact()
 {
-    std::string input = getInput();
+    std::string input;
+    std::getline(std::cin, input);
 
-    if (input == "quit" || input == "exit")
+    if (input.empty())
     {
-        return false;
+        GoToMenu(CurrentMenu().GetParent());
     }
     else
     {
@@ -50,8 +51,8 @@ void IOManager::GoToMenu(int menuId)
     {
         if (menuId >= 0 && menuId < _availableMenusCount)
         {
-            _menus[menuId].Print();
             _currentMenuId = menuId;
+            _menus[menuId].Print();
         }
         else
         {

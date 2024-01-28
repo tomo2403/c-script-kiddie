@@ -3,16 +3,26 @@
 #include "Header/IOManager.h"
 #include "Header/Mitarbeiterdatenbank.h"
 #include "Header/Utilities.h"
+#include "Header/ConsoleHelpers.h"
 
 Menu buildMainMenu();
+
 Menu buildHelpMenu();
+
 Menu buildSaveMenu();
+
 Menu buildLoadMenu();
+
 Menu buildMitarbeiterliste();
+
 Menu buildMitarbeiterDetail();
+
 Menu buildSearchMenu();
+
 Menu buildAddMenu();
+
 Menu buildModifyMenu();
+
 Menu buildRemoveMenu();
 
 int main(int argc, char *argv[])
@@ -141,7 +151,7 @@ Menu buildLoadMenu()
 Menu buildMitarbeiterDetail()
 {
     return {"Mitarbeiter Detailansicht", 4,
-            {{'m', 8, "Bearbeiten"},
+            {{'m', 8, "Gehalt erhöhen"},
              {'r', 9, "Entfernen"}},
             {[]()
              {
@@ -154,6 +164,7 @@ Menu buildMitarbeiterDetail()
                  else
                  {
                      Utilities::printWarning("Vorgang abgebrochen!");
+                     MitarbeiterDatenbank::selectedId = 0;
                  }
              }}
     };
@@ -176,34 +187,88 @@ Menu buildAddMenu()
             {},
             {[]()
              {
-
+                 std::string name, vorname, plz, gehaltStr;
+                 Utilities::inputMitarbeiter(name, vorname, plz, gehaltStr);
              }}
     };
 }
 
 Menu buildModifyMenu()
 {
-    return {"Mitarbeiter bearbeiten", 4,
+    return {"Gehalt erhöhen", 4,
             {},
             {[]()
              {
-                 std::string name, vorname, plz, gehaltStr;
-                 Mitarbeiter mCurrent = MitarbeiterDatenbank::getMitarbeiter(MitarbeiterDatenbank::selectedId);
+                 try
+                 {
+                     Mitarbeiter &mCurrent = MitarbeiterDatenbank::getMitarbeiter(MitarbeiterDatenbank::selectedId);
+                     std::cout << "Mitarbeiter: " << mCurrent.name() << ", " << mCurrent.vorname() << std::endl << "Aktuelles Gehalt: "
+                               << mCurrent.gehalt() << "€" << std::endl << std::endl << "Faktor: " << COLOR_BLUE;
 
-                 Utilities::inputMitarbeiter(name, vorname, plz, gehaltStr);
-                 Mitarbeiter nNew = Utilities::validateMitarbeiter(name, vorname, plz, gehaltStr);
-                 Utilities::printMitarbeiterDifferences(mCurrent, nNew);
+                     std::string gehaltStr;
+                     std::cin.ignore();
+                     std::getline(std::cin, gehaltStr);
+
+                     if (gehaltStr.empty())
+                     {
+                         Utilities::printWarning("Vorgang abgebrochen!");
+                     }
+                     else
+                     {
+                         double gehalt;
+                         if (Utilities::tryParse(gehaltStr, gehalt))
+                         {
+                             std::cout << COLOR_YELLOW << mCurrent.gehalt() << "€" << COLOR_WHITE << "  -->  " << COLOR_GREEN
+                                       << mCurrent.gehalt() * gehalt << "€" << std::endl << RESET_STYLE << std::endl;
+                             if (Utilities::askQuestion("Änderungen speichern?", true))
+                             {
+                                 mCurrent.gehalt(gehalt);
+                                 Utilities::printSuccess("\nÄnderungen gespeichert!");
+                             }
+                         }
+                         else
+                         {
+                             Utilities::printError("Ungültige Eingabe!");
+                         }
+                     }
+                 }
+                 catch (std::out_of_range &)
+                 {
+                     Utilities::printError("Kein Mitarbeiter ausgewählt!");
+                     return;
+                 }
              }}
     };
 }
 
 Menu buildRemoveMenu()
 {
-    return {"Mitarbeiter entfernen", 5,
+    return {"Mitarbeiter entfernen", 4,
             {},
             {[]()
              {
+                 try
+                 {
+                     Mitarbeiter &mCurrent = MitarbeiterDatenbank::getMitarbeiter(MitarbeiterDatenbank::selectedId);
+                     std::cout << "Mitarbeiter: " << mCurrent.name() << ", " << mCurrent.vorname() << std::endl << "Wohnt in: "
+                               << mCurrent.postleitzahl() << std::endl << std::endl;
 
+                     std::cin.ignore();
+                     if (Utilities::askQuestion("Mitarbeiter wirklich löschen?", false))
+                     {
+                         MitarbeiterDatenbank::loescheMitarbeiter(MitarbeiterDatenbank::selectedId);
+                         Utilities::printSuccess("\nMitarbeiter gelöscht!");
+                     }
+                     else
+                     {
+                         Utilities::printWarning("Vorgang abgebrochen!");
+                     }
+                 }
+                 catch (std::out_of_range &)
+                 {
+                     Utilities::printError("Kein Mitarbeiter ausgewählt!");
+                     return;
+                 }
              }}
     };
 }

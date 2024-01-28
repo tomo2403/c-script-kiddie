@@ -14,7 +14,7 @@ public:
     static void loescheMitarbeiter(int mitarbeiterNummer);
     static std::vector<int> findeMitarbeiter(const std::string &name, const std::string &vorname);
     static std::map<int, Mitarbeiter> alleMitarbeiter();
-    static Mitarbeiter getMitarbeiter(int id);
+    static Mitarbeiter &getMitarbeiter(int id);
     static void serialisieren();
     static void deserialisieren();
 

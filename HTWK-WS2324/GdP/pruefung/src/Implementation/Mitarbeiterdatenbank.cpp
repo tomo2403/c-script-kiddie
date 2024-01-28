@@ -132,10 +132,10 @@ void MitarbeiterDatenbank::Init(std::string saveToFilename, char csvSeparator, i
     _nextId = nextId;
 }
 
-Mitarbeiter MitarbeiterDatenbank::getMitarbeiter(int id)
+Mitarbeiter& MitarbeiterDatenbank::getMitarbeiter(int id)
 {
     auto it = _mitarbeiterListe.find(id);
-    return it != _mitarbeiterListe.end() ? it->second : throw std::out_of_range("No value for this id");
+    return it != _mitarbeiterListe.end() ? it->second : throw std::out_of_range("No employee with this id");
 }
 
 int MitarbeiterDatenbank::selectedId;

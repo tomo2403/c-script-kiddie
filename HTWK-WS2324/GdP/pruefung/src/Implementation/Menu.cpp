@@ -8,7 +8,7 @@ Menu::Menu(std::string name, unsigned char parent, const std::vector<KeyMap> &ke
         : _name(std::move(name)), _keys(keys), _codeToExecute(codeToExecute), _parent(parent)
 {
     if (!hideBackKey)
-        _keys.insert(_keys.end(), {'b', _parent, "Zurück"});
+        _keys.insert(_keys.end(), {' ', _parent, "Zurück"});
 }
 
 void Menu::Print()
@@ -35,4 +35,9 @@ int Menu::GetNavigation(unsigned char key)
         }
     }
     return -1;
+}
+
+int Menu::GetParent()
+{
+    return _parent;
 }
