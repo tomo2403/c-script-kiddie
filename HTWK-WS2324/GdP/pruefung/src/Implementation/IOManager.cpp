@@ -15,8 +15,7 @@ Menu IOManager::CurrentMenu()
 
 bool IOManager::Interact()
 {
-    std::string input;
-    std::getline(std::cin, input);
+    std::string input = Utilities::getInput();
 
     if (input.empty())
     {
@@ -70,13 +69,4 @@ void IOManager::printHeader()
     std::system("clear");
     std::cout << COLOR_CYAN << STYLE_BOLD << STYLE_UNDERLINE << std::setfill('=') << std::setw(10) << "=" << " MITARBEITERDATENBANK "
               << std::setfill('=') << std::setw(10) << "=" << std::setfill(' ') << std::endl << RESET_STYLE << std::endl;
-}
-
-std::string IOManager::getInput()
-{
-    std::cout << COLOR_BLUE;
-    std::string input;
-    std::cin >> input;
-    std::cout << RESET_STYLE;
-    return input;
 }

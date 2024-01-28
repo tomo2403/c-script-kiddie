@@ -66,10 +66,9 @@ int main(int argc, char *argv[])
 Menu buildMainMenu()
 {
     return {"Hauptmenü", 0,
-            {{'d', 4, "Mitarbeiterverzeichnis öffnen"},
+            {{'o', 4, "Mitarbeiterverzeichnis öffnen"},
              {'e', 2, "Datenbank exportieren"},
              {'i', 3, "Datenbank importieren"},
-             {'c', 0, "Ansicht Bereinigen"},
              {'h', 1, "Hilfe anzeigen"}},
             {[]()
              {
@@ -101,25 +100,7 @@ Menu buildMitarbeiterliste()
             {[]()
              {
                  std::map<int, Mitarbeiter> mitarbeiterMap = MitarbeiterDatenbank::alleMitarbeiter();
-                 int maxIdWidth = 0, maxNameWidth = 0, maxVornameWidth = 0, maxPLZWidth = 0, maxGehaltWidth = 0, maxTotalWidth = 0;
-                 Utilities::measureTableContents(mitarbeiterMap, maxIdWidth, maxNameWidth, maxVornameWidth, maxPLZWidth, maxGehaltWidth,
-                                                 maxTotalWidth);
-
-                 // Tabellenüberschrift
-                 std::cout << std::setw(maxIdWidth) << "ID" << std::setw(maxNameWidth) << "Name"
-                           << std::setw(maxVornameWidth) << "Vorname" << std::setw(maxPLZWidth) << "PLZ"
-                           << std::setw(maxGehaltWidth) << "Gehalt" << std::endl;
-                 std::cout << std::setfill('-') << std::setw(maxTotalWidth) << "-" << std::setfill(' ') << std::endl;
-
-                 // Mitarbeiterdaten ausgeben
-                 for (auto &entry: mitarbeiterMap)
-                 {
-                     Mitarbeiter &mitarbeiter = entry.second;
-                     std::cout << std::setw(maxIdWidth) << entry.first << std::setw(maxNameWidth) << mitarbeiter.name()
-                               << std::setw(maxVornameWidth) << mitarbeiter.vorname()
-                               << std::setw(maxPLZWidth) << mitarbeiter.postleitzahl()
-                               << std::setw(maxGehaltWidth) << mitarbeiter.gehalt() << std::setw(0) << std::endl;
-                 }
+                 Utilities::printMitarbeiterTable(mitarbeiterMap);
              }}
     };
 }
@@ -176,7 +157,21 @@ Menu buildSearchMenu()
             {{'s', 6, "Neue suche"}},
             {[]()
              {
+                 Utilities::printWarning("Groß- und Kleinschreibung wird berücksichtigt!\n");
 
+                 std::string name, vorname;
+                 std::cout << "Name enthält: ";
+                 name = Utilities::getInput();
+                 std::cout << "Vorname enthält: ";
+                 vorname = Utilities::getInput();
+
+                 std::vector<int> mitarbeiter = MitarbeiterDatenbank::findeMitarbeiter(name, vorname);
+
+                 std::cout << std::endl << STYLE_UNDERLINE << "Treffer IDs:" << RESET_UNDERLINE << std::endl;
+                 for (int i: mitarbeiter)
+                 {
+                     std::cout << i << std::endl;
+                 }
              }}
     };
 }
@@ -187,8 +182,24 @@ Menu buildAddMenu()
             {},
             {[]()
              {
+                 double gehalt;
                  std::string name, vorname, plz, gehaltStr;
-                 Utilities::inputMitarbeiter(name, vorname, plz, gehaltStr);
+                 Utilities::inputMitarbeiter(name, vorname, plz, gehaltStr, gehalt);
+
+                 std::cout << RESET_STYLE << std::endl << std::endl;
+                 std::cout << STYLE_UNDERLINE << "Eingaben überprüfen:" << RESET_UNDERLINE << std::endl;
+                 Utilities::printMitarbeiter({name, vorname, plz, gehalt});
+
+                 std::cin.ignore();
+                 if (Utilities::askQuestion("Mitarbeiter hinzufügen?", true))
+                 {
+                     MitarbeiterDatenbank::neuerMitarbeiter(name, vorname, plz, gehalt);
+                     Utilities::printSuccess("\nMitarbeiter hinzugefügt!");
+                 }
+                 else
+                 {
+                     Utilities::printWarning("Vorgang abgebrochen!");
+                 }
              }}
     };
 }

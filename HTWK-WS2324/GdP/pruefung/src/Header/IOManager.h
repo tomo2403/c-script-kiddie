@@ -19,7 +19,6 @@ private:
     Menu *_menus;
 
     static void printHeader();
-    static std::string getInput();
 };
 
 #endif //PRUEFUNG_IOMANAGER_H

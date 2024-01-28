@@ -41,10 +41,11 @@ void MitarbeiterDatenbank::loescheMitarbeiter(int mitarbeiterNummer)
 std::vector<int> MitarbeiterDatenbank::findeMitarbeiter(const std::string &name, const std::string &vorname)
 {
     std::vector<int> result(0);
-    for (auto &mitarbeiter: _mitarbeiterListe)
-    {
-        if (mitarbeiter.second.name().rfind(name) || mitarbeiter.second.vorname().rfind(vorname))
-            result.insert(result.cend(), mitarbeiter.first);
+    for (auto& mitarbeiter : _mitarbeiterListe) {
+        if (mitarbeiter.second.name().rfind(name) != std::string::npos ||
+            mitarbeiter.second.vorname().rfind(vorname) != std::string::npos) {
+            result.push_back(mitarbeiter.first);
+        }
     }
     return result;
 }

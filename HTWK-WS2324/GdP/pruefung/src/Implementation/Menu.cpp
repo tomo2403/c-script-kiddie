@@ -37,7 +37,7 @@ int Menu::GetNavigation(unsigned char key)
     return -1;
 }
 
-int Menu::GetParent()
+int Menu::GetParent() const
 {
     return _parent;
 }

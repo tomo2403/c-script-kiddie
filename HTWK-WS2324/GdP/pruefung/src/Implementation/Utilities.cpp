@@ -1,6 +1,7 @@
 #include <stdexcept>
 #include <string>
 #include <iostream>
+#include <iomanip>
 #include "../Header/ConsoleHelpers.h"
 #include "../Header/Utilities.h"
 #include "../Header/Mitarbeiterdatenbank.h"
@@ -76,11 +77,15 @@ void Utilities::printError(const std::string &message)
 
 void Utilities::printMitarbeiter(int mitarbeiterId)
 {
-    try
-    {
         Mitarbeiter mitarbeiter = MitarbeiterDatenbank::getMitarbeiter(mitarbeiterId);
         MitarbeiterDatenbank::selectedId = mitarbeiterId;
+        printMitarbeiter(mitarbeiter);
+}
 
+void Utilities::printMitarbeiter(Mitarbeiter mitarbeiter)
+{
+    try
+    {
         std::cout << RESET_STYLE << "\nName: " << mitarbeiter.name() << ", " << mitarbeiter.vorname() << std::endl << "PLZ: "
                   << mitarbeiter.postleitzahl() << std::endl << "Gehalt: " << mitarbeiter.gehalt() << "€" << std::endl;
     }
@@ -137,21 +142,55 @@ bool Utilities::isValidPostalCode(const std::string &input)
     });
 }
 
-void Utilities::inputMitarbeiter(std::string &name, std::string &vorname, std::string &plz, std::string &gehaltStr)
+void Utilities::inputMitarbeiter(std::string &name, std::string &vorname, std::string &plz, std::string &gehaltStr, double &gehalt)
 {
-    std::cin.ignore();
+    while (true)
+    {
+        std::cout << RESET_STYLE << "Neuer Name: " << COLOR_BLUE;
+        std::cin >> name;
 
-    std::cout << "Neuer Name: ";
-    std::getline(std::cin, name);
+        if (containsOnlyLetters(name))
+        {
+            break;
+        }
+        Utilities::printError("Wert darf nur aus Buchstaben bestehen!\n");
+    }
 
-    std::cout << "Neuer Vorname: ";
-    std::getline(std::cin, vorname);
+    while (true)
+    {
+        std::cout << RESET_STYLE << "Neuer Vorname: " << COLOR_BLUE;
+        std::cin >> vorname;
 
-    std::cout << "Neue PLZ: ";
-    std::getline(std::cin, plz);
+        if (containsOnlyLetters(vorname))
+        {
+            break;
+        }
+        Utilities::printError("Wert darf nur aus Buchstaben bestehen!\n");
+    }
 
-    std::cout << "Neues Gehalt: ";
-    std::getline(std::cin, gehaltStr);
+    while (true)
+    {
+        std::cout << RESET_STYLE << "Neue PLZ: " << COLOR_BLUE;
+        std::cin >> plz;
+
+        if (isValidPostalCode(plz))
+        {
+            break;
+        }
+        Utilities::printError("Wert muss eine Zahl sein und 5 Zeichen lang sein!\n");
+    }
+
+    while (true)
+    {
+        std::cout << RESET_STYLE << "Neues Gehalt: " << COLOR_BLUE;
+        std::cin >> gehaltStr;
+
+        if (tryParse(gehaltStr, gehalt))
+        {
+            break;
+        }
+        Utilities::printError("Wert muss eine Zahl sein!\n");
+    }
 }
 
 void Utilities::printMitarbeiterDifferences(Mitarbeiter &m1, Mitarbeiter &m2)
@@ -210,4 +249,36 @@ bool Utilities::askQuestion(const std::string &question, bool defaultIsYes)
             }
         }
     }
+}
+
+void Utilities::printMitarbeiterTable(std::map<int, Mitarbeiter> mitarbeiterMap)
+{
+    int maxIdWidth = 0, maxNameWidth = 0, maxVornameWidth = 0, maxPLZWidth = 0, maxGehaltWidth = 0, maxTotalWidth = 0;
+    measureTableContents(mitarbeiterMap, maxIdWidth, maxNameWidth, maxVornameWidth, maxPLZWidth, maxGehaltWidth,
+                                    maxTotalWidth);
+
+    // Tabellenüberschrift
+    std::cout << std::setw(maxIdWidth) << "ID" << std::setw(maxNameWidth) << "Name"
+              << std::setw(maxVornameWidth) << "Vorname" << std::setw(maxPLZWidth) << "PLZ"
+              << std::setw(maxGehaltWidth) << "Gehalt" << std::endl;
+    std::cout << std::setfill('-') << std::setw(maxTotalWidth) << "-" << std::setfill(' ') << std::endl;
+
+    // Mitarbeiterdaten ausgeben
+    for (auto &entry: mitarbeiterMap)
+    {
+        Mitarbeiter &mitarbeiter = entry.second;
+        std::cout << std::setw(maxIdWidth) << entry.first << std::setw(maxNameWidth) << mitarbeiter.name()
+                  << std::setw(maxVornameWidth) << mitarbeiter.vorname()
+                  << std::setw(maxPLZWidth) << mitarbeiter.postleitzahl()
+                  << std::setw(maxGehaltWidth) << mitarbeiter.gehalt() << std::setw(0) << std::endl;
+    }
+}
+
+std::string Utilities::getInput()
+{
+    std::cout << COLOR_BLUE;
+    std::string input;
+    std::getline(std::cin, input);
+    std::cout << RESET_STYLE;
+    return input;
 }

@@ -7,6 +7,7 @@
 class Utilities
 {
 public:
+    static void printMitarbeiterTable(std::map<int, Mitarbeiter> mitarbeiterMap);
     static void measureTableContents(std::map<int, Mitarbeiter> mitarbeiterMap, int &maxIdWidth, int &maxNameWidth, int &maxVornameWidth,
                                      int &maxPLZWidth, int &maxGehaltWidth,
                                      int &maxTotalWidth);
@@ -17,9 +18,10 @@ public:
 
     static bool tryGetMitarbeiterId(int &mitarbeiterId);
 
-    static void inputMitarbeiter(std::string &name, std::string &vorname, std::string &plz, std::string &gehaltStr);
+    static void inputMitarbeiter(std::string &name, std::string &vorname, std::string &plz, std::string &gehaltStr, double &gehalt);
 
     static void printMitarbeiter(int mitarbeiterId);
+    static void printMitarbeiter(Mitarbeiter mitarbeiter);
 
     static void printMitarbeiterDifferences(Mitarbeiter &m1, Mitarbeiter &m2);
 
@@ -37,6 +39,7 @@ public:
 
     static Mitarbeiter validateMitarbeiter(std::string &name, std::string &vorname, std::string &plz, std::string &gehaltStr);
 
+    static std::string getInput();
 private:
     static void printMessage(const std::string &message);
 };
