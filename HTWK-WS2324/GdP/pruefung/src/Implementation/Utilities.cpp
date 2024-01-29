@@ -245,3 +245,23 @@ std::string Utilities::getInput()
     std::cout << RESET_STYLE;
     return input;
 }
+
+void Utilities::handleSalaryChange(Mitarbeiter &mCurrent, std::string &factorStr)
+{
+    double factor;
+    if (tryParse(factorStr, factor))
+    {
+        std::cout << COLOR_YELLOW << mCurrent.gehalt() << "€" << COLOR_WHITE << "  -->  " << COLOR_GREEN
+                  << (mCurrent.gehalt() * factor) << "€" << std::endl << RESET_STYLE << std::endl;
+
+        if (Utilities::askQuestion("Änderungen speichern?", true))
+        {
+            MitarbeiterDatenbank::erhoeheGehalt(MitarbeiterDatenbank::selectedId, factor);
+            Utilities::printSuccess("\nÄnderungen gespeichert!");
+        }
+    }
+    else
+    {
+        Utilities::printError("Ungültige Eingabe!");
+    }
+}

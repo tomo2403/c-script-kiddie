@@ -1,5 +1,4 @@
 #include <iostream>
-#include <iomanip>
 #include "Header/IOManager.h"
 #include "Header/Mitarbeiterdatenbank.h"
 #include "Header/Utilities.h"
@@ -72,7 +71,9 @@ Menu buildMainMenu()
              {'h', 1, "Hilfe anzeigen"}},
             {[]()
              {
-                 std::cout << "Prüfungsleistung" << std::endl;
+                 std::cout << STYLE_UNDERLINE "HTWK Leipzig, Wintersemester 2023/24" << RESET_UNDERLINE << std::endl
+                           << "[C963] Grundlagen der Programmierung\n" << std::endl
+                           << STYLE_BOLD << "Prüfungsleistung von Tom Mohr" << RESET_BOLD << std::endl;
              }}, true
     };
 }
@@ -84,9 +85,11 @@ Menu buildHelpMenu()
             {[]()
              {
                  std::cout << "Jedes Menü enthält eine Liste von Befehlen. " << std::endl
-                           << "Diese Befehle können über das eingeben des Schlüssels ausgewählt werden. "
+                           << "Diese Befehle können über das Eingeben des Schlüssels ausgewählt werden. " << std::endl
                            << std::endl
-                           << R"(Um das Programm zu beenden, geben Sie "quit" oder "exit" ein.)" << std::endl;
+                           << R"(Zum Importieren von Demodaten, Programm mit "-d" oder "--demo" starten.)" << std::endl
+                           << "Um ein Menü zu schließen, Eingabetaste verwenden." << std::endl
+                           << R"(Um das Programm zu beenden, "exit" eingeben.)" << std::endl;
              }}
     };
 }
@@ -154,7 +157,8 @@ Menu buildMitarbeiterDetail()
 Menu buildSearchMenu()
 {
     return {"Mitarbeiter suchen", 4,
-            {{'s', 6, "Neue suche"}},
+            {{'s', 6, "Neue suche"},
+             {'d', 5, "Mitarbeiter öffnen"}},
             {[]()
              {
                  Utilities::printWarning("Groß- und Kleinschreibung wird berücksichtigt!\n");
@@ -217,7 +221,6 @@ Menu buildModifyMenu()
                                << mCurrent.gehalt() << "€" << std::endl << std::endl << "Faktor: " << COLOR_BLUE;
 
                      std::string factorStr;
-                     //std::cin.ignore();
                      std::getline(std::cin, factorStr);
 
                      if (factorStr.empty())
@@ -226,27 +229,12 @@ Menu buildModifyMenu()
                      }
                      else
                      {
-                         double factor;
-                         if (Utilities::tryParse(factorStr, factor))
-                         {
-                             std::cout << COLOR_YELLOW << mCurrent.gehalt() << "€" << COLOR_WHITE << "  -->  " << COLOR_GREEN
-                                       << (mCurrent.gehalt() * factor) << "€" << std::endl << RESET_STYLE << std::endl;
-                             if (Utilities::askQuestion("Änderungen speichern?", true))
-                             {
-                                 MitarbeiterDatenbank::erhoeheGehalt(MitarbeiterDatenbank::selectedId, factor);
-                                 Utilities::printSuccess("\nÄnderungen gespeichert!");
-                             }
-                         }
-                         else
-                         {
-                             Utilities::printError("Ungültige Eingabe!");
-                         }
+                         Utilities::handleSalaryChange(mCurrent, factorStr);
                      }
                  }
                  catch (std::out_of_range &)
                  {
                      Utilities::printError("Kein Mitarbeiter ausgewählt!");
-                     return;
                  }
              }}
     };
@@ -278,7 +266,6 @@ Menu buildRemoveMenu()
                  catch (std::out_of_range &)
                  {
                      Utilities::printError("Kein Mitarbeiter ausgewählt!");
-                     return;
                  }
              }}
     };

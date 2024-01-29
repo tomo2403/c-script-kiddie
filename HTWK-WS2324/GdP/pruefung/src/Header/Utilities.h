@@ -38,6 +38,8 @@ public:
 
     static std::string getInput();
 
+    static void handleSalaryChange(Mitarbeiter &mCurrent, std::string &factorStr);
+
 private:
     static void printMessage(const std::string &message);
 };
