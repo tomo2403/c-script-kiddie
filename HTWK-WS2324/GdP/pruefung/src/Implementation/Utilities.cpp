@@ -77,9 +77,9 @@ void Utilities::printError(const std::string &message)
 
 void Utilities::printMitarbeiter(int mitarbeiterId)
 {
-        Mitarbeiter mitarbeiter = MitarbeiterDatenbank::getMitarbeiter(mitarbeiterId);
-        MitarbeiterDatenbank::selectedId = mitarbeiterId;
-        printMitarbeiter(mitarbeiter);
+    Mitarbeiter mitarbeiter = MitarbeiterDatenbank::getMitarbeiter(mitarbeiterId);
+    MitarbeiterDatenbank::selectedId = mitarbeiterId;
+    printMitarbeiter(mitarbeiter);
 }
 
 void Utilities::printMitarbeiter(Mitarbeiter mitarbeiter)
@@ -88,8 +88,7 @@ void Utilities::printMitarbeiter(Mitarbeiter mitarbeiter)
     {
         std::cout << RESET_STYLE << "\nName: " << mitarbeiter.name() << ", " << mitarbeiter.vorname() << std::endl << "PLZ: "
                   << mitarbeiter.postleitzahl() << std::endl << "Gehalt: " << mitarbeiter.gehalt() << "€" << std::endl;
-    }
-    catch (std::out_of_range &)
+    } catch (std::out_of_range &)
     {
         Utilities::printWarning("Kein Mitarbeiter unter dieser Id verfügbar!");
         MitarbeiterDatenbank::selectedId = 0;
@@ -193,39 +192,6 @@ void Utilities::inputMitarbeiter(std::string &name, std::string &vorname, std::s
     }
 }
 
-void Utilities::printMitarbeiterDifferences(Mitarbeiter &m1, Mitarbeiter &m2)
-{
-    std::cout << RESET_STYLE << m1.name() << " --> ";
-    if (m2.name().empty())
-        std::cout << COLOR_YELLOW << "Ungültige Änderung!";
-    else std::cout << (m1.name() == m2.name() ? COLOR_RED : COLOR_GREEN) << m2.name();
-
-    std::cout << RESET_STYLE << std::endl << m1.vorname() << " --> ";
-    if (m2.vorname().empty())
-        std::cout << COLOR_YELLOW << "Ungültige Änderung!";
-    else std::cout << (m1.vorname() == m2.vorname() ? COLOR_RED : COLOR_GREEN) << m2.vorname();
-
-    std::cout << RESET_STYLE << std::endl << m1.postleitzahl() << " --> ";
-    if (m2.postleitzahl().empty())
-        std::cout << COLOR_YELLOW << "Ungültige Änderung!";
-    else std::cout << (m1.postleitzahl() == m2.postleitzahl() ? COLOR_RED : COLOR_GREEN) << m2.postleitzahl();
-
-    std::cout << RESET_STYLE << std::endl << m1.gehalt() << " --> ";
-    if (m2.gehalt() == 0)
-        std::cout << COLOR_YELLOW << "Ungültige Änderung!";
-    else std::cout << (m1.gehalt() == m2.gehalt() ? COLOR_RED : COLOR_GREEN) << m2.gehalt();
-    std::cout << RESET_STYLE << std::endl;
-}
-
-Mitarbeiter Utilities::validateMitarbeiter(std::string &name, std::string &vorname, std::string &plz, std::string &gehaltStr)
-{
-    name = containsOnlyLetters(name) ? name : "";
-    vorname = containsOnlyLetters(vorname) ? vorname : "";
-    plz = isValidPostalCode(plz) ? plz : "";
-    double gehalt = tryParse(gehaltStr, gehalt) ? gehalt : 0.0;
-    return {name, vorname, plz, gehalt};
-}
-
 bool Utilities::askQuestion(const std::string &question, bool defaultIsYes)
 {
     std::string answer;
@@ -254,23 +220,20 @@ bool Utilities::askQuestion(const std::string &question, bool defaultIsYes)
 void Utilities::printMitarbeiterTable(std::map<int, Mitarbeiter> mitarbeiterMap)
 {
     int maxIdWidth = 0, maxNameWidth = 0, maxVornameWidth = 0, maxPLZWidth = 0, maxGehaltWidth = 0, maxTotalWidth = 0;
-    measureTableContents(mitarbeiterMap, maxIdWidth, maxNameWidth, maxVornameWidth, maxPLZWidth, maxGehaltWidth,
-                                    maxTotalWidth);
+    measureTableContents(mitarbeiterMap, maxIdWidth, maxNameWidth, maxVornameWidth, maxPLZWidth, maxGehaltWidth, maxTotalWidth);
 
     // Tabellenüberschrift
-    std::cout << std::setw(maxIdWidth) << "ID" << std::setw(maxNameWidth) << "Name"
-              << std::setw(maxVornameWidth) << "Vorname" << std::setw(maxPLZWidth) << "PLZ"
-              << std::setw(maxGehaltWidth) << "Gehalt" << std::endl;
+    std::cout << std::setw(maxIdWidth) << "ID" << std::setw(maxNameWidth) << "Name" << std::setw(maxVornameWidth) << "Vorname"
+              << std::setw(maxPLZWidth) << "PLZ" << std::setw(maxGehaltWidth) << "Gehalt" << std::endl;
     std::cout << std::setfill('-') << std::setw(maxTotalWidth) << "-" << std::setfill(' ') << std::endl;
 
     // Mitarbeiterdaten ausgeben
     for (auto &entry: mitarbeiterMap)
     {
         Mitarbeiter &mitarbeiter = entry.second;
-        std::cout << std::setw(maxIdWidth) << entry.first << std::setw(maxNameWidth) << mitarbeiter.name()
-                  << std::setw(maxVornameWidth) << mitarbeiter.vorname()
-                  << std::setw(maxPLZWidth) << mitarbeiter.postleitzahl()
-                  << std::setw(maxGehaltWidth) << mitarbeiter.gehalt() << std::setw(0) << std::endl;
+        std::cout << std::setw(maxIdWidth) << entry.first << std::setw(maxNameWidth) << mitarbeiter.name() << std::setw(maxVornameWidth)
+                  << mitarbeiter.vorname() << std::setw(maxPLZWidth) << mitarbeiter.postleitzahl() << std::setw(maxGehaltWidth)
+                  << mitarbeiter.gehalt() << std::setw(0) << std::endl;
     }
 }
 
