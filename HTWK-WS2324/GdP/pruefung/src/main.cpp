@@ -216,24 +216,24 @@ Menu buildModifyMenu()
                      std::cout << "Mitarbeiter: " << mCurrent.name() << ", " << mCurrent.vorname() << std::endl << "Aktuelles Gehalt: "
                                << mCurrent.gehalt() << "€" << std::endl << std::endl << "Faktor: " << COLOR_BLUE;
 
-                     std::string gehaltStr;
-                     std::cin.ignore();
-                     std::getline(std::cin, gehaltStr);
+                     std::string factorStr;
+                     //std::cin.ignore();
+                     std::getline(std::cin, factorStr);
 
-                     if (gehaltStr.empty())
+                     if (factorStr.empty())
                      {
                          Utilities::printWarning("Vorgang abgebrochen!");
                      }
                      else
                      {
-                         double gehalt;
-                         if (Utilities::tryParse(gehaltStr, gehalt))
+                         double factor;
+                         if (Utilities::tryParse(factorStr, factor))
                          {
                              std::cout << COLOR_YELLOW << mCurrent.gehalt() << "€" << COLOR_WHITE << "  -->  " << COLOR_GREEN
-                                       << mCurrent.gehalt() * gehalt << "€" << std::endl << RESET_STYLE << std::endl;
+                                       << (mCurrent.gehalt() * factor) << "€" << std::endl << RESET_STYLE << std::endl;
                              if (Utilities::askQuestion("Änderungen speichern?", true))
                              {
-                                 mCurrent.gehalt(gehalt);
+                                 MitarbeiterDatenbank::erhoeheGehalt(MitarbeiterDatenbank::selectedId, factor);
                                  Utilities::printSuccess("\nÄnderungen gespeichert!");
                              }
                          }
