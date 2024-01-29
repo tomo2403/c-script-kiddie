@@ -1,11 +1,9 @@
-#ifndef PRUEFUNG_KEYMAP_H
-#define PRUEFUNG_KEYMAP_H
+#pragma once
 
+/// \brief Struktur zum zuordnen von Befehlen zu Menüs
 struct KeyMap
 {
-    unsigned char key;
-    unsigned char menuId;
-    std::string action;
+    unsigned char key; ///< Der Schlüssel des Befehls
+    unsigned char menuId; ///< Die ID des Menüs der Navigation
+    std::string action; ///< Die Beschreibung des Befehls
 };
-
-#endif //PRUEFUNG_KEYMAP_H

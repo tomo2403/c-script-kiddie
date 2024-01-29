@@ -1,8 +1,7 @@
-#ifndef PRUEFUNG_IOMANAGER_H
-#define PRUEFUNG_IOMANAGER_H
-
+#pragma once
 #include "Menu.h"
 
+/// \brief Verwaltet Ein- & Ausgabeströme
 class IOManager
 {
 public:
@@ -39,5 +38,3 @@ private:
     /// \return True, wenn die Menü-ID gültig ist, sonst false.
     [[nodiscard]] bool isValidMenuId(int menuId) const;
 };
-
-#endif //PRUEFUNG_IOMANAGER_H
