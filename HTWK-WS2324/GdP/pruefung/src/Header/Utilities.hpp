@@ -1,5 +1,5 @@
 #pragma once
-#include "Mitarbeiter.h"
+#include "Mitarbeiter.hpp"
 #include "map"
 
 /// \brief Bietet verschiedene Hilfsfunktionen für die Anwendung im Zusammenhang mit Mitarbeitern.

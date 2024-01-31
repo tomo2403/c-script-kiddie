@@ -1,5 +1,5 @@
 #pragma once
-#include "Menu.h"
+#include "Menu.hpp"
 
 /// \brief Verwaltet Ein- & Ausgabeströme
 class IOManager

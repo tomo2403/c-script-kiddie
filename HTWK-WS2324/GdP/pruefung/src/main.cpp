@@ -1,8 +1,8 @@
 #include <iostream>
-#include "Header/IOManager.h"
-#include "Header/Mitarbeiterdatenbank.h"
-#include "Header/Utilities.h"
-#include "Header/ConsoleHelpers.h"
+#include "Header/IOManager.hpp"
+#include "Header/Mitarbeiterdatenbank.hpp"
+#include "Header/Utilities.hpp"
+#include "Header/ConsoleHelpers.hpp"
 
 Menu buildMainMenu();
 
@@ -26,6 +26,7 @@ Menu buildRemoveMenu();
 
 int main(int argc, char *argv[])
 {
+    //Ansichten vorbereiten
     const int availableMenusCount = 10;
     Menu availableMenus[availableMenusCount] = {
             {buildMainMenu()},
@@ -55,8 +56,11 @@ int main(int argc, char *argv[])
         }
     }
 
+    //Ein- & Ausgabe vorbereiten
     IOManager ioManager(availableMenus, availableMenusCount);
     ioManager.GoToMenu(0);
+
+    //Auf Benutzerinteraktion reagieren
     while (ioManager.Interact());
 
     return 0;
@@ -252,7 +256,6 @@ Menu buildRemoveMenu()
                      std::cout << "Mitarbeiter: " << mCurrent.name() << ", " << mCurrent.vorname() << std::endl << "Wohnt in: "
                                << mCurrent.postleitzahl() << std::endl << std::endl;
 
-                     std::cin.ignore();
                      if (Utilities::askQuestion("Mitarbeiter wirklich löschen?", false))
                      {
                          MitarbeiterDatenbank::loescheMitarbeiter(MitarbeiterDatenbank::selectedId);

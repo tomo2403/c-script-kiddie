@@ -1,4 +1,4 @@
-#include "../Header/Mitarbeiter.h"
+#include "../Header/Mitarbeiter.hpp"
 
 Mitarbeiter::Mitarbeiter(std::string name, std::string vorname, std::string postleitzahl, double gehalt) : _name(
         std::move(name)), _vorname(std::move(vorname)), _postleitzahl(std::move(postleitzahl)), _gehalt(gehalt)

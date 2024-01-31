@@ -1,7 +1,7 @@
 #pragma once
 #include <vector>
 #include <functional>
-#include "KeyMap.h"
+#include "KeyMap.hpp"
 
 /// \brief Repräsentiert ein Menü
 class Menu

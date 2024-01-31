@@ -4,7 +4,7 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
-#include "../Header/Mitarbeiterdatenbank.h"
+#include "../Header/Mitarbeiterdatenbank.hpp"
 
 void MitarbeiterDatenbank::Init(std::string saveToFilename, char csvSeparator, int nextId)
 {

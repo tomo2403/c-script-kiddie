@@ -1,8 +1,8 @@
 #include <utility>
 #include <iostream>
 #include <functional>
-#include "../Header/Menu.h"
-#include "../Header/ConsoleHelpers.h"
+#include "../Header/Menu.hpp"
+#include "../Header/ConsoleHelpers.hpp"
 
 Menu::Menu(std::string  name, unsigned char parent, const std::vector<KeyMap>& keys, const std::function<void()>& codeToExecute,
            bool hideBackKey) : _name(std::move(name)), _keys(keys), _codeToExecute(codeToExecute), _parent(parent)

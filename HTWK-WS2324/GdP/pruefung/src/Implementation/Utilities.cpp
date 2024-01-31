@@ -2,9 +2,9 @@
 #include <string>
 #include <iostream>
 #include <iomanip>
-#include "../Header/ConsoleHelpers.h"
-#include "../Header/Utilities.h"
-#include "../Header/Mitarbeiterdatenbank.h"
+#include "../Header/ConsoleHelpers.hpp"
+#include "../Header/Utilities.hpp"
+#include "../Header/Mitarbeiterdatenbank.hpp"
 
 void Utilities::measureTableContents(std::map<int, Mitarbeiter> mitarbeiterMap, int &maxIdWidth, int &maxNameWidth, int &maxVornameWidth,
                                      int &maxPLZWidth, int &maxGehaltWidth, int &maxTotalWidth)
