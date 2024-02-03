@@ -4,27 +4,28 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include "../Header/Utilities.hpp"
 #include "../Header/Mitarbeiterdatenbank.hpp"
 
-void MitarbeiterDatenbank::Init(std::string saveToFilename, char csvSeparator, int nextId)
+void MitarbeiterDatenbank::Init(std::string path, char separator, int startId)
 {
-    _saveToFilename = std::move(saveToFilename);
-    _csvSeparator = csvSeparator;
-    _nextId = nextId;
+	saveToFilename = std::move(path);
+	csvSeparator = separator;
+	currentId = startId;
 }
 
 int MitarbeiterDatenbank::neuerMitarbeiter(std::string name, std::string vorname, std::string postleitzahl, double gehalt)
 {
     int id = provideId();
     Mitarbeiter mNeu(std::move(name), std::move(vorname), std::move(postleitzahl), gehalt);
-    _mitarbeiterListe.insert({id, mNeu});
+    mitarbeiterDb.insert({id, mNeu});
     return id;
 }
 
 void MitarbeiterDatenbank::erhoeheGehalt(int mitarbeiterNummer, double faktor)
 {
-    auto it = _mitarbeiterListe.find(mitarbeiterNummer);
-    if (it != _mitarbeiterListe.end())
+    auto it = mitarbeiterDb.find(mitarbeiterNummer);
+    if (it != mitarbeiterDb.end())
     {
         Mitarbeiter &m = it->second;
         m.gehalt(m.gehalt() * faktor);
@@ -33,13 +34,13 @@ void MitarbeiterDatenbank::erhoeheGehalt(int mitarbeiterNummer, double faktor)
 
 void MitarbeiterDatenbank::loescheMitarbeiter(int mitarbeiterNummer)
 {
-    _mitarbeiterListe.erase(mitarbeiterNummer);
+    mitarbeiterDb.erase(mitarbeiterNummer);
 }
 
 std::vector<int> MitarbeiterDatenbank::findeMitarbeiter(const std::string &name, const std::string &vorname)
 {
     std::vector<int> result;
-    for (auto &mitarbeiter: _mitarbeiterListe)
+    for (auto &mitarbeiter: mitarbeiterDb)
     {
         if (mitarbeiter.second.name().rfind(name) != std::string::npos || mitarbeiter.second.vorname().rfind(vorname) != std::string::npos)
         {
@@ -51,19 +52,19 @@ std::vector<int> MitarbeiterDatenbank::findeMitarbeiter(const std::string &name,
 
 void MitarbeiterDatenbank::serialisieren()
 {
-    std::ofstream file(_saveToFilename);
+    std::ofstream file(saveToFilename);
 
     if (!file.is_open())
     {
-        std::cerr << "Konnte die Datei nicht öffnen: " << _saveToFilename << std::endl;
+		Utilities::printError("Konnte die Datei nicht öffnen: " + saveToFilename);
         return;
     }
 
-    for (const auto &pair: _mitarbeiterListe)
+    for (const auto &pair: mitarbeiterDb)
     {
         Mitarbeiter mitarbeiter = pair.second;
-        file << pair.first << _csvSeparator << mitarbeiter.name() << _csvSeparator << mitarbeiter.vorname() << _csvSeparator
-             << mitarbeiter.postleitzahl() << _csvSeparator << mitarbeiter.gehalt() << "\n\n";
+        file << pair.first << csvSeparator << mitarbeiter.name() << csvSeparator << mitarbeiter.vorname() << csvSeparator
+			 << mitarbeiter.postleitzahl() << csvSeparator << mitarbeiter.gehalt() << "\n\n";
     }
 
     file.close();
@@ -71,15 +72,15 @@ void MitarbeiterDatenbank::serialisieren()
 
 void MitarbeiterDatenbank::deserialisieren()
 {
-    std::ifstream file(_saveToFilename);
+    std::ifstream file(saveToFilename);
 
     if (!file.is_open())
     {
-        std::cerr << "Konnte die Datei nicht öffnen: " << _saveToFilename << std::endl;
+        std::cerr << "Konnte die Datei nicht öffnen: " << saveToFilename << std::endl;
         return;
     }
 
-    _mitarbeiterListe.clear(); // Vorhandene Daten löschen
+    mitarbeiterDb.clear(); // Vorhandene Daten löschen
 
     std::string line;
     bool skipNextLine = false;
@@ -100,14 +101,14 @@ void MitarbeiterDatenbank::deserialisieren()
         std::vector<std::string> result;
         std::string token;
 
-        while (std::getline(stream, token, _csvSeparator))
+        while (std::getline(stream, token, csvSeparator))
         {
             result.push_back(token);
         }
 
-        if (result.size() == 5)
+        if (result.size() == 5 && !mitarbeiterDb.contains(std::stoi(result[0])))
         {
-            _mitarbeiterListe.insert({std::stoi(result[0]), Mitarbeiter(result[1], result[2], result[3], std::stod(result[4]))});
+            mitarbeiterDb.insert({std::stoi(result[0]), Mitarbeiter(result[1], result[2], result[3], std::stod(result[4]))});
         }
         else
         {
@@ -120,13 +121,13 @@ void MitarbeiterDatenbank::deserialisieren()
 
 std::map<int, Mitarbeiter> MitarbeiterDatenbank::alleMitarbeiter()
 {
-    return _mitarbeiterListe;
+    return mitarbeiterDb;
 }
 
 Mitarbeiter &MitarbeiterDatenbank::getMitarbeiter(int id)
 {
-    auto it = _mitarbeiterListe.find(id);
-    if (it != _mitarbeiterListe.end())
+    auto it = mitarbeiterDb.find(id);
+    if (it != mitarbeiterDb.end())
     {
         return it->second;
     }
@@ -135,12 +136,12 @@ Mitarbeiter &MitarbeiterDatenbank::getMitarbeiter(int id)
 
 int MitarbeiterDatenbank::provideId()
 {
-    _nextId++;
-    return _nextId;
+    currentId++;
+    return currentId;
 }
 
 int MitarbeiterDatenbank::selectedId;
-int MitarbeiterDatenbank::_nextId;
-std::map<int, Mitarbeiter> MitarbeiterDatenbank::_mitarbeiterListe;
-std::string MitarbeiterDatenbank::_saveToFilename;
-char MitarbeiterDatenbank::_csvSeparator;
+int MitarbeiterDatenbank::currentId;
+std::map<int, Mitarbeiter> MitarbeiterDatenbank::mitarbeiterDb;
+std::string MitarbeiterDatenbank::saveToFilename;
+char MitarbeiterDatenbank::csvSeparator;

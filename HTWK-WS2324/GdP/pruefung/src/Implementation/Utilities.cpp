@@ -71,7 +71,7 @@ void Utilities::printWarning(const std::string &message)
 
 void Utilities::printError(const std::string &message)
 {
-    std::cout << COLOR_RED;
+    std::cerr << COLOR_RED;
     printMessage(message);
 }
 
@@ -128,13 +128,11 @@ bool Utilities::containsOnlyLetters(const std::string &input)
 
 bool Utilities::isValidPostalCode(const std::string &input)
 {
-    // Überprüfen, ob die Länge 5 ist
     if (input.length() != 5)
     {
         return false;
     }
 
-    // Überprüfen, ob alle Zeichen Ziffern sind
     return std::ranges::all_of(input, [](char c)
     {
         return std::isdigit(static_cast<unsigned char>(c));

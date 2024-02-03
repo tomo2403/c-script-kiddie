@@ -21,7 +21,7 @@ std::string Mitarbeiter::postleitzahl()
 
 double Mitarbeiter::gehalt(double neuesGehalt)
 {
-    if (neuesGehalt == 0)
+    if (neuesGehalt == 0.0)
         return _gehalt;
 
     _gehalt = neuesGehalt;

@@ -9,3 +9,5 @@ add_executable(pruefung main.cpp
         Implementation/Mitarbeiter.cpp
         Implementation/Utilities.cpp
         Implementation/Mitarbeiterdatenbank.cpp)
+
+target_compile_options(pruefung PRIVATE -Weverything -Wno-c++98-compat)

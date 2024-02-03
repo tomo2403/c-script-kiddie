@@ -41,6 +41,7 @@ int main(int argc, char *argv[])
             {buildRemoveMenu()}
     };
 
+    //Datenbank initialisieren
     MitarbeiterDatenbank::Init("mitarbeiter.csv", ';', 0);
 
     for (int i = 0; i < argc; ++i)
@@ -57,8 +58,7 @@ int main(int argc, char *argv[])
     }
 
     //Ein- & Ausgabe vorbereiten
-    IOManager ioManager(availableMenus, availableMenusCount);
-    ioManager.GoToMenu(0);
+    IOManager ioManager(availableMenus, availableMenusCount, 0);
 
     //Auf Benutzerinteraktion reagieren
     while (ioManager.Interact());
@@ -68,6 +68,7 @@ int main(int argc, char *argv[])
 
 Menu buildMainMenu()
 {
+    //Hauptmenü
     return {"Hauptmenü", 0,
             {{'o', 4, "Mitarbeiterverzeichnis öffnen"},
              {'e', 2, "Datenbank exportieren"},
@@ -84,6 +85,7 @@ Menu buildMainMenu()
 
 Menu buildHelpMenu()
 {
+    //Hilfemenü
     return {"Hilfe", 0,
             {},
             {[]()
@@ -100,6 +102,7 @@ Menu buildHelpMenu()
 
 Menu buildMitarbeiterliste()
 {
+    //Ansicht für Mitarbeiterliste
     return {"Mitarbeiterverzeichnis", 0,
             {{'s', 6, "Suche"},
              {'a', 7, "Hinzufügen"},
@@ -114,6 +117,7 @@ Menu buildMitarbeiterliste()
 
 Menu buildSaveMenu()
 {
+    //Speichern der Datenbank
     return {"Exportieren", 0,
             {},
             {[]()
@@ -126,6 +130,7 @@ Menu buildSaveMenu()
 
 Menu buildLoadMenu()
 {
+    //Laden der Datenbank
     return {"Importieren", 0,
             {},
             {[]()
@@ -138,6 +143,7 @@ Menu buildLoadMenu()
 
 Menu buildMitarbeiterDetail()
 {
+    //Ansicht für einzelne Mitarbeiter
     return {"Mitarbeiter Detailansicht", 4,
             {{'m', 8, "Gehalt erhöhen"},
              {'r', 9, "Entfernen"}},
@@ -160,6 +166,7 @@ Menu buildMitarbeiterDetail()
 
 Menu buildSearchMenu()
 {
+    //Ansicht zum Suchen von Mitarbeitern
     return {"Mitarbeiter suchen", 4,
             {{'s', 6, "Neue suche"},
              {'d', 5, "Mitarbeiter öffnen"}},
@@ -186,6 +193,7 @@ Menu buildSearchMenu()
 
 Menu buildAddMenu()
 {
+    //Ansicht zum Hinzufügen von einem Mitarbeiter
     return {"Mitarbeiter hinzufügen", 4,
             {},
             {[]()
@@ -214,6 +222,7 @@ Menu buildAddMenu()
 
 Menu buildModifyMenu()
 {
+    //Ansicht zum Anpassen des Gehalts des aktuellen Mitarbeiters
     return {"Gehalt erhöhen", 4,
             {},
             {[]()
@@ -246,6 +255,7 @@ Menu buildModifyMenu()
 
 Menu buildRemoveMenu()
 {
+    //Ansicht zum Entfernen des aktuellen Mitarbeiters
     return {"Mitarbeiter entfernen", 4,
             {},
             {[]()
