@@ -1,5 +1,4 @@
 #include <iostream>
-#include <functional>
 #include "Header/IOManager.hpp"
 #include "Header/Mitarbeiterdatenbank.hpp"
 #include "Header/Utilities.hpp"
