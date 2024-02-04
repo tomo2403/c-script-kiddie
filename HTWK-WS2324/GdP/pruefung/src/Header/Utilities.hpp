@@ -1,6 +1,8 @@
 #pragma once
-#include "Mitarbeiter.hpp"
+
 #include "map"
+#include "Mitarbeiter.hpp"
+#include "Mitarbeiterdatenbank.hpp"
 
 /// \brief Bietet verschiedene Hilfsfunktionen für die Anwendung im Zusammenhang mit Mitarbeitern.
 class Utilities
@@ -76,7 +78,7 @@ public:
 	 *
 	 * Ermittelt den Mitarbeiter anhand seiner Nummer \a mitarbeiterId und stellt dessen Informationen anschaulich inder Konsole dar.
 	 */
-	static void printMitarbeiter(int mitarbeiterId);
+	static void printMitarbeiter(int mitarbeiterId, MitarbeiterDatenbank *db);
 
 	/*!
 	 * \brief Gibt die Informationen eines Mitarbeiters aus.
@@ -84,7 +86,7 @@ public:
 	 *
 	 * Stellt die Informationen des Mitarbeiters \a mitarbeiter anschaulich inder Konsole dar.
 	 */
-	static void printMitarbeiter(Mitarbeiter mitarbeiter);
+	static void printMitarbeiter(Mitarbeiter mitarbeiter, MitarbeiterDatenbank *db);
 
 	/*!
 	 * \brief Gibt eine Erfolgsmeldung aus.
@@ -153,7 +155,7 @@ public:
 	 *
 	 * Formatiert die Benutzereingabe zur Gehaltsänderung und wartet auf die Bestätigung der Änderungen.
 	 */
-	static void handleSalaryChange(Mitarbeiter &mCurrent, std::string &factorStr);
+	static void handleSalaryChange(Mitarbeiter &mCurrent, std::string &factorStr, MitarbeiterDatenbank *db);
 
 private:
 	/*!

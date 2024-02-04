@@ -1,4 +1,5 @@
 #pragma once
+
 #include <string>
 
 /// \brief Repräsentiert einen Mitarbeiter.
@@ -48,8 +49,8 @@ public:
 	double gehalt(double neuesGehalt = 0);
 
 protected:
-    std::string _name; ///< Der Nachname des Mitarbeiters.
-    std::string _vorname; ///< Der Vorname des Mitarbeiters.
-    std::string _postleitzahl; ///< Die Postleitzahl des Wohnorts des Mitarbeiters.
-    double _gehalt; ///< Das Gehalt des Mitarbeiters.
+	std::string _name; ///< Der Nachname des Mitarbeiters.
+	std::string _vorname; ///< Der Vorname des Mitarbeiters.
+	std::string _postleitzahl; ///< Die Postleitzahl des Wohnorts des Mitarbeiters.
+	double _gehalt; ///< Das Gehalt des Mitarbeiters.
 };
