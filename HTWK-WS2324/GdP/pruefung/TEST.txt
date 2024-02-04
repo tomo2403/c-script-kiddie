@@ -1,0 +1,77 @@
+[comment]: <> (Hinweis: Diese Datei ist in Markdown geschrieben. Verwendet Sie die gerenderte Ansicht für eine bessere Darstellung.)
+
+[comment]: <> (Dateiendung .txt durch Aufgabenstellung gefordert, kann aber zu .md geändert werden.)
+
+Dokumentation von Tests
+=======================
+
+Wenn von einer Eingabe die Rede ist, ist das Eingeben eines Wertes und das anschließende drücken der Eingabetaste gemeint! Wenn die
+Navigation `[ ] Zurück` erlaubt, ist damit das Drücken der Eingabetaste gemeint, um das aktuelle Menü zu verlassen. Das oberste Menü ist das
+Hauptmenü.
+
+## Erster Start (gefordert)
+
+1. Kompilieren Sie das Programm.
+2. Starten Sie das Programm mit dem Argument `--demo` oder `-d`, um Demodaten zu importieren.
+3. Lesen Sie den Inhalt des Hauptmenüs und verstehen Sie die Navigation.
+
+## Weitere Starts
+
+1. Starten Sie das Programm.
+
+## Anzeigen aller Mitarbeiter
+
+1. [Starten Sie das Programm](#weitere-starts) (falls nötig) und beginnen Sie im Hauptmenü.
+2. Geben Sie `o` (open) ein, um alle Mitarbeiter anzuzeigen.
+
+## Hinzufügen von einem Mitarbeiter (gefordert)
+
+1. [Zeigen Sie alle Mitarbeiter an](#anzeigen-aller-mitarbeiter).
+2. Geben Sie `a` (add) ein.
+3. Geben Sie den Namen des neuen Mitarbeiters ein (nur Buchstaben).
+4. Geben Sie den Vornamen des neuen Mitarbeiters ein (nur Buchstaben).
+5. Geben Sie die Postleitzahl des neuen Mitarbeiters ein (nur Zahlen, exakt 5 Zeichen).
+6. Geben Sie das Gehalt des neuen Mitarbeiters ein (nur Zahlen und `.` für Dezimalstelle).
+7. Überprüfen Sie Ihre Eingaben mittels der Übersicht.
+8. Geben Sie `y` (yes) oder nichts ein, um den Mitarbeiter anzulegen, sonst `n` (no).
+
+## Anzeigen von einem Mitarbeiter
+
+1. [Zeigen Sie alle Mitarbeiter an](#anzeigen-aller-mitarbeiter).
+2. Geben Sie `d` (detail) und anschließend die Nummer eines vorhandenen Mitarbeiters ein, um diesen Anzuzeigen.
+
+## Erhöhen des Gehalts eines Mitarbeiters (gefordert)
+
+1. [Zeigen Sie einen Mitarbeiter an](#anzeigen-von-einem-mitarbeiter).
+2. Geben Sie `m` (modify) ein.
+3. Geben Sie den Faktor als Dezimalzahl ein, welcher mit dem Gehalt multipliziert werden soll.
+4. Überprüfen Sie Ihre Eingaben mittels der Übersicht.
+5. Geben Sie `y` (yes) oder nichts ein, um die Änderung zu speichern, sonst `n` (no).
+
+## Entfernen eines Mitarbeiters (gefordert)
+
+1. [Zeigen Sie einen Mitarbeiter an](#anzeigen-von-einem-mitarbeiter).
+2. Geben Sie `r` (remove) ein.
+3. Überprüfen Sie den ausgewählten Mitarbeiter mittels der Übersicht.
+4. Geben Sie `y` (yes) ein, um den Mitarbeiter zu löschen, sonst `n` (no) oder nichts.
+
+## Suchen nach Mitarbeitern (gefordert)
+
+1. [Zeigen Sie alle Mitarbeiter an](#anzeigen-aller-mitarbeiter).
+2. Geben Sie `s` (search) ein.
+3. Geben Sie die Zeichenkette ein, die im Namen vorhanden sein soll (kann auch leer sein).
+4. Geben Sie die Zeichenkette ein, die im Vornamen vorhanden sein soll (kann auch leer sein).
+5. Entnehmen Sie dem Suchergebnis die Mitarbeiternummer(n).
+
+## Exportieren der Datenbank (gefordert)
+
+1. [Starten Sie das Programm](#weitere-starts) (falls nötig) und beginnen Sie im Hauptmenü.
+2. Geben Sie `e` (export) ein.
+3. Wenn erfolgreich, schauen Sie im aktuellen Verzeichnis nach `mitarbeiter.csv`.
+
+## Importieren der Datenbank (gefordert)
+
+1. Stellen Sie sicher, dass im aktuellen Verzeichnis die Datei `mitarbeiter.csv` vorhanden und der Inhalt im CSV-Format ist.
+2. [Starten Sie das Programm](#weitere-starts) (falls nötig) und beginnen Sie im Hauptmenü.
+3. Geben Sie `i` (import) ein.
+4. Wenn erfolgreich, [zeigen Sie alle Mitarbeiter an](#anzeigen-aller-mitarbeiter).
