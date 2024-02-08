@@ -1,8 +1,8 @@
 #include <iostream>
 #include <cstring>
-#include "Header/IOManager.hpp"
-#include "Header/Mitarbeiterdatenbank.hpp"
-#include "Header/MenuBuilder.hpp"
+#include "IOManager.hpp"
+#include "Mitarbeiterdatenbank.hpp"
+#include "MenuBuilder.hpp"
 
 int main(int argc, char *argv[])
 {

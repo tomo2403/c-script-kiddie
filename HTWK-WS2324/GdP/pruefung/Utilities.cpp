@@ -4,8 +4,8 @@
 #include <iomanip>
 #include <algorithm>
 #include <cctype>
-#include "../Header/ConsoleHelpers.hpp"
-#include "../Header/Utilities.hpp"
+#include "ConsoleHelpers.hpp"
+#include "Utilities.hpp"
 
 void Utilities::measureTableContents(std::map<int, Mitarbeiter> mitarbeiterMap, int &maxIdWidth, int &maxNameWidth, int &maxVornameWidth,
 									 int &maxPLZWidth, int &maxGehaltWidth, int &maxTotalWidth)

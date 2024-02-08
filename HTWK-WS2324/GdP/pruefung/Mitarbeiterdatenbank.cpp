@@ -2,8 +2,8 @@
 #include <fstream>
 #include <sstream>
 #include <utility>
-#include "../Header/Utilities.hpp"
-#include "../Header/Mitarbeiterdatenbank.hpp"
+#include "Utilities.hpp"
+#include "Mitarbeiterdatenbank.hpp"
 
 int MitarbeiterDatenbank::neuerMitarbeiter(std::string name, std::string vorname, std::string postleitzahl, double gehalt)
 {

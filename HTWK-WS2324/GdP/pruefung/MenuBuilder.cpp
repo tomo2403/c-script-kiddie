@@ -1,10 +1,10 @@
 #include <iostream>
 #include <string>
-#include "../Header/IOManager.hpp"
-#include "../Header/Mitarbeiterdatenbank.hpp"
-#include "../Header/Utilities.hpp"
-#include "../Header/ConsoleHelpers.hpp"
-#include "../Header/MenuBuilder.hpp"
+#include "IOManager.hpp"
+#include "Mitarbeiterdatenbank.hpp"
+#include "Utilities.hpp"
+#include "ConsoleHelpers.hpp"
+#include "MenuBuilder.hpp"
 
 Menu MenuBuilder::buildMainMenu()
 {

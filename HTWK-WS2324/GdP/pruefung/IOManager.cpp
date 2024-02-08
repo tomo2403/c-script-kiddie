@@ -1,9 +1,9 @@
 #include <iostream>
 #include <iomanip>
-#include "../Header/ConsoleHelpers.hpp"
-#include "../Header/Menu.hpp"
-#include "../Header/IOManager.hpp"
-#include "../Header/Utilities.hpp"
+#include "ConsoleHelpers.hpp"
+#include "Menu.hpp"
+#include "IOManager.hpp"
+#include "Utilities.hpp"
 
 const int MAX_HEADER_WIDTH = 10;
 

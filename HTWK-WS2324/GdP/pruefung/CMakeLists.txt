@@ -4,11 +4,11 @@ project(pruefung)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(pruefung main.cpp
-        Implementation/IOManager.cpp
-        Implementation/Menu.cpp
-        Implementation/Mitarbeiter.cpp
-        Implementation/Utilities.cpp
-        Implementation/Mitarbeiterdatenbank.cpp
-        Implementation/MenuBuilder.cpp)
+        IOManager.cpp
+        Menu.cpp
+        Mitarbeiter.cpp
+        Utilities.cpp
+        Mitarbeiterdatenbank.cpp
+        MenuBuilder.cpp)
 
 target_compile_options(pruefung PRIVATE -Weverything -Wno-c++98-compat -Wall)
