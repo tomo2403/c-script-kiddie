@@ -56,7 +56,8 @@ public:
 	 * @param db Ein Zeiger auf die Mitarbeiterdatenbank.
 	 * @return Ein Objekt der Klasse Menu, welche die Mitarbeiter-Detailansicht repräsentiert.
 	 *
-	 * Stellt einen Mitarbeiter mit allen Eigenschaften dar und bietet Möglichkeiten zur Bearbeitung.
+	 * Fragt nach der ID eines Mitarbeiters, versucht diesen in der Datenbank zu finden und stellt diesen Mitarbeiter
+	 * mit allen Eigenschaften dar. Wird nichts eingeben, wird der Vorgang abgebrochen.
 	 */
 	static Menu buildMitarbeiterDetail(MitarbeiterDatenbank* db);
 
@@ -66,6 +67,7 @@ public:
 	 * @return Ein Objekt der Klasse Menu, welche das Mitarbeiter-Suchmenü repräsentiert.
 	 *
 	 * Stellt die Suche von Mitarbeitern da und führt diese durch.
+	 * Die IDs der Mitarbeiter mit den passenden Eigenschaften werden ausgegeben.
 	 */
 	static Menu buildSearchMenu(MitarbeiterDatenbank* db);
 
@@ -75,6 +77,7 @@ public:
 	 * @return Ein Objekt der Klasse Menu, welche das Mitarbeiter-Hinzufügen-Menü repräsentiert.
 	 *
 	 * Stellt den Prozess des Hinzufügen von einem Mitarbeiter dar und führt diesen durch.
+	 * Nach der Eingabe wird der Benutzer gefragt, ob er seine Eingaben hinzufügen möchte.
 	 */
 	static Menu buildAddMenu(MitarbeiterDatenbank* db);
 
@@ -83,7 +86,8 @@ public:
 	 * @param db Ein Zeiger auf die Mitarbeiterdatenbank.
 	 * @return Ein Objekt der Klasse Menu, welche das Gehalt-Ändern-Menü repräsentiert.
 	 *
-	 * Gibt dem Benutzer die Möglichkeit, einen Mitarbeiter zu bearbeiten und die Änderungen zu speichern.
+	 * Gibt den aktuellen Mitarbeiter aus und gibt dem Benutzer die Möglichkeit, diesen Mitarbeiter zu bearbeiten und
+	 * die Änderungen zu speichern.
 	 */
 	static Menu buildModifyMenu(MitarbeiterDatenbank* db);
 
@@ -92,7 +96,8 @@ public:
 	 * @param db Ein Zeiger auf die Mitarbeiterdatenbank.
 	 * @return Ein Objekt der Klasse Menu, welche das Mitarbeiter-Entfernen-Menü repräsentiert.
 	 *
-	 * Gibt dem Benutzer die Möglichkeit, einen Mitarbeiter zu entfernen und die Änderungen zu speichern.
+	 * Gibt den aktuellen Mitarbeiter aus und gibt dem Benutzer die Möglichkeit, diesen Mitarbeiter zu entfernen und
+	 * die Änderungen zu speichern.
 	 */
 	static Menu buildRemoveMenu(MitarbeiterDatenbank* db);
 };

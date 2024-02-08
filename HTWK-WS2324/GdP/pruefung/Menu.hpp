@@ -27,7 +27,7 @@ public:
 	/*!
 	 * @brief Stellt das Menü in der Konsole dar.
 	 *
-	 * Gibt den Kopf des Menüs aus, führt den variablen Quelltext aus und stellt die Navigation dar.
+	 * Gibt den Kopf des Menüs formatiert aus, führt die Funktion des Menüs aus und stellt die Navigationselemente dar.
 	 */
 	void Print() const;
 
@@ -36,7 +36,7 @@ public:
 	 * @param key Der Schlüssel des Befehls.
 	 * @return Die ID des Menüs des Befehls, -1 wenn nicht vorhanden.
 	 *
-	 * Sucht nach der Menü-ID, die zu \a key passt, sofern dieses vorhanden ist.
+	 * Sucht nach der Menü-ID, die zu \a key passt, sofern dieses vorhanden ist. Bei keinem passenden Eintrag wird -1 zurückgegeben.
 	 */
 	[[nodiscard]] int GetNavigation(char key) const;
 

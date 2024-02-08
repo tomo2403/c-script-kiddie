@@ -54,7 +54,7 @@ public:
 	 * \param vorname Der Vorname des gesuchten Mitarbeiters.
 	 * \return Eine Liste von IDs der gefundenen Mitarbeiter.
 	 *
-	 * Gibt die Nummern aller Mitarbeiter zurück, deren Name mit \a _name oder Vorname mit \a vorname beginnt.
+	 * Gibt die Nummern aller Mitarbeiter zurück, deren Name \a _name oder Vorname \a vorname enthält.
 	 */
 	std::vector<int> findeMitarbeiter(const std::string &name, const std::string &vorname);
 
@@ -71,21 +71,25 @@ public:
 	 * \param id Die ID des gesuchten Mitarbeiters.
 	 * \return Referenz auf das Mitarbeiter-Objekt.
 	 *
-	 * Ermittelt einen Mitarbeiter anhand seiner Mitarbeiternummer \a id und gibt diesen als Referenz zurück.
+	 * Ermittelt einen Mitarbeiter anhand seiner Mitarbeiternummer \a id und gibt diesen als Referenz zurück. Wird kein Eintrag gefunden,
+	 * wird ein Fehler auf der Konsole ausgegeben.
 	 */
 	Mitarbeiter &getMitarbeiter(int id);
 
 	/*!
 	 * \brief Serialisiert die Mitarbeiterdatenbank und speichert sie in der angegebenen Datei.
 	 *
-	 * Speichert die Datenbank in CSV unter dem Pfad \a _filePath und mit den Trennzeichen \a _csvSeparator.
+	 * Versucht, den Pfad der Mitarbeiterdatei zu öffnen und speichert die Datenbank in CSV unter dem Pfad \a _filePath und
+	 * mit den Trennzeichen \a _csvSeparator ab. Zwischen jedem Eintrag befindet sich eine Leerzeile. Die Datei wird wieder freigegeben.
 	 */
 	void serialisieren();
 
 	/*!
 	 * \brief Deserialisiert die Mitarbeiterdatenbank aus der angegebenen Datei.
 	 *
-	 * Liest die Datenbank aus dem Pfad \a _filePath und mit dem Trennzeichen \a _csvSeparator und fügt die Inhalte der Datei in die Datenbank ein.
+	 * Versucht, den Pfad der Mitarbeiterdatei zu öffnen und liest die Datenbank aus dem Pfad \a _filePath und mit dem Trennzeichen
+	 * \a _csvSeparator und fügt die Inhalte der Datei in die Datenbank ein. Jede zweite Zeile wird übersprungen.
+	 * Die Inhalte der Datei werden in die map der Datenbank geschrieben.
 	 */
 	void deserialisieren();
 
