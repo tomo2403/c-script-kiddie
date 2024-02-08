@@ -2,6 +2,7 @@
 
 #include <map>
 #include <string>
+#include <vector>
 #include "Mitarbeiter.hpp"
 
 /// \brief Verwaltet eine Datenbank von Mitarbeitern und bietet Funktionen für deren Verwaltung.

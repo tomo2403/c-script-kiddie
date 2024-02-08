@@ -1,4 +1,6 @@
 #include <iostream>
+#include <string>
+#include <cstring>
 #include "Header/IOManager.hpp"
 #include "Header/Mitarbeiterdatenbank.hpp"
 #include "Header/Utilities.hpp"

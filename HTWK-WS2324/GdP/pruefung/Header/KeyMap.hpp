@@ -1,6 +1,6 @@
 #pragma once
 
-#include <utility>
+#include <string>
 
 /// \brief Struktur zum zuordnen von Befehlen zu Menüs
 struct KeyMap

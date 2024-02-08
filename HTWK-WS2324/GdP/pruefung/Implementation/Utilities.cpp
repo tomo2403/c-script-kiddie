@@ -2,6 +2,8 @@
 #include <string>
 #include <iostream>
 #include <iomanip>
+#include <algorithm>
+#include <cctype>
 #include "../Header/ConsoleHelpers.hpp"
 #include "../Header/Utilities.hpp"
 

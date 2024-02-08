@@ -1,10 +1,7 @@
-#include <map>
-#include <string>
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <utility>
-#include <vector>
 #include "../Header/Utilities.hpp"
 #include "../Header/Mitarbeiterdatenbank.hpp"
 
