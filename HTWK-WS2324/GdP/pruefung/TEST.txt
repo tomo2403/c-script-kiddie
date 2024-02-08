@@ -19,10 +19,53 @@ Hauptmenü.
 
 1. Starten Sie das Programm.
 
+```
+========== MITARBEITERDATENBANK ==========
+
+Hauptmenü
+
+HTWK Leipzig, Wintersemester 2023/24
+[C963] Grundlagen der Programmierung
+
+Prüfungsleistung
+
+
+Navigation:
+[o]	Mitarbeiterverzeichnis öffnen
+[e]	Datenbank exportieren
+[i]	Datenbank importieren
+[h]	Hilfe anzeigen
+
+Gehe zu:
+```
+
 ## Anzeigen aller Mitarbeiter
 
 1. [Starten Sie das Programm](#weitere-starts) (falls nötig) und beginnen Sie im Hauptmenü.
 2. Geben Sie `o` (open) ein, um alle Mitarbeiter anzuzeigen.
+
+```
+========== MITARBEITERDATENBANK ==========
+
+Mitarbeiterverzeichnis
+
+        ID                Name             Vorname            PLZ   Gehalt (EUR)
+--------------------------------------------------------------------------------
+         1          Mustermann                 Max          12345          50000
+         2          Musterfrau               Maria          54321          60000
+         3                 Doe                John          98765          55000
+         4             Schmidt                Anna          67890          52000
+         5             Mueller               Peter          23456          48000
+
+
+Navigation:
+[s]	Suche
+[a]	Hinzufügen
+[d]	Detailansicht
+[ ]	Zurück
+
+Gehe zu:
+```
 
 ## Hinzufügen von einem Mitarbeiter (gefordert)
 
@@ -35,10 +78,57 @@ Hauptmenü.
 7. Überprüfen Sie Ihre Eingaben mittels der Übersicht.
 8. Geben Sie `y` (yes) oder nichts ein, um den Mitarbeiter anzulegen, sonst `n` (no).
 
+```
+========== MITARBEITERDATENBANK ==========
+
+Mitarbeiter hinzufügen
+
+Neuer Name: Max
+Neuer Vorname: Mustermann
+Neue PLZ: 01234
+Neues Gehalt: 50000
+
+
+Eingaben überprüfen:
+
+Name: Max, Mustermann
+PLZ: 01234
+Gehalt: 50000€
+Mitarbeiter hinzufügen? (Y/n):
+
+Mitarbeiter hinzugefügt!
+
+
+Navigation:
+[ ]	Zurück
+
+Gehe zu:
+```
+
 ## Anzeigen von einem Mitarbeiter
 
 1. [Zeigen Sie alle Mitarbeiter an](#anzeigen-aller-mitarbeiter).
 2. Geben Sie `d` (detail) und anschließend die Nummer eines vorhandenen Mitarbeiters ein, um diesen Anzuzeigen.
+
+```
+========== MITARBEITERDATENBANK ==========
+
+Mitarbeiter Detailansicht
+
+Mitarbeiternummer: 1
+
+Name: Max, Mustermann
+PLZ: 01234
+Gehalt: 50000€
+
+
+Navigation:
+[m]	Gehalt erhöhen
+[r]	Entfernen
+[ ]	Zurück
+
+Gehe zu:
+```
 
 ## Erhöhen des Gehalts eines Mitarbeiters (gefordert)
 
@@ -48,12 +138,53 @@ Hauptmenü.
 4. Überprüfen Sie Ihre Eingaben mittels der Übersicht.
 5. Geben Sie `y` (yes) oder nichts ein, um die Änderung zu speichern, sonst `n` (no).
 
+```
+========== MITARBEITERDATENBANK ==========
+
+Gehalt erhöhen
+
+Mitarbeiter: Max, Mustermann
+Aktuelles Gehalt: 50000€
+
+Faktor: 1.123
+50000€  -->  56150€
+
+Änderungen speichern? (Y/n):
+
+Änderungen gespeichert!
+
+
+Navigation:
+[ ]	Zurück
+
+Gehe zu:
+```
+
 ## Entfernen eines Mitarbeiters (gefordert)
 
 1. [Zeigen Sie einen Mitarbeiter an](#anzeigen-von-einem-mitarbeiter).
 2. Geben Sie `r` (remove) ein.
 3. Überprüfen Sie den ausgewählten Mitarbeiter mittels der Übersicht.
 4. Geben Sie `y` (yes) ein, um den Mitarbeiter zu löschen, sonst `n` (no) oder nichts.
+
+```
+========== MITARBEITERDATENBANK ==========
+
+Mitarbeiter entfernen
+
+Mitarbeiter: Max, Mustermann
+Wohnt in: 01234
+
+Mitarbeiter wirklich löschen? (y/N): y
+
+Mitarbeiter gelöscht!
+
+
+Navigation:
+[ ]	Zurück
+
+Gehe zu:
+```
 
 ## Suchen nach Mitarbeitern (gefordert)
 
@@ -63,11 +194,51 @@ Hauptmenü.
 4. Geben Sie die Zeichenkette ein, die im Vornamen vorhanden sein soll (kann auch leer sein).
 5. Entnehmen Sie dem Suchergebnis die Mitarbeiternummer(n).
 
+```
+========== MITARBEITERDATENBANK ==========
+
+Mitarbeiter suchen
+
+Groß- und Kleinschreibung wird berücksichtigt!
+
+Name enthält: Mu
+Vorname enthält: a
+
+Treffer IDs:
+1
+2
+4
+5
+
+
+Navigation:
+[s]	Neue suche
+[d]	Mitarbeiter öffnen
+[ ]	Zurück
+
+Gehe zu:
+```
+(Suchergebnisse zeigen Einträge aus den Demodaten)
+
 ## Exportieren der Datenbank (gefordert)
 
 1. [Starten Sie das Programm](#weitere-starts) (falls nötig) und beginnen Sie im Hauptmenü.
 2. Geben Sie `e` (export) ein.
 3. Wenn erfolgreich, schauen Sie im aktuellen Verzeichnis nach `mitarbeiter.csv`.
+
+```
+========== MITARBEITERDATENBANK ==========
+
+Exportieren
+
+Gespeichert!
+
+
+Navigation:
+[ ]	Zurück
+
+Gehe zu:
+```
 
 ## Importieren der Datenbank (gefordert)
 
@@ -75,3 +246,17 @@ Hauptmenü.
 2. [Starten Sie das Programm](#weitere-starts) (falls nötig) und beginnen Sie im Hauptmenü.
 3. Geben Sie `i` (import) ein.
 4. Wenn erfolgreich, [zeigen Sie alle Mitarbeiter an](#anzeigen-aller-mitarbeiter).
+
+```
+========== MITARBEITERDATENBANK ==========
+
+Importieren
+
+Geladen!
+
+
+Navigation:
+[ ]	Zurück
+
+Gehe zu:
+```
