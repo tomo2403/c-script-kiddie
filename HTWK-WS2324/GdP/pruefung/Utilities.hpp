@@ -13,7 +13,7 @@ public:
 	 * \brief Gibt eine formatierte Tabelle der Mitarbeiterinformationen aus.
 	 * \param mitarbeiterMap Die Map von Mitarbeiter-IDs auf Mitarbeiter-Objekte.
 	 *
-	 * Stellt die Mitarbeiter aus \a mitarbeiterMap anschaulich in der Konsole dar.
+	 * Gibt den Tabellenkopf aus und stellt die Mitarbeiter aus \a mitarbeiterMap anschaulich in der Konsole dar.
 	 */
 	static void printMitarbeiterTable(std::map<int, Mitarbeiter> mitarbeiterMap);
 
@@ -27,7 +27,8 @@ public:
 	 * \param maxGehaltWidth Die maximale Breite der Gehalt-Spalte.
 	 * \param maxTotalWidth Die Gesamtbreite der Tabelle.
 	 *
-	 * Passt die Breite der Tabelle dynamisch in den Inhalt an, damit alle Daten übersichtlich dargestellt werden können.
+	 * Passt die Breite der Tabelle dynamisch in den Inhalt an, indem es die Länge aller Elemente misst,
+	 * damit alle Daten übersichtlich dargestellt werden können. Jede Spalte besitzt eine Mindestbreite.
 	 */
 	static void measureTableContents(std::map<int, Mitarbeiter> mitarbeiterMap, int &maxIdWidth, int &maxNameWidth, int &maxVornameWidth,
 									 int &maxPLZWidth, int &maxGehaltWidth, int &maxTotalWidth);
@@ -38,7 +39,7 @@ public:
 	 * \param output Die Ausgabe-Ganzzahl (falls erfolgreich).
 	 * \return true, wenn die Umwandlung erfolgreich war, andernfalls false.
 	 *
-	 * Hilft dabei, Eingaben des Benutzers in ein verarbeitbares Format zu bringen.
+	 * Hilft dabei, Eingaben des Benutzers in ein verarbeitbares Format zu bringen: Konvertiert string zu integer.
 	 */
 	static bool tryParse(std::string &input, int &output);
 
@@ -48,7 +49,7 @@ public:
 	 * \param output Die Ausgabe-Gleitkommazahl (falls erfolgreich).
 	 * \return true, wenn die Umwandlung erfolgreich war, andernfalls false.
 	 *
-	 * Hilft dabei, Eingaben des Benutzers in ein verarbeitbares Format zu bringen.
+	 * Hilft dabei, Eingaben des Benutzers in ein verarbeitbares Format zu bringen: Konvertiert string zu double.
 	 */
 	static bool tryParse(std::string &input, double &output);
 
@@ -57,7 +58,7 @@ public:
 	 * \param mitarbeiterId Die abgefragte Mitarbeiter-ID (falls erfolgreich).
 	 * \return true, wenn die Mitarbeiter-ID erfolgreich abgefragt wurde, andernfalls false.
 	 *
-	 * Fragt den Benutzer nach einer Mitarbeiternummer und prüft dessen Eingabe.
+	 * Fragt den Benutzer nach einer Mitarbeiternummer und prüft dessen Eingabe auf ihre Gültigkeit.
 	 */
 	static bool tryGetMitarbeiterId(int &mitarbeiterId);
 
@@ -70,6 +71,7 @@ public:
 	 * \param gehalt Das Gehalt des Mitarbeiters (nach Umwandlung der Zeichenkette).
 	 *
 	 * Stellt den Dialog in der Konsole bereit, um alle nötigen Informationen für einen neuen Mitarbeiter zu erhalten.
+	 * Sind Eingaben fehlerhaft, wird dieser Fehler ausgegeben und ei Eingabe für dieses Feld erneut abgefragt.
 	 */
 	static void inputMitarbeiter(std::string &name, std::string &vorname, std::string &plz, std::string &gehaltStr, double &gehalt);
 
@@ -77,7 +79,7 @@ public:
 	 * \brief Gibt die Informationen eines Mitarbeiters mit der angegebenen ID aus.
 	 * \param mitarbeiterId Die ID des Mitarbeiters.
 	 *
-	 * Ermittelt den Mitarbeiter anhand seiner Nummer \a mitarbeiterId und stellt dessen Informationen anschaulich inder Konsole dar.
+	 * Ermittelt den Mitarbeiter anhand seiner Nummer \a mitarbeiterId und stellt dessen Informationen anschaulich in der Konsole dar.
 	 */
 	static void printMitarbeiter(int mitarbeiterId, MitarbeiterDatenbank *db);
 
@@ -85,7 +87,7 @@ public:
 	 * \brief Gibt die Informationen eines Mitarbeiters aus.
 	 * \param mitarbeiter Das Mitarbeiter-Objekt.
 	 *
-	 * Stellt die Informationen des Mitarbeiters \a mitarbeiter anschaulich inder Konsole dar.
+	 * Ermittelt den Mitarbeiter anhand seiner Nummer \a mitarbeiterId und stellt dessen Informationen anschaulich in der Konsole dar.
 	 */
 	static void printMitarbeiter(Mitarbeiter mitarbeiter, MitarbeiterDatenbank *db);
 

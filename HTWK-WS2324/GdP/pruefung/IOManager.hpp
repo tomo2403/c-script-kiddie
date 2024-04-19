@@ -31,6 +31,8 @@ public:
 	 * \return True, wenn eine weitere Interaktion gewünscht ist, sonst false.
 	 *
 	 * Fragt den Benutzer nach einer Eingabe und versucht anschließend, diese einem Menü zuzuordnen.
+	 * Dabei prüft es, ob die Eingabe leer ist oder den Befehl "exit" enthält. Bei einer leeren Eingabe wird das aktuelle Menü verlassen,
+	 * bei exit das gesamte Programm beendet. Ist die Eingabe fehlerhalt, wird ein Fehler ausgegeben und erneut nach einer Eingabe gefragt.
 	 */
 	bool Interact();
 
@@ -38,7 +40,8 @@ public:
 	 * \brief Wechselt zum angegebenen Menü.
 	 * \param menuId Die Id des Zielmenüs.
 	 *
-	 * Ruf das Menu mit der passenden ID auf und stellt dessen Inhalt in der Konsole dar.
+	 * Überprüft die übergebene ID auf ihre Gültigkeit, bereitet die Ansicht auf das neue Menü vor und ruf dieses auf.
+	 * Der Inhalt des Menüs wird dargestellt. Ist die ID ungültig, wird ein Fehler ausgegeben.
 	 */
 	void GoToMenu(int menuId);
 
@@ -49,6 +52,8 @@ private:
 
 	/*!
 	 * \brief Druckt den Header auf der Konsole.
+	 *
+	 * Gibt die allgemeine Kopfzeile der Menüs formatiert aus und setzt die Formatierung wieder zurück.
 	 */
 	static void printHeader();
 
@@ -64,7 +69,7 @@ private:
 	 * \param menuId Die zu überprüfende Menü-ID.
 	 * \return True, wenn die Menü-ID gültig ist, sonst false.
 	 *
-	 * Prüft, ob \a menuId ein Index von _menus ist, was impliziert ob ein Menu dazu vorhanden ist.
+	 * Prüft, ob \a menuId ein Index von _menus ist. Ist der Wert true, ist ein Menu dazu vorhanden.
 	 */
 	[[nodiscard]] bool isValidMenuId(int menuId) const;
 };

@@ -44,7 +44,7 @@ public:
 	 * \param neuesGehalt Das neue Gehalt, das gesetzt werden soll (optional).
 	 * \return Das aktuelle Gehalt des Mitarbeiters.
 	 *
-	 * Gewährt Lese- und Schreibzugriff auf den privaten Member \a _gehalt.
+	 * Gewährt Lesezugriff auf den privaten Member \a _gehalt. Ist \a neuesGehalt ungleich 0, nimmt \a _gehalt diesen Wert an.
 	 */
 	double gehalt(double neuesGehalt = 0);
 

@@ -1,1 +1,1 @@
-clang++ main.cpp Implementation/IOManager.cpp Implementation/Menu.cpp Implementation/Mitarbeiter.cpp Implementation/Utilities.cpp Implementation/Mitarbeiterdatenbank.cpp Implementation/MenuBuilder.cpp -o mitarbeiterdatenbank -std=c++20 -Weverything -Wno-c++98-compat -Wall
+clang++ main.cpp IOManager.cpp Menu.cpp Mitarbeiter.cpp Utilities.cpp Mitarbeiterdatenbank.cpp MenuBuilder.cpp -o mitarbeiterdatenbank -std=c++20 -Weverything -Wno-c++98-compat -Wall
