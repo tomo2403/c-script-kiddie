@@ -79,7 +79,7 @@ void aufgabe_8_4()
 {
     std::array<double, 7> spannungenGateSource_Volt {0, 1, 2, 2.5, 3, 4, 5};
     
-    for(double spannung_Volt : spannung_Volt)
+    for(double spannung_Volt : spannungenGateSource_Volt)
     {
         std::vector<std::pair<double, double>> kennlinie = plotte_stromDrain_von_spannungSourceDrain(spannung_Volt);
 
