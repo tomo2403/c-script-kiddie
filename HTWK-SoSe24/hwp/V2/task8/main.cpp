@@ -14,12 +14,12 @@ enum analogeEingaenge {AE0, AE1, AE2, AE3};
 
 double intZuVolt(const uint16_t &spannung_Integer)
 {
-    return spannung_Integer * (5.0/1024.0);
+    return spannung_Integer * (5.0/1023.0);
 }
 
 uint16_t voltZuInt(const double &spannung_Volt)
 {
-    return round(spannung_Volt * (1024.0/5.0));
+    return round(spannung_Volt * (1023.0/5.0));
 }
 
 std::array<uint16_t, 4> messen()
@@ -38,7 +38,7 @@ std::vector<std::pair<double, double>> plotte_stromDrain_von_spannungSourceDrain
     // Vektor mit Paaren aus spannungSourceDrain und stromDrain mit stromDrain(spannungSourceDrain) => Kennlinie
     std::vector<std::pair<double, double>> kennlinie;
 
-    drv.analogWrite1(1023);
+    drv.analogWrite1(spannungGateSource_Volt);
 
     for(uint16_t i = 0; i < 1024; i += 2)
     {
