@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <cmath>
 #include <vector>
+#include <iomanip>
 
 B15F &drv = B15F::getInstance();
 
@@ -37,7 +38,7 @@ std::vector<std::pair<double, double>> plotte_stromDrain_von_spannungSourceDrain
     // Vektor mit Paaren aus spannungSourceDrain und stromDrain mit stromDrain(spannungSourceDrain) => Kennlinie
     std::vector<std::pair<double, double>> kennlinie;
 
-    drv.analogWrite1(voltZuInt(spannungGateSource_Volt));
+    drv.analogWrite1(1023);
 
     for(uint16_t i = 0; i < 1024; i += 2)
     {
@@ -64,12 +65,12 @@ void druckeKennlinie(const std::vector<std::pair<double, double>> &kennlinie, co
 
     if (!datei.is_open())
 	{
-		std::cerr << "Konnte die Datei nicht öffnen";
+		std::cerr << "Konnte die Datei nicht öffnen" << std::endl;
 	}
 
     for(auto &[wert1, wert2] : kennlinie)
     {
-        datei << wert1 << ";" << wert2 << std::endl;
+        datei << std::fixed << std::setprecision(20) << wert1 << ";" << wert2 << std::endl;
     }
 
     datei.close();
@@ -77,7 +78,7 @@ void druckeKennlinie(const std::vector<std::pair<double, double>> &kennlinie, co
 
 void aufgabe_8_4()
 {
-    std::array<double, 7> spannungenGateSource_Volt {0, 1, 2, 2.5, 3, 4, 5};
+    std::array<double, 7> spannungenGateSource_Volt {0, 1, 5};
     
     for(double spannung_Volt : spannungenGateSource_Volt)
     {
