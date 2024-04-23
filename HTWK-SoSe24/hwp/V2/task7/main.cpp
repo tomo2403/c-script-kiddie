@@ -14,12 +14,13 @@ int main()
 		return 1;
 	}
 
-    for(uint16_t i = 0; i < 1024; i += 2)
+    std::array<uint16_t, 1024> bufferA, bufferB;
+    drv.analogSequence(0, bufferA.data(), 0, 1, bufferB.data(), 0, 0, 1, 1024);
+    for(uint16_t i = 0; i < 1024; i++)
     {
-        drv.analogWrite0(i);
-        uint16_t messwert = drv.analogRead(0);
+        uint16_t messwert = bufferB[i];
 
-        float betriebsspannungVolt = i/204.8;
+        float betriebsspannungVolt = bufferA[i]/204.8;
         float messwertVolt = messwert/204.8;
         float stromstaerkeMilliAmpere = messwert/204.8/1000;
         float spannungDiodeVolt = betriebsspannungVolt - messwertVolt;
@@ -28,6 +29,6 @@ int main()
         std::cout << betriebsspannungVolt << ";" << messwertVolt << ";" << stromstaerkeMilliAmpere << ";" << spannungDiodeVolt << std::endl;
         file << betriebsspannungVolt << ";" << messwertVolt << ";" << stromstaerkeMilliAmpere << ";" << spannungDiodeVolt << std::endl;
     }
-
+    drv.analogWrite0(0);
 	file.close();
 }
