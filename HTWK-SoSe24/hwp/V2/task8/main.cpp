@@ -13,51 +13,16 @@ B15F &drv = B15F::getInstance();
 
 enum analogeEingaenge {AE0, AE1, AE2, AE3};
 
-double intZuVolt(const uint16_t &spannung_Integer)
+// rechnet einen Integer Wert [0-1023] in eine Spannung in Volt um
+double toVolt(const uint16_t &spannung_Integer)
 {
     return spannung_Integer * (5.0/1023.0);
 }
 
-uint16_t voltZuInt(const double &spannung_Volt)
+// rechnet eine Spannung in Volt in einen Integer Wert [0-1023]
+uint16_t toInt(const double &spannung_Volt)
 {
     return round(spannung_Volt * (1023.0/5.0));
-}
-
-std::array<uint16_t, 4> messen()
-{
-    std::array<uint16_t, 4> messwerte_Integer;
-    for (uint8_t i = 0; i < 4; i++)
-    {
-        messwerte_Integer.at(i) = drv.analogRead(i);
-    }
-    return messwerte_Integer;
-}
-
-// zu Aufgabe 8.4
-std::vector<std::pair<double, double>> plotte_stromDrain_von_spannungSourceDrain(const double &spannungGateSource_Volt)
-{
-    // Vektor mit Paaren aus spannungSourceDrain und stromDrain mit stromDrain(spannungSourceDrain) => Kennlinie
-    std::vector<std::pair<double, double>> kennlinie;
-
-    drv.analogWrite1(voltZuInt(spannungGateSource_Volt));
-
-    for(uint16_t i = 0; i < 1024; i += 2)
-    {
-        drv.analogWrite0(i);
-        std::array<uint16_t, 4> messewerte_Integer = messen();
-
-        // Berechnung der Stromstärke ID
-        uint8_t R1_Ohm = 56;
-        double spannungR1_Volt = intZuVolt(messewerte_Integer.at(AE0) - messewerte_Integer.at(AE1));
-        double stromDrain_Ampere =  spannungR1_Volt / R1_Ohm;
-
-        // Berechnung der Spannung USD
-        double spannungSourceDrain_Volt = intZuVolt(messewerte_Integer.at(AE1));
-
-        kennlinie.push_back({spannungSourceDrain_Volt, stromDrain_Ampere});
-    }
-
-    return kennlinie;
 }
 
 void druckeKennlinie(const std::vector<std::pair<double, double>> &kennlinie, const std::string &dateipfad)
@@ -66,12 +31,12 @@ void druckeKennlinie(const std::vector<std::pair<double, double>> &kennlinie, co
 
     if (!datei.is_open())
 	{
-		std::cerr << "Konnte die Datei nicht öffnen" << std::endl;
+		std::cerr << "Ich konnte die Datei nicht öffnen, entschuldigung :(." << std::endl;
 	}
 
     for(auto &[wert1, wert2] : kennlinie)
     {
-        datei << std::fixed << std::setprecision(30) << wert1 << ";" << wert2 << std::endl;
+        datei << std::fixed << std::setprecision(10) << wert1 << "," << wert2 << std::endl;
     }
 
     datei.close();
@@ -79,17 +44,32 @@ void druckeKennlinie(const std::vector<std::pair<double, double>> &kennlinie, co
 
 void aufgabe_8_4()
 {
+    std::vector<std::pair<double, double>> kennlinie;
+
+    // setzen der Gate-Spannung
     std::vector<double> spannungenGateSource_Volt {0, 1, 2, 2.5, 3, 4, 5};
-    
-    for(double spannung_Volt : spannungenGateSource_Volt)
+    for(double const& spannungGateSource_Volt : spannungenGateSource_Volt)
     {
-        std::vector<std::pair<double, double>> kennlinie = plotte_stromDrain_von_spannungSourceDrain(spannung_Volt);
+        drv.analogWrite1(toInt(spannungGateSource_Volt));
 
-        std::string dateipfad = "./aufgabe_8_4/Kennlinie_ID_von_USD_bei_UGS_von_" + std::to_string(spannung_Volt) + "V.csv";
+        // Ermitteln der Messerte
+        std::array<uint16_t, 1024> buffer_AE0, buffer_AE1;
+        drv.analogSequence(0, buffer_AE0.data(), 0, 1, buffer_AE1.data(), 0, 0, 1, 1023);
+
+        // Berechnen der Stromstärke ID
+        uint8_t R1_Ohm = 56;
+        for(uint16_t i = 0; i < buffer_AE0.size(); i++)
+        {
+            double spannungSourceDrain_Volt = toVolt(buffer_AE1.at(i));
+            double spannungR1_Volt = toVolt(buffer_AE0.at(i) - buffer_AE1.at(i));
+            double stromDrain_Ampere = spannungR1_Volt / R1_Ohm;
+            kennlinie.push_back({spannungSourceDrain_Volt, stromDrain_Ampere});
+        }
+
+        // Ausgeben der Messwerte
+        std::string dateipfad = "./aufgabe_8_4/Kennlinie_ID_von_USD_bei_UGS_von_" + std::to_string(spannungGateSource_Volt) + "V.csv";
         druckeKennlinie(kennlinie, dateipfad);
-    }
-
-    std::cout << "Aufgabe 8.4 abgeschlossen" << std::endl;
+        }
 }
 
 int main()
