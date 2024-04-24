@@ -116,7 +116,10 @@ void aufgabe_8_8()
 {
     while(true)
     {
+        // std::cout << "High" << std::endl;
         drv.analogWrite1(1023);
+        // drv.delay_ms(1000);
+        // std::cout << "Low" << std::endl;
         drv.analogWrite1(0);
     }
 }
@@ -194,5 +197,5 @@ void aufgabe_8_12()
 
 int main()
 {
-    aufgabe_8_12();
+    aufgabe_8_8();
 }
