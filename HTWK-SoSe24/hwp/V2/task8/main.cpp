@@ -137,14 +137,14 @@ void aufgabe_8_11()
 
         // Berechnen der Stromstärken ID und IC
         uint8_t R1_Ohm = 100;
-        uint8_t R2_Ohm = 1000;
+        uint16_t R2_Ohm = 1000;
         std::vector<std::pair<double, double>> kennlinie;
         for(uint16_t i = 0; i < buffer_AE1.size(); i++)
         {
             double betriebsspannung_Volt = toVolt(i);
             double stromstaerkeCollector_Ampere = static_cast<double>(betriebsspannung_Volt - toVolt(buffer_AE1.at(i))) / R1_Ohm;
-            double stromstaerkeBasis_Ampere = (spannungBasis_Volt - toVolt(buffer_AE2.at(i))) / R2_Ohm;
-            kennlinie.push_back({stromstaerkeBasis_Ampere, stromstaerkeCollector_Ampere});
+            double spannungCollectorEmitter_Volt = toVolt(buffer_AE1.at(i));
+            kennlinie.push_back({spannungCollectorEmitter_Volt, stromstaerkeCollector_Ampere});
         }
 
         // Ausgeben der Messwerte
@@ -155,7 +155,44 @@ void aufgabe_8_11()
     }
 }
 
+// ACHTUNG: Ausgänge AA0 und AA1 müssen vertauschst werden!
+void aufgabe_8_12()
+{
+    // Setzen der abzuarbeitenden Basisspannungen
+    std::vector<double> betriebsspannung_Volt {2.0, 3.0, 4.0, 5.0};
+    
+    for(double const& betriebsspannung_Volt : betriebsspannung_Volt)
+    {
+        // Setzten der Betriebsspannung
+        drv.analogWrite1(toInt(betriebsspannung_Volt));
+
+        // Ermitteln der Messerte
+        std::array<uint16_t, 1024> buffer_AE1, buffer_AE2;
+        drv.analogSequence(1, buffer_AE1.data(), 0, 2, buffer_AE2.data(), 0, 0, 1, 1023);
+
+        // Berechnen der Stromstärken ID und IC
+        uint8_t R1_Ohm = 100;
+        uint16_t R2_Ohm = 1000;
+        std::vector<std::pair<double, double>> kennlinie;
+        for(uint16_t i = 0; i < buffer_AE1.size(); i++)
+        {
+            double spannungBasis_Volt = toVolt(i);
+            double stromstaerkeCollector_Ampere = static_cast<double>(betriebsspannung_Volt - toVolt(buffer_AE1.at(i))) / R1_Ohm;
+            double stromstaerkeBasis_Ampere = static_cast<double>(spannungBasis_Volt - toVolt(buffer_AE2.at(i))) / R2_Ohm;
+            
+            double spannungCollectorEmitter_Volt = toVolt(buffer_AE1.at(i));
+            kennlinie.push_back({stromstaerkeBasis_Ampere, stromstaerkeCollector_Ampere});
+        }
+
+        // Ausgeben der Messwerte
+        std::string orderpfad = "./aufgabe_8_12/";
+        std::string dateiname = "Kennlinie_IC_von_IB_bei_UB_von_" + std::to_string(betriebsspannung_Volt) + "V.csv";
+        std::string dateipfad = orderpfad + dateiname;
+        druckeKennlinie(kennlinie, dateipfad);
+    }
+}
+
 int main()
 {
-    aufgabe_8_4();
+    aufgabe_8_12();
 }
