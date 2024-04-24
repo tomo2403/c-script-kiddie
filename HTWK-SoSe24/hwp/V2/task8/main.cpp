@@ -9,7 +9,22 @@
 #include <iomanip>
 #include <vector>
 
+using namespace std;
 B15F &drv = B15F::getInstance();
+
+/// @brief Konvertiert eine Zahl von Dezimal in Binär
+/// @param n Die natürliche Zahl, die konvertiert werden soll.
+/// @return den Binären Wert von `n`
+string toBinary(int n)
+{
+    string r;
+    while (n != 0)
+    {
+        r = (n % 2 == 0 ? "0" : "1") + r;
+        n /= 2;
+    }
+    return r;
+}
 
 // rechnet einen Integer Wert [0-1023] in eine Spannung [0-5] in Volt um
 double toVolt(const uint16_t &spannung_Integer)
@@ -141,7 +156,6 @@ void aufgabe_8_11()
 
         // Berechnen der Stromstärken ID und IC
         uint8_t R1_Ohm = 100;
-        uint16_t R2_Ohm = 1000;
         std::vector <std::pair<double, double>> kennlinie;
         for (uint16_t i = 0; i < buffer_AE1.size(); i++)
         {
@@ -187,7 +201,7 @@ void aufgabe_8_12()
             double stromstaerkeBasis_Ampere =
                     static_cast<double>(spannungBasis_Volt - toVolt(buffer_AE2.at(i))) / R2_Ohm;
 
-            double spannungCollectorEmitter_Volt = toVolt(buffer_AE1.at(i));
+            //double spannungCollectorEmitter_Volt = toVolt(buffer_AE1.at(i));
             kennlinie.push_back({stromstaerkeBasis_Ampere, stromstaerkeCollector_Ampere});
         }
 
@@ -199,7 +213,48 @@ void aufgabe_8_12()
     }
 }
 
+void aufgabe_8_15()
+{
+    // Die Anzahl der zu testenden Ausgänge abfragen
+    int max = 4;
+    cout << "\n\n";
+
+    for (int i = 0; i < max; i++)
+    {
+        // Aktuellen Testausgang konvertieren
+        string bin = toBinary(i);
+
+        // Führende Nullen ergänzen
+        while (bin.length() < (log(max) / log(2)))
+        {
+            bin = bin.insert(0, "0");
+        }
+
+        // Seperator für die Darstellung einfügen
+        int length = bin.length() * 4 - 3;
+        for (int j = 0; j < length; j += 4)
+        {
+            bin.insert(j, " | ");
+        }
+
+        // Tabellenkopf erzeugen
+        if (i == 0)
+        {
+            string letters = " | a | b | c | d | e | f | g | h |";
+            string header = letters.substr(0, bin.length() + 2);
+            cout << header << "| A |\n" << endl;
+        }
+
+        // Ausgang auf Eingang testen
+        drv.digitalWrite0(i);
+        int input = (int) drv.digitalRead0();
+
+        // Ergebnis ausgeben
+        cout << bin << " || " << input << " |" << endl;
+    }
+}
+
 int main()
 {
-    aufgabe_8_8();
+    aufgabe_8_15();
 }
