@@ -1,16 +1,12 @@
-set datafile separator ","  # Legt das Trennzeichen für die CSV-Datei fest
-set terminal pngcairo size 1600,1200 enhanced font 'Verdana,20'      # Ausgabeformat (z.B. PNG)
-set output 'plot_drain.png'       # Dateiname für die Ausgabe
+set datafile separator ","
+set terminal pngcairo size 1600,1200 enhanced font 'Verdana,20'
+set output 'aufgabe_8_4.png'
 
 # Titel und Achsenbeschriftungen
-set title "I_D(U_G_S)"
+set title "Transistor-Kennlinie: I_D(U_S_D) <=> I_D geplottet auf U_S_D"
 set ylabel "I_D in Ampere"
-set xlabel "U_G_S in Volt"
+set xlabel "U_S_D in Volt"
 set autoscale
-#set xrange [0:5] # Setze die Grenzen der X-Achse von 0 bis 5
-#set yrange [0:5]
-
-
 
 # Plot-Befehl für die Daten
 plot 'Kennlinie_ID_von_USD_bei_UGS_von_0.000000V.csv' using 1:2 with lines linewidth 3 title "U_G_S = 0.0V", \
