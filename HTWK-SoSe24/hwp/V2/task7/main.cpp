@@ -17,15 +17,15 @@ void messen(std::string name)
     drv.analogSequence(0, bufferA.data(), 0, 1, bufferB.data(), 0, 0, 1, 1023);
     for (uint16_t i = 0; i < bufferA.size(); i += 2)
     {
-        uint16_t messwert = bufferA.at(i);
+        uint16_t messwert_Integer = bufferA.at(i);
 
-        float betriebsspannungVolt = i / 204.8;
-        float messwertVolt = messwert / 204.8;
-        float stromstaerkeMilliAmpere = betriebsspannungVolt;
-        float spannungDiodeVolt = betriebsspannungVolt - messwertVolt;
+        float betriebsspannung_Volt = i / 204.8;
+        float messwert_Volt = messwert_Integer / 204.8;
+        float stromstaerke_MilliAmpere = betriebsspannung_Volt;
+        float spannungDiodeVolt = betriebsspannung_Volt - messwert_Volt;
 
         // betriebsspannung;spannugnÜberR2;Stromstärke;SpannugDiode
-        file << betriebsspannungVolt << "," << messwertVolt << "," << stromstaerkeMilliAmpere << ","
+        file << betriebsspannung_Volt << "," << messwert_Volt << "," << stromstaerke_MilliAmpere << ","
              << spannungDiodeVolt << std::endl;
     }
     drv.analogWrite0(0);
