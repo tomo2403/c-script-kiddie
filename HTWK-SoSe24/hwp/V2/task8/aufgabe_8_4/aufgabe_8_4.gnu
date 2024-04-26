@@ -4,7 +4,7 @@ set output 'aufgabe_8_4.png'
 
 # Titel und Achsenbeschriftungen
 set title "Transistor-Kennlinie: I_D(U_S_D) <=> I_D geplottet auf U_S_D"
-set ylabel "I_D in Ampere"
+set ylabel "I_D in Milliampere"
 set xlabel "U_S_D in Volt"
 set autoscale
 
