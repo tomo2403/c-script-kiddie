@@ -18,8 +18,8 @@ int main()
         drv.analogWrite0(i);
         uint16_t o = drv.analogRead(0);
 
-        std::cout << (i/204.8) << ";" << (o/204.8) << std::endl;
-        file << (i/204.8) << ";" << (o/204.8) << std::endl;
+        std::cout << (i/204.8) << "," << (o/204.8) << std::endl;
+        file << (i/204.8) << "," << (o/204.8) << std::endl;
     }
 
 	file.close();

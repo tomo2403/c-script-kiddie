@@ -1,14 +1,13 @@
-set datafile separator ";"  # Legt das Trennzeichen für die CSV-Datei fest
-set terminal pngcairo       # Ausgabeformat (z.B. PNG)
-set output 'plot.png'       # Dateiname für die Ausgabe
+set datafile separator ","
+set terminal pngcairo size 1600,1200 enhanced font 'Verdana,20'
+set output 'aufgabe_6_1.png'
 
 # Titel und Achsenbeschriftungen
-set title "Messwerte LED"
-set ylabel "Durchflussspannung in V"
-set xlabel "Spannung in V"
-set xrange [0:5] # Setze die Grenzen der X-Achse von 0 bis 5
-set yrange [0:5]
+set title "Aufgabe 6.1"
+set ylabel "AE0 in Volt"
+set xlabel "AA0 in Volt"
+set autoscale
 
 # Plot-Befehl für die Daten
-plot 'result.csv' using 1:2 with lines title "Messwerte", '' using 1:1 with lines dashtype 2 title "Eingangsspannung"
-plot 'result2.csv' using 1:2 with lines title "Messwerte", '' using 1:1 with lines dashtype 2 title "Eingangsspannung"
+plot 'result.csv' using 1:1 with lines dashtype 2 title "Betriebsspannung", '' using 1:2 with lines linewidth 3 title "Messwert"
+#plot 'result2.csv' using 1:1 with lines dashtype 2 title "Betriebsspannung", '' using 1:2 with lines linewidth 3 title "Messwert"
