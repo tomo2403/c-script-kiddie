@@ -1,11 +1,11 @@
 set datafile separator ","
 set terminal pngcairo size 1600,1200 enhanced font 'Verdana,20'
-set output 'neu.png'
+set output 'aufgabe_7_4.png'
 
 # Titel und Achsenbeschriftungen
-set title "Aufgabe 7.5"
-set ylabel "I in Milliampere"
-set xlabel "U in Volt"
+set title "Aufgabe 7.4"
+set ylabel "Stromstärke in Milliampere"
+set xlabel "Spannung in Volt"
 set autoscale
 
 
