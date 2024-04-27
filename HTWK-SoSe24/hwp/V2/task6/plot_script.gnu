@@ -4,7 +4,7 @@ set output 'aufgabe_6_1.png'
 
 # Titel und Achsenbeschriftungen
 set title "Aufgabe 6.1"
-set ylabel "AE0 in Volt"
+set ylabel "Spannung über R_1 in Volt"
 set xlabel "AA0 in Volt"
 set autoscale
 
