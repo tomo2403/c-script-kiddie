@@ -1,13 +1,13 @@
+#include <b15f/b15f.h>
 #include <array>
 #include <vector>
 #include <cstdint>
 #include <iomanip>
 #include <string>
 #include <fstream>
-
-// Test
 #include <iostream>
-#include <ctime>
+
+B15F &drv = B15F::getInstance();
 
 class Messinstanz
 {
@@ -34,19 +34,12 @@ private:
 
     void messen(int const &anzMesswerte)
     {
-        // Test
-        std::srand(static_cast<unsigned int>(std::time(nullptr)));
-
         for (int i = 0; i < 1023; i++)
         {
             std::vector<uint16_t> messdurchlauf_int(anzMesswerte);
             
-            // Test
-            for (int j = 0; j < anzMesswerte; j++)
-            {
-                int random = std::rand() % 1025;
-                messdurchlauf_int.at(j) = random;
-            }
+            // Schreibt 2x in gleichen Buffer
+            drv.analogSequence(0, messdurchlauf_int.data(), 0, 0, messdurchlauf_int.data(), 0, 0, 0, anzMesswerte);
             messerte_Int_.at(i) = messdurchlauf_int;
         }
     }
