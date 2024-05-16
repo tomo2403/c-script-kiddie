@@ -1,5 +1,6 @@
 #include <b15f/b15f.h>
 
+using namespace std;
 B15F &drv = B15F::getInstance();
 
 double toVolt(const uint16_t &spannung_Integer)
@@ -15,13 +16,21 @@ uint16_t toInt(const double &spannung_Volt)
 
 void aufgabe_6_1()
 {
-  while (false)
-  {
-    drv.analogWrite0(drv.analogRead(0));
-  }
+    int last = 0;
+    int i = 0;
+    while (true)
+    {
+        i = drv.analogRead(7);
+        if (last != i)
+        {
+            drv.analogWrite0(i);
+            std::cout << i << endl;
+            last = i;
+        }
+    }
 }
 
 int main()
 {
-  aufgabe_6_1();
+    aufgabe_6_1();
 }
