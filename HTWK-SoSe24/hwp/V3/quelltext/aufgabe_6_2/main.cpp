@@ -39,7 +39,7 @@ private:
             std::vector<uint16_t> messdurchlauf_int(anzMesswerte);
             
             // Schreibt 2x in gleichen Buffer
-            drv.analogSequence(0, messdurchlauf_int.data(), 0, 0, messdurchlauf_int.data(), 0, 0, 0, anzMesswerte);
+            drv.analogSequence(0, messdurchlauf_int.data(), 0, 0, messdurchlauf_int.data(), 0, 0, 1, anzMesswerte);
             messerte_Int_.at(i) = messdurchlauf_int;
         }
     }
