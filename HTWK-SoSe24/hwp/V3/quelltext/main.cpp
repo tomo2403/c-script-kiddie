@@ -3,13 +3,16 @@
 using namespace std;
 B15F &drv = B15F::getInstance();
 
-double toVolt(const uint16_t &spannung_Integer)
+using digital_voltage_t = uint16_t;
+using voltage_t = double;
+
+voltage_t toVolt(const digital_voltage_t spannung_Integer)
 {
     return spannung_Integer * (5.0 / 1023.0);
 }
 
 // rechnet eine Spannung [0-5] in Volt in einen Integer Wert [0-1023]
-uint16_t toInt(const double &spannung_Volt)
+digital_voltage_t toInt(const voltage_t spannung_Volt)
 {
     return round(spannung_Volt * (1023.0 / 5.0));
 }
@@ -91,5 +94,5 @@ void aufgabe_6_2()
 
 int main()
 {
-    aufgabe_6_2();
+    aufgabe_6_1();
 }
