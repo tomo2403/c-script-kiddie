@@ -1,81 +1,39 @@
 #include <b15f/b15f.h>
-#include <array>
-#include <vector>
-#include <cstdint>
-#include <iomanip>
-#include <string>
-#include <fstream>
-#include <iostream>
 
+using namespace std;
 B15F &drv = B15F::getInstance();
 
-class Messinstanz
+using digital_voltage_t = uint16_t;
+using voltage_t = double;
+
+voltage_t toVolt(const digital_voltage_t spannung_Integer)
 {
-private:
-    std::array<std::vector<uint16_t>, 1023> messerte_Int_;
+    return spannung_Integer * (5.0 / 1023.0);
+}
 
-    void ausgabeMesswerte(std::ostream &ausgabestrom)
+// rechnet eine Spannung [0-5] in Volt in einen Integer Wert [0-1023]
+digital_voltage_t toInt(const voltage_t spannung_Volt)
+{
+    return round(spannung_Volt * (1023.0 / 5.0));
+}
+
+void aufgabe_6_1()
+{
+    int last = 0;
+    int i = 0;
+    while (true)
     {
-        for (int i = 0; i < messerte_Int_.size(); i++)
+        i = drv.analogRead(7);
+        if (last != i)
         {
-            ausgabestrom << std::setw(4) << std::setfill(' ') << i;
-            ausgabestrom << std::setw(1) << ": ";
-
-            for (int j = 0; j < messerte_Int_.at(i).size(); j++)
-            {
-                ausgabestrom << std::setw(4) << std::setfill(' ') << messerte_Int_.at(i).at(j);
-                ausgabestrom << std::setw(1) << " ";
-            }
-
-            ausgabestrom << std::endl;
-        }
-        return;
-    }
-
-    void messen(int const &anzMesswerte)
-    {
-        for (int i = 0; i < 1023; i++)
-        {
-            std::vector<uint16_t> messdurchlauf_int(anzMesswerte);
-            
-            // Schreibt 2x in gleichen Buffer
-            drv.analogSequence(0, messdurchlauf_int.data(), 0, 0, messdurchlauf_int.data(), 0, 0, 1, anzMesswerte);
-            messerte_Int_.at(i) = messdurchlauf_int;
+            drv.analogWrite0(i);
+            std::cout << toVolt(i) << endl;
+            last = i;
         }
     }
-
-public:
-
-    Messinstanz(const int &anzMesswerte = 100)
-    {
-        messen(anzMesswerte);
-    }
-
-    void ausgabeTerminal()
-    {
-        ausgabeMesswerte(std::cout);
-    }
-
-    void ausgabeDatei(std::string const &dateiname)
-    {
-        std::ofstream datei(dateiname);
-        if (datei.is_open())
-        {
-            ausgabeMesswerte(datei);
-            datei.close();
-        }
-        else
-        {
-            std::cerr << "Öffnen der Datei fehlgeschlagen" << std::endl;
-        }
-    }
-};
+}
 
 int main()
 {
-    Messinstanz mess;
-    mess.ausgabeTerminal();
-    mess.ausgabeDatei("Test.txt");
-
-    return 0;
+    aufgabe_6_1();
 }
