@@ -23,7 +23,7 @@ void aufgabe_6_1()
     int i = 0;
     while (true)
     {
-        i = drv.analogRead(7);
+        i = drv.analogRead(6);
         if (last != i)
         {
             drv.analogWrite0(i);
