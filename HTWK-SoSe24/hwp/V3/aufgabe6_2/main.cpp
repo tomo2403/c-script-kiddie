@@ -17,7 +17,7 @@ digital_voltage_t toInt(const voltage_t spannung_Volt)
     return round(spannung_Volt * (1023.0 / 5.0));
 }
 
-void aufgabe_6_1()
+void aufgabe_6_2()
 {
     int last = 0;
     int i = 0;
@@ -35,5 +35,5 @@ void aufgabe_6_1()
 
 int main()
 {
-    aufgabe_6_1();
+    aufgabe_6_2();
 }
