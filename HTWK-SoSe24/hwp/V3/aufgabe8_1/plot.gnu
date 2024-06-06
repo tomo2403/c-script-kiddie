@@ -4,9 +4,9 @@ set output 'out.png'
 
 # Titel und Achsenbeschriftungen
 set title "Aufgabe 8.1"
-set ylabel "f in MHz"
+set ylabel "T in ns"
 set xlabel "U in V"
 set autoscale
 
 # Plot-Befehl für die Daten
-plot 'messwerte.csv' using 1:2 with lines lc rgb "blue" linewidth 3 title "Messerte",
+plot 'result.csv' using 1:3 with lines lc rgb "blue" linewidth 3 title "Messerte",
