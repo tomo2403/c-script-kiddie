@@ -21,7 +21,7 @@ help:
 	@echo "This Makefile has the following targets:"
 	@echo "make main .... to compile"
 	@echo "make clean ... to delete objects and executables"
-	
+
 clean:
 	@echo "Cleaning..."
 	rm -f $(OBJECTS) $(OUT) *.bin gnuplotscript.gp

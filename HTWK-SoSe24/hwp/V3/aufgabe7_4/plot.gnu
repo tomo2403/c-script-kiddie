@@ -8,7 +8,5 @@ set xlabel "U in V"
 set ylabel "P in mW"
 set autoscale
 
-
-
 # Plot-Befehl für die Daten
-plot 'messwerte.csv' using 1:2 with lines linewidth 3 title "Messwerte",
+plot 'result.csv' using 1:3 with lines lc rgb "blue" linewidth 3 title "Messwerte",
